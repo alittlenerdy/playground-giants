@@ -1,248 +1,409 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import CTAButton from '@/components/CTAButton'
+import {
+  GradientText,
+  NeonButton,
+  GlassCard,
+  ScrollReveal,
+  AnimatedCounter
+} from '@/components/ui'
 import { CAL_LINKS } from '@/lib/constants'
-import { FormEvent, useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 export default function Home() {
-  const router = useRouter()
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    industry: '',
-    spend: 'low',
-    bottleneck: 'traffic',
-    houston: 'yes'
-  })
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    if (formData.spend === 'high' && formData.houston === 'yes') {
-      router.push('/thank-you-qualified')
-    } else {
-      router.push('/thank-you-unqualified')
-    }
-  }
-
   return (
-    <div className="body-base">
+    <div className="min-h-screen bg-space-deep">
       <Header />
 
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-container">
-          <div className="glow-orb"></div>
-          <h1 className="hero-headline">
-            <span className="text-gradient">Get More High-Value Leads</span>{' '}
-            <span className="text-span">Without Spending More on Ads</span>
+      {/* Hero Section - Full Viewport */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          {/* Gradient Orbs */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-[120px] animate-float" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-blue/20 rounded-full blur-[120px] animate-float animation-delay-2000" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-green/10 rounded-full blur-[150px]" />
+
+          {/* Grid Pattern */}
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage: `linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+                               linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px)`,
+              backgroundSize: '50px 50px'
+            }}
+          />
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 animate-fade-in">
+            <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
+            <span className="text-sm font-mono text-white/60">
+              HOME SERVICES + MEDSPA MARKETING
+            </span>
+          </div>
+
+          {/* Main Headline */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 animate-fade-in-up font-display">
+            <span className="text-white">Your Competitors Rank Higher.</span>
+            <br />
+            <GradientText animate>{"Let's Fix That."}</GradientText>
           </h1>
-          <p className="hero-subheading">
-            Stop relying on luck. Proven systems for Home Services &amp; Medical Aesthetics.
+
+          {/* Subheadline */}
+          <p className="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto mb-10 animate-fade-in-up animate-delay-200">
+            We help roofing, HVAC, fencing, and home service companies dominate local search.
+            More qualified leads. Better rankings. Real results you can measure.
           </p>
-          <CTAButton href={CAL_LINKS.QUICK} variant="quick">
-            Get Your Free Website Audit
-          </CTAButton>
-          <div className="hero-trust-strip">
-            <div className="trust-label">POWERED BY MODERN INFRASTRUCTURE</div>
-            <div className="trust-logo-grid">
-              <Image
-                src="/images/google-wordmarks-2x.webp"
-                loading="lazy"
-                alt="Google logo with each letter in a different color: blue, red, yellow, blue, green, and red."
-                className="client-logo"
-                width={240}
-                height={80}
-              />
-              <Image
-                src="/images/zapier-logo_white.png"
-                loading="lazy"
-                alt="Zapier company logo with an orange dash to the left of the word zapier in lowercase white letters."
-                className="client-logo"
-                width={240}
-                height={80}
-              />
-              <Image
-                src="/images/Stripe-wordmark---Blurple---Large.png"
-                loading="lazy"
-                alt="Stripe wordmark in blurple color."
-                className="client-logo"
-                width={240}
-                height={80}
-              />
-              <Image
-                src="/images/webflow_full.png"
-                loading="lazy"
-                alt="Webflow company logo with stylized blue 'W' and white text on black background."
-                className="client-logo"
-                width={240}
-                height={80}
-              />
-              <Image
-                src="/images/large-3435affbf6896b9e737506d30ec5b48f.png"
-                loading="lazy"
-                alt="SEMRush"
-                className="client-logo"
-                width={240}
-                height={80}
-              />
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up animate-delay-300">
+            <NeonButton href={CAL_LINKS.QUICK} size="lg" external>
+              Get Your Free Audit →
+            </NeonButton>
+            <Link
+              href="/case-studies/fenced-up"
+              className="px-8 py-4 text-lg font-semibold text-white/70 hover:text-neon-green transition-colors"
+            >
+              See Our Results
+            </Link>
+          </div>
+
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+              <div className="w-1 h-2 bg-neon-green rounded-full animate-pulse" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Bento Section */}
-      <section className="section-bento">
-        <div className="w-layout-blockcontainer container-bento w-container">
-          <div className="bento-grid">
-            <div className="bento-card">
-              <div className="text-wrapper">
-                <h2 className="card-title">Web Design</h2>
-                <p className="card-text">Fast, high-converting sites built to rank.</p>
-              </div>
-              <div className="image-wrapper">
+      {/* Trust Strip - Logo Marquee */}
+      <section className="py-12 border-y border-white/5 bg-space-mid/30">
+        <div className="max-w-7xl mx-auto px-4">
+          <p className="text-center text-sm font-mono text-white/40 mb-8">
+            POWERED BY MODERN INFRASTRUCTURE
+          </p>
+          <div className="overflow-hidden">
+            <div className="flex animate-marquee">
+              {[...Array(2)].map((_, i) => (
+                <div key={i} className="flex items-center gap-16 shrink-0 px-8">
+                  <Image
+                    src="/images/google-wordmarks-2x.webp"
+                    alt="Google"
+                    width={120}
+                    height={40}
+                    className="h-8 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
+                  />
+                  <Image
+                    src="/images/zapier-logo_white.png"
+                    alt="Zapier"
+                    width={120}
+                    height={40}
+                    className="h-6 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
+                  />
+                  <Image
+                    src="/images/Stripe-wordmark---Blurple---Large.png"
+                    alt="Stripe"
+                    width={100}
+                    height={40}
+                    className="h-8 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
+                  />
+                  <Image
+                    src="/images/webflow_full.png"
+                    alt="Webflow"
+                    width={120}
+                    height={40}
+                    className="h-6 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
+                  />
+                  <Image
+                    src="/images/large-3435affbf6896b9e737506d30ec5b48f.png"
+                    alt="SEMRush"
+                    width={120}
+                    height={40}
+                    className="h-6 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Problem/Solution Grid */}
+      <section className="py-24 md:py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+                Sound Familiar?
+              </h2>
+              <p className="text-white/60 max-w-2xl mx-auto">
+                These are the problems keeping home service business owners up at night.
+                We solve all of them.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                problem: 'Your Competitors Rank Higher',
+                solution: 'We reverse-engineer their playbook and outrank them',
+                icon: '📉',
+                stat: '#1',
+                statLabel: 'Target Position'
+              },
+              {
+                problem: 'Leads Cost Too Much',
+                solution: 'We cut your cost-per-lead by 40%+ with better targeting',
+                icon: '💸',
+                stat: '40%',
+                statLabel: 'Avg. CAC Reduction'
+              },
+              {
+                problem: "Can't Track ROI",
+                solution: 'Real-time dashboard that shows exactly what\'s working',
+                icon: '❓',
+                stat: '100%',
+                statLabel: 'Transparent Reporting'
+              },
+              {
+                problem: 'No Time to Manage It',
+                solution: 'We handle everything—you just answer the phone',
+                icon: '⏰',
+                stat: '0',
+                statLabel: 'Hours of Your Time'
+              }
+            ].map((item, index) => (
+              <ScrollReveal key={item.problem} delay={index * 100}>
+                <GlassCard className="p-8 h-full">
+                  <div className="flex items-start gap-4">
+                    <span className="text-4xl">{item.icon}</span>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-white mb-2">
+                        {item.problem}
+                      </h3>
+                      <p className="text-white/60 mb-4">{item.solution}</p>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-3xl font-bold text-neon-green">
+                          {item.stat}
+                        </span>
+                        <span className="text-sm text-white/40">{item.statLabel}</span>
+                      </div>
+                    </div>
+                  </div>
+                </GlassCard>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Proof Section - Case Study Teaser */}
+      <section className="py-24 md:py-32 bg-space-mid/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <ScrollReveal>
+              <div className="relative">
+                <div className="absolute -inset-4 bg-gradient-to-r from-neon-green/20 to-neon-blue/20 rounded-2xl blur-xl" />
                 <Image
-                  src="/images/Screenshot-2025-11-22-at-17.00.23.png"
-                  loading="lazy"
-                  width={381}
-                  height={300}
-                  alt="Advertisement for Houston's premier fencing contractor offering premium fences installed in 14 days or less, with a 14-day guarantee, lifetime warranty, and 4.9/5 rating from 83 reviews, including buttons for a free quote and to view work."
-                  className="card-image"
+                  src="/images/Fenced_Up_Website_Traffic_Engagement_Dashboard_Webflow.jpg"
+                  alt="Fenced Up analytics dashboard showing 400% traffic growth"
+                  width={600}
+                  height={400}
+                  className="relative rounded-xl border border-white/10 shadow-2xl"
                 />
               </div>
-            </div>
-            <div className="bento-card">
-              <h3 className="card-title">Reputation</h3>
-              <div className="card-metric">5.0 ★★★★★</div>
-            </div>
-            <div className="bento-card">
-              <h3 className="card-title">Performance</h3>
-              <div className="card-metric green">99</div>
-              <div className="card-label">Infrastructure Grade</div>
-            </div>
-            <div className="bento-card">
-              <h3 className="card-title">Growth</h3>
-              <div className="card-metric pink">+147%</div>
-              <div className="card-label">Pipeline Velocity</div>
-            </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={200}>
+              <div>
+                <span className="text-sm font-mono text-neon-green mb-4 block">
+                  CASE STUDY: FENCED UP
+                </span>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-display">
+                  From Invisible to <GradientText>#1 in Houston</GradientText>
+                </h2>
+                <p className="text-white/60 mb-8">
+                  Fenced Up was spending $5k/month on ads with nothing to show for it.
+                  We rebuilt their entire digital presence and turned them into the
+                  most visible fencing company in Houston.
+                </p>
+
+                <div className="grid grid-cols-2 gap-6 mb-8">
+                  <div>
+                    <div className="text-4xl md:text-5xl font-bold text-neon-green">
+                      <AnimatedCounter end={400} suffix="%" />
+                    </div>
+                    <p className="text-white/40 text-sm">Traffic Growth</p>
+                  </div>
+                  <div>
+                    <div className="text-4xl md:text-5xl font-bold text-neon-blue">
+                      <AnimatedCounter end={83} suffix="%" />
+                    </div>
+                    <p className="text-white/40 text-sm">GBP Visibility Increase</p>
+                  </div>
+                </div>
+
+                <NeonButton href="/case-studies/fenced-up">
+                  Read Full Case Study →
+                </NeonButton>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* CTA Section with Form */}
-      <section className="section-cta-final">
-        <div className="w-layout-blockcontainer container-cta w-container">
-          <h1 className="cta-heading">
-            Ready to dominate your <strong>local market</strong>?
-          </h1>
-          <p className="cta-subhead">Stop chasing leads. Start attracting them.</p>
-          <div className="form-block w-form">
-            <form
-              id="lead-form"
-              name="email-form"
-              className="form"
-              onSubmit={handleSubmit}
-            >
-              <label htmlFor="name" className="label-main">
-                Name
-              </label>
-              <input
-                className="input-main w-input"
-                maxLength={256}
-                name="name"
-                placeholder=""
-                type="text"
-                id="name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              />
+      {/* How It Works - Process Timeline */}
+      <section id="how-it-works" className="py-24 md:py-32">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+                How We <GradientText>Dominate</GradientText> Local Search
+              </h2>
+              <p className="text-white/60 max-w-xl mx-auto">
+                A proven process that transforms your online presence in 90 days or less.
+              </p>
+            </div>
+          </ScrollReveal>
 
-              <label htmlFor="email" className="label-main">
-                Email Address
-              </label>
-              <input
-                className="input-main w-input"
-                maxLength={256}
-                name="email"
-                placeholder=""
-                type="email"
-                id="email"
-                required
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              />
+          <div className="relative">
+            {/* Vertical Line */}
+            <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-neon-green via-neon-blue to-neon-purple hidden md:block" />
 
-              <label htmlFor="field" className="label-main">
-                Industry Type
-              </label>
-              <select
-                id="field"
-                name="field"
-                className="input-main w-select"
-                value={formData.industry}
-                onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
-              >
-                <option value="">Select one...</option>
-                <option value="Services">Home Services</option>
-                <option value="Medical Aesthetics">Medical Aesthetics</option>
-                <option value="Other">Other</option>
-              </select>
+            {[
+              {
+                step: '01',
+                title: 'Audit Your Shit',
+                description:
+                  "We tear apart your website, GBP, and competitors. Every leak, every opportunity—nothing's hidden.",
+                icon: '🔍'
+              },
+              {
+                step: '02',
+                title: 'Build the Machine',
+                description:
+                  'SEO foundations, Google Business Profile optimization, content strategy, and conversion tracking—all working together.',
+                icon: '⚙️'
+              },
+              {
+                step: '03',
+                title: 'Turn It On',
+                description:
+                  'Launch the campaigns, flip the switches, and watch the leads start rolling in. Real-time dashboard included.',
+                icon: '🚀'
+              },
+              {
+                step: '04',
+                title: 'Scale & Dominate',
+                description:
+                  'More revenue with the same effort. We optimize, you grow. Simple as that.',
+                icon: '📈'
+              }
+            ].map((item, index) => (
+              <ScrollReveal key={item.step} delay={index * 150}>
+                <div className="relative flex gap-6 mb-12 last:mb-0">
+                  {/* Step Number */}
+                  <div className="relative z-10 w-16 h-16 rounded-full bg-space-deep border-2 border-neon-green flex items-center justify-center shrink-0">
+                    <span className="text-2xl">{item.icon}</span>
+                  </div>
 
-              <label htmlFor="spend-select" className="label-main">
-                Monthly Marketing Spend
-              </label>
-              <select
-                id="spend-select"
-                name="Monthly-Marketing-Spend"
-                className="input-main w-select"
-                value={formData.spend}
-                onChange={(e) => setFormData({ ...formData, spend: e.target.value })}
-              >
-                <option value="low">$0-5k</option>
-                <option value="med">$5-10k</option>
-                <option value="high">$10k+</option>
-              </select>
-
-              <label htmlFor="bottleneck" className="label-main">
-                Biggest Bottleneck?
-              </label>
-              <select
-                id="bottleneck"
-                name="Bottleneck"
-                className="input-main w-select"
-                value={formData.bottleneck}
-                onChange={(e) => setFormData({ ...formData, bottleneck: e.target.value })}
-              >
-                <option value="traffic">Website traffic</option>
-                <option value="quality">Lead quality</option>
-                <option value="conversion">Conversion rate</option>
-                <option value="other">Other</option>
-              </select>
-
-              <label htmlFor="houston-select" className="label-main">
-                Do you operate in the Houston area?
-              </label>
-              <select
-                id="houston-select"
-                name="Location"
-                className="input-main w-select"
-                value={formData.houston}
-                onChange={(e) => setFormData({ ...formData, houston: e.target.value })}
-              >
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-              </select>
-
-              <input
-                type="submit"
-                className="submit-button w-button"
-                value="Submit"
-              />
-            </form>
+                  {/* Content */}
+                  <div className="flex-1 pt-2">
+                    <span className="text-xs font-mono text-neon-green mb-1 block">
+                      STEP {item.step}
+                    </span>
+                    <h3 className="text-xl font-semibold text-white mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-white/60">{item.description}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* Pricing Teaser */}
+      <section className="py-24 md:py-32 bg-space-mid/30">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <ScrollReveal>
+            <GlassCard className="p-12 md:p-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+                One Price. Everything Included. No Surprises.
+              </h2>
+              <p className="text-white/60 mb-8 max-w-xl mx-auto">
+                No hidden fees. No long-term contracts. Just results.
+              </p>
+
+              <div className="mb-8">
+                <span className="text-sm text-white/40">Starting at</span>
+                <div className="text-5xl md:text-6xl font-bold text-neon-green">
+                  $2,500<span className="text-2xl text-white/40">/mo</span>
+                </div>
+              </div>
+
+              <ul className="text-left max-w-md mx-auto mb-10 space-y-3">
+                {[
+                  'Complete SEO Strategy & Execution',
+                  'Google Business Profile Optimization',
+                  'Content Creation & Optimization',
+                  'Real-Time Analytics Dashboard',
+                  'Monthly Strategy Calls',
+                  'No Long-Term Contracts'
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-white/70">
+                    <span className="text-neon-green">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <NeonButton href="/packages" size="lg">
+                See Full Packages →
+              </NeonButton>
+            </GlassCard>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-24 md:py-32 relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon-green/10 rounded-full blur-[200px]" />
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <ScrollReveal>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-display">
+              Ready to <GradientText animate>Dominate</GradientText>
+              <br />
+              Local Search?
+            </h2>
+            <p className="text-xl text-white/60 mb-10 max-w-2xl mx-auto">
+              Book a free 15-minute call. We&apos;ll audit your current setup and show you
+              exactly how to outrank your competitors.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+              <NeonButton href={CAL_LINKS.QUICK} size="lg" external>
+                Book Your Free Strategy Call →
+              </NeonButton>
+            </div>
+
+            <p className="text-sm text-white/40">
+              No sales pitch. No obligation. Just honest advice.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 

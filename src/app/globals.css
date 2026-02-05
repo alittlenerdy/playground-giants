@@ -2,39 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom gradient styles from Webflow */
-.hero-button {
-  background: linear-gradient(90deg, #ff4dff 0%, #00f6ff 100%) !important;
-  color: white !important;
-  border: none !important;
-  transition: all 300ms ease;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-space-deep text-white antialiased;
+  }
+
+  ::selection {
+    @apply bg-neon-green/30 text-white;
+  }
 }
 
-.hero-button:hover {
-  background: linear-gradient(90deg, #00f6ff 0%, #ff4dff 100%) !important;
-  transform: translateY(-2px);
-  box-shadow: 0px 0px 20px rgba(255, 77, 255, 0.6);
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-neon-green via-neon-blue to-neon-purple bg-clip-text text-transparent;
+  }
+
+  .gradient-text-animated {
+    @apply bg-gradient-to-r from-neon-green via-neon-blue to-neon-purple bg-200% bg-clip-text text-transparent animate-gradient-x;
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300 hover:bg-white/10 hover:border-neon-green/30 hover:shadow-[0_0_30px_rgba(0,255,0,0.1)];
+  }
+
+  .neon-border {
+    @apply border border-neon-green/50 shadow-[0_0_15px_rgba(0,255,0,0.3)];
+  }
+
+  .neon-glow {
+    @apply shadow-[0_0_20px_rgba(0,255,0,0.5)];
+  }
+
+  .section-padding {
+    @apply py-20 md:py-32;
+  }
+
+  .container-main {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
 }
 
-.text-gradient {
-  background: linear-gradient(90deg, #00ff9d, #00b0ff, #ff4ddd) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  display: inline-block;
-}
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 
-.footer-link,
-.nav-link-item,
-.nav-link {
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
 
-.footer-link:hover,
-.nav-link-item:hover,
-.nav-link:hover {
-  background: linear-gradient(90deg, #00ff9d, #00b0ff, #ff4ddd) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  text-shadow: 0px 0px 15px rgba(0, 255, 157, 0.4);
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animate-delay-500 {
+    animation-delay: 500ms;
+  }
 }
