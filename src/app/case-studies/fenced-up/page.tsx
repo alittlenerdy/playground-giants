@@ -315,27 +315,91 @@ export default function FencedUpCaseStudyPage() {
         </div>
       </section>
 
-      {/* Tech Stack */}
-      <section className="py-16 bg-space-mid/50 border-y border-white/10">
+      {/* Tech Stack - Animated Marquee */}
+      <section className="py-16 bg-space-mid/50 border-y border-white/10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm font-mono text-white/60 mb-10 tracking-wider">POWERED BY</p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
-            {[
-              { src: '/images/GTM.png', alt: 'Google Tag Manager' },
-              { src: '/images/Google-AdWords-logo-500x281.png', alt: 'Google Ads' },
-              { src: '/images/Looker-Studio-Logo-300x141.png', alt: 'Looker Studio' },
-              { src: '/images/Logo_Google_Analytics.png', alt: 'Google Analytics' }
-            ].map((logo) => (
-              <div key={logo.alt} className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={120}
-                  height={60}
-                  className="h-10 w-auto object-contain"
-                />
-              </div>
-            ))}
+          <p className="text-center text-sm font-mono text-neon-green mb-10 tracking-wider">
+            POWERED BY MODERN INFRASTRUCTURE
+          </p>
+          <div className="overflow-hidden">
+            <div className="flex animate-marquee">
+              {[...Array(2)].map((_, i) => (
+                <div key={i} className="flex items-center gap-10 shrink-0 px-5">
+                  <div className="bg-gradient-to-br from-neon-green/20 to-neon-green/5 rounded-xl p-4 border border-neon-green/20 hover:border-neon-green/50 transition-colors">
+                    <Image
+                      src="/images/GTM.png"
+                      alt="Google Tag Manager"
+                      width={100}
+                      height={50}
+                      className="h-8 w-auto object-contain"
+                    />
+                  </div>
+                  <div className="bg-gradient-to-br from-neon-blue/20 to-neon-blue/5 rounded-xl p-4 border border-neon-blue/20 hover:border-neon-blue/50 transition-colors">
+                    <Image
+                      src="/images/Google-AdWords-logo-500x281.png"
+                      alt="Google Ads"
+                      width={100}
+                      height={50}
+                      className="h-8 w-auto object-contain"
+                    />
+                  </div>
+                  <div className="bg-gradient-to-br from-neon-purple/20 to-neon-purple/5 rounded-xl p-4 border border-neon-purple/20 hover:border-neon-purple/50 transition-colors">
+                    <Image
+                      src="/images/Looker-Studio-Logo-300x141.png"
+                      alt="Looker Studio"
+                      width={100}
+                      height={50}
+                      className="h-8 w-auto object-contain"
+                    />
+                  </div>
+                  <div className="bg-gradient-to-br from-neon-green/20 to-neon-green/5 rounded-xl p-4 border border-neon-green/20 hover:border-neon-green/50 transition-colors">
+                    <Image
+                      src="/images/Logo_Google_Analytics.png"
+                      alt="Google Analytics"
+                      width={100}
+                      height={50}
+                      className="h-8 w-auto object-contain"
+                    />
+                  </div>
+                  <div className="bg-gradient-to-br from-neon-blue/20 to-neon-blue/5 rounded-xl p-4 border border-neon-blue/20 hover:border-neon-blue/50 transition-colors">
+                    <Image
+                      src="/images/webflow_full.png"
+                      alt="Webflow"
+                      width={100}
+                      height={50}
+                      className="h-8 w-auto object-contain"
+                    />
+                  </div>
+                  <div className="bg-gradient-to-br from-neon-purple/20 to-neon-purple/5 rounded-xl p-4 border border-neon-purple/20 hover:border-neon-purple/50 transition-colors">
+                    <Image
+                      src="/images/zapier-logo_white.png"
+                      alt="Zapier"
+                      width={100}
+                      height={50}
+                      className="h-6 w-auto object-contain"
+                    />
+                  </div>
+                  <div className="bg-gradient-to-br from-neon-green/20 to-neon-green/5 rounded-xl p-4 border border-neon-green/20 hover:border-neon-green/50 transition-colors">
+                    <Image
+                      src="/images/google-wordmarks-2x.webp"
+                      alt="Google"
+                      width={100}
+                      height={50}
+                      className="h-8 w-auto object-contain"
+                    />
+                  </div>
+                  <div className="bg-gradient-to-br from-neon-blue/20 to-neon-blue/5 rounded-xl p-4 border border-neon-blue/20 hover:border-neon-blue/50 transition-colors">
+                    <Image
+                      src="/images/Stripe-wordmark---Blurple---Large.png"
+                      alt="Stripe"
+                      width={100}
+                      height={50}
+                      className="h-8 w-auto object-contain"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
