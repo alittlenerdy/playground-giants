@@ -40,7 +40,7 @@ export default function Home() {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Eyebrow */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 animate-fade-in">
             <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
@@ -57,13 +57,13 @@ export default function Home() {
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto mb-10 animate-fade-in-up animate-delay-200">
+          <p className="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto mb-12 animate-fade-in-up animate-delay-200">
             We help roofing, HVAC, fencing, and home service companies dominate local search.
             More qualified leads. Better rankings. Real results you can measure.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up animate-delay-300">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up animate-delay-300 mb-20">
             <NeonButton href={CAL_LINKS.QUICK} size="lg" external>
               Get Your Free Audit →
             </NeonButton>
@@ -74,13 +74,25 @@ export default function Home() {
               See Our Results
             </Link>
           </div>
+        </div>
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-            <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
-              <div className="w-1 h-2 bg-neon-green rounded-full animate-pulse" />
-            </div>
-          </div>
+        {/* Scroll Indicator - positioned at very bottom of hero */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce opacity-50 hover:opacity-100 transition-opacity">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            className="text-white/60"
+          >
+            <path
+              d="M12 5L12 19M12 19L5 12M12 19L19 12"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
       </section>
 
