@@ -18,10 +18,29 @@ export default function AgencyPartnerPage() {
     e.preventDefault()
     setStatus('loading')
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        console.error('Form submission error:', data.error)
+        setStatus('error')
+        return
+      }
+
       setStatus('success')
-    }, 1000)
+      setFormData({ name: '', email: '', agencyUrl: '', revenue: '' })
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setStatus('error')
+    }
   }
 
   return (
