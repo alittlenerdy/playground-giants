@@ -111,9 +111,18 @@ export default function PackagesPage() {
                   }`}
                 >
                   {pkg.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-neon-green text-black text-sm font-bold rounded-full z-10 whitespace-nowrap">
-                      Most Popular
-                    </div>
+                    <>
+                      {/* Bouncing indicator */}
+                      <div className="absolute -top-16 left-1/2 -translate-x-1/2 animate-bounce z-10">
+                        <div className="w-6 h-10 rounded-full border-2 border-neon-purple/50 bg-gradient-to-b from-neon-purple/20 to-neon-pink/20 flex items-start justify-center p-2">
+                          <div className="w-1.5 h-2.5 bg-gradient-to-b from-neon-purple to-neon-pink rounded-full animate-pulse" />
+                        </div>
+                      </div>
+                      {/* Most Popular badge */}
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-neon-green text-black text-sm font-bold rounded-full z-10 whitespace-nowrap">
+                        Most Popular
+                      </div>
+                    </>
                   )}
                   <GlassCard
                     className={`p-8 h-full flex flex-col ${pkg.popular ? 'border-neon-green/50' : ''}`}
