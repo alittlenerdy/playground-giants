@@ -76,23 +76,11 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll Indicator - positioned at very bottom of hero */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce opacity-50 hover:opacity-100 transition-opacity">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            className="text-white/60"
-          >
-            <path
-              d="M12 5L12 19M12 19L5 12M12 19L19 12"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+        {/* Scroll Indicator - bouncing pill with green dot */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+            <div className="w-1.5 h-2.5 bg-neon-green rounded-full animate-pulse" />
+          </div>
         </div>
       </section>
 
