@@ -28,7 +28,7 @@ export default function FencedUpCaseStudyPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             {/* Status Bar */}
-            <div className="flex flex-wrap gap-4 mb-8">
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
               <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm font-mono text-white/60">
                 CASE: HIGH-TICKET SCALE
               </span>
@@ -40,11 +40,11 @@ export default function FencedUpCaseStudyPage() {
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-display">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-display text-center">
               Scaling High-Ticket Local Revenue by{' '}
               <GradientText>147%</GradientText>
             </h1>
-            <p className="text-xl text-white/60 max-w-3xl mb-10">
+            <p className="text-xl text-white/60 max-w-3xl mx-auto mb-10 text-center">
               How we installed the automated Acquisition Engine to capture demand for a high-volume
               local service business.
             </p>
