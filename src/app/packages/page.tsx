@@ -106,12 +106,12 @@ export default function PackagesPage() {
                 <div
                   className={`relative h-full ${
                     pkg.popular
-                      ? 'bg-gradient-to-b from-neon-green/20 to-transparent p-[1px] rounded-2xl'
+                      ? 'bg-gradient-to-b from-neon-green/20 to-transparent p-[1px] rounded-2xl mt-6'
                       : ''
                   }`}
                 >
                   {pkg.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-neon-green text-black text-sm font-bold rounded-full">
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-neon-green text-black text-sm font-bold rounded-full z-10 whitespace-nowrap">
                       Most Popular
                     </div>
                   )}

@@ -51,14 +51,14 @@ export default function FencedUpCaseStudyPage() {
           </ScrollReveal>
 
           <ScrollReveal delay={200}>
-            <div className="relative">
+            <div className="relative max-w-3xl mx-auto">
               <div className="absolute -inset-4 bg-gradient-to-r from-neon-green/20 to-neon-blue/20 rounded-2xl blur-xl" />
               <Image
                 src="/images/Screenshot-2025-11-24-at-14.26.24.avif"
                 width={800}
                 height={500}
                 alt="Screenshot of Fenced Up website showing local SEO metrics"
-                className="relative rounded-xl border border-white/10 shadow-2xl"
+                className="relative rounded-xl border border-white/10 shadow-2xl w-full"
                 priority
               />
             </div>
@@ -161,8 +161,8 @@ export default function FencedUpCaseStudyPage() {
           {/* Phase 1 */}
           <ScrollReveal>
             <GlassCard className="p-8 mb-8">
-              <h3 className="text-xl font-semibold text-neon-green mb-4">
-                Phase 1: Core Infrastructure
+              <h3 className="text-xl font-semibold text-white mb-4">
+                <span className="text-neon-green">Phase 1:</span> Core Infrastructure
               </h3>
               <ul className="space-y-3 text-white/70 mb-6">
                 <li className="flex gap-2">
@@ -206,8 +206,8 @@ export default function FencedUpCaseStudyPage() {
           {/* Phase 2 */}
           <ScrollReveal>
             <GlassCard className="p-8 mb-8">
-              <h3 className="text-xl font-semibold text-neon-blue mb-4">
-                Phase 2: Asset Configuration
+              <h3 className="text-xl font-semibold text-white mb-4">
+                <span className="text-neon-blue">Phase 2:</span> Asset Configuration
               </h3>
               <ul className="space-y-3 text-white/70 mb-6">
                 <li className="flex gap-2">
@@ -227,21 +227,23 @@ export default function FencedUpCaseStudyPage() {
                   Established branded email and CRM forwarding.
                 </li>
               </ul>
-              <Image
-                src="/images/Screenshot-2025-11-24-at-15.51.38.png"
-                alt="Fenced Up logo variations"
-                width={700}
-                height={400}
-                className="rounded-lg border border-white/10"
-              />
+              <div className="flex justify-center">
+                <Image
+                  src="/images/Screenshot-2025-11-24-at-15.51.38.png"
+                  alt="Fenced Up logo variations"
+                  width={700}
+                  height={400}
+                  className="rounded-lg border border-white/10"
+                />
+              </div>
             </GlassCard>
           </ScrollReveal>
 
           {/* Phase 3 */}
           <ScrollReveal>
             <GlassCard className="p-8 mb-8">
-              <h3 className="text-xl font-semibold text-neon-purple mb-4">
-                Phase 3: Market Trust Protocols
+              <h3 className="text-xl font-semibold text-white mb-4">
+                <span className="text-neon-purple">Phase 3:</span> Market Trust Protocols
               </h3>
               <ul className="space-y-3 text-white/70 mb-6">
                 <li className="flex gap-2">
@@ -263,76 +265,76 @@ export default function FencedUpCaseStudyPage() {
                   fencing&quot;, and &quot;treated pine fencing Houston.&quot;
                 </li>
               </ul>
-              <Image
-                src="/images/Screenshot-2025-11-24-at-15.38.18.png"
-                alt="GBP post updates dashboard"
-                width={500}
-                height={300}
-                className="rounded-lg border border-white/10"
-              />
+              <div className="flex justify-center">
+                <Image
+                  src="/images/Screenshot-2025-11-24-at-15.38.18.png"
+                  alt="GBP post updates dashboard"
+                  width={500}
+                  height={300}
+                  className="rounded-lg border border-white/10"
+                />
+              </div>
             </GlassCard>
           </ScrollReveal>
 
           {/* Phase 4 */}
           <ScrollReveal>
             <GlassCard className="p-8 mb-8">
-              <h3 className="text-xl font-semibold text-neon-green mb-4">
-                Phase 4: Revenue Operations (RevOps)
+              <h3 className="text-xl font-semibold text-white mb-4">
+                <span className="text-neon-green">Phase 4:</span> Revenue Operations (RevOps)
               </h3>
               <ul className="space-y-3 text-white/70 mb-6">
                 <li className="flex gap-2">
                   <span className="text-neon-green">✓</span>
-                  Deployed <strong className="text-white">Server-Side Tracking (GTM)</strong> to
-                  bypass cookie restrictions and capture 100% of conversion data.
+                  <span>Deployed Server-Side Tracking (GTM) to bypass cookie restrictions and capture 100% of conversion data.</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-neon-green">✓</span>
-                  Unified cross-channel attribution (Google Ads + Organic) into a single{' '}
-                  <strong className="text-white">&quot;Source of Truth&quot;</strong> dashboard.
+                  <span>Unified cross-channel attribution (Google Ads + Organic) into a single &quot;Source of Truth&quot; dashboard.</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-neon-green">✓</span>
-                  Engineered a live <strong className="text-white">Executive view</strong> for
-                  real-time visibility into Cost Per Acquisition (CPA) and Pipeline ROI.
+                  <span>Engineered a live Executive view for real-time visibility into Cost Per Acquisition (CPA) and Pipeline ROI.</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-neon-green">✓</span>
-                  Automated the feedback loop between CRM status and Ad Platforms to optimize for{' '}
-                  <strong className="text-white">revenue</strong>, not just leads.
+                  <span>Automated the feedback loop between CRM status and Ad Platforms to optimize for revenue, not just leads.</span>
                 </li>
               </ul>
-              <Image
-                src="/images/Fenced_Up_Website_Traffic_Engagement_Dashboard_Webflow.jpg"
-                alt="Website traffic dashboard"
-                width={800}
-                height={500}
-                className="rounded-lg border border-white/10"
-              />
+              <div className="flex justify-center">
+                <Image
+                  src="/images/Fenced_Up_Website_Traffic_Engagement_Dashboard_Webflow.jpg"
+                  alt="Website traffic dashboard"
+                  width={800}
+                  height={500}
+                  className="rounded-lg border border-white/10"
+                />
+              </div>
             </GlassCard>
           </ScrollReveal>
         </div>
       </section>
 
       {/* Tech Stack */}
-      <section className="py-12 bg-space-mid/30 border-y border-white/5">
+      <section className="py-16 bg-space-mid/50 border-y border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm font-mono text-white/40 mb-8">POWERED BY</p>
-          <div className="flex flex-wrap items-center justify-center gap-12">
+          <p className="text-center text-sm font-mono text-white/60 mb-10 tracking-wider">POWERED BY</p>
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
             {[
               { src: '/images/GTM.png', alt: 'Google Tag Manager' },
               { src: '/images/Google-AdWords-logo-500x281.png', alt: 'Google Ads' },
               { src: '/images/Looker-Studio-Logo-300x141.png', alt: 'Looker Studio' },
-              { src: '/images/stripe-logo-black-transparent.png', alt: 'Stripe' },
               { src: '/images/Logo_Google_Analytics.png', alt: 'Google Analytics' }
             ].map((logo) => (
-              <Image
-                key={logo.alt}
-                src={logo.src}
-                alt={logo.alt}
-                width={100}
-                height={50}
-                className="h-8 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
-              />
+              <div key={logo.alt} className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={120}
+                  height={60}
+                  className="h-10 w-auto object-contain"
+                />
+              </div>
             ))}
           </div>
         </div>
