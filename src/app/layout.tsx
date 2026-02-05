@@ -28,12 +28,26 @@ const spaceMono = Space_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.playgroundgiants.com'),
   title: 'Playground Giants — Marketing Systems for Growth & Automation',
   description:
     'I build marketing systems that connect design, data, and automation — helping brands grow smarter, faster, and with measurable clarity. Explore case studies and automation examples.',
   icons: {
     icon: '/images/favicon.png',
     apple: '/images/webclip.png'
+  },
+  openGraph: {
+    title: 'Playground Giants — Marketing Systems for Growth & Automation',
+    description:
+      'I build marketing systems that connect design, data, and automation — helping brands grow smarter, faster, and with measurable clarity.',
+    images: ['/images/og_image_charcoal.png'],
+    siteName: 'Playground Giants'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Playground Giants — Marketing Systems for Growth & Automation',
+    description:
+      'I build marketing systems that connect design, data, and automation — helping brands grow smarter, faster, and with measurable clarity.'
   }
 }
 
