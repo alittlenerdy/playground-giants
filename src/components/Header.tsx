@@ -3,12 +3,15 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter, usePathname } from 'next/navigation'
 import { NeonButton } from './ui'
 import { CAL_LINKS } from '@/lib/constants'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,11 +21,34 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const handleHashLink = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+    e.preventDefault()
+
+    if (pathname === '/') {
+      // Already on homepage, just scroll
+      const element = document.querySelector(hash)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      // Navigate to homepage, then scroll after a short delay
+      router.push('/')
+      setTimeout(() => {
+        const element = document.querySelector(hash)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 100)
+    }
+
+    setIsMobileMenuOpen(false)
+  }
+
   const navLinks = [
-    { href: '#how-it-works', label: 'How It Works' },
-    { href: '/case-studies/fenced-up', label: 'Case Study' },
-    { href: '/packages', label: 'Pricing' },
-    { href: '/tools-brilliant-nerd', label: 'Tools' }
+    { href: '#how-it-works', label: 'How It Works', isHash: true },
+    { href: '/case-studies/fenced-up', label: 'Case Study', isHash: false },
+    { href: '/packages', label: 'Pricing', isHash: false },
+    { href: '/about', label: 'About', isHash: false }
   ]
 
   return (
@@ -49,15 +75,26 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-white/70 hover:text-neon-green transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) =>
+              link.isHash ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleHashLink(e, link.href)}
+                  className="text-sm font-medium text-white/70 hover:text-neon-green transition-colors duration-200 cursor-pointer"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm font-medium text-white/70 hover:text-neon-green transition-colors duration-200"
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
           </nav>
 
           {/* CTA Button */}
@@ -102,16 +139,27 @@ export default function Header() {
         style={{ top: '60px' }}
       >
         <nav className="flex flex-col items-center justify-center h-full gap-8 -mt-20">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-2xl font-semibold text-white hover:text-neon-green transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) =>
+            link.isHash ? (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleHashLink(e, link.href)}
+                className="text-2xl font-semibold text-white hover:text-neon-green transition-colors cursor-pointer"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-2xl font-semibold text-white hover:text-neon-green transition-colors"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
           <NeonButton href={CAL_LINKS.QUICK} size="lg" external>
             Book a Call
           </NeonButton>
