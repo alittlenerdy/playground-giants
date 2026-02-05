@@ -1,28 +1,40 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/forms";
-@plugin "@tailwindcss/typography";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Custom gradient styles from Webflow */
+.hero-button {
+  background: linear-gradient(90deg, #ff4dff 0%, #00f6ff 100%) !important;
+  color: white !important;
+  border: none !important;
+  transition: all 300ms ease;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.hero-button:hover {
+  background: linear-gradient(90deg, #00f6ff 0%, #ff4dff 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0px 0px 20px rgba(255, 77, 255, 0.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.text-gradient {
+  background: linear-gradient(90deg, #00ff9d, #00b0ff, #ff4ddd) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  display: inline-block;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.footer-link,
+.nav-link-item,
+.nav-link {
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.footer-link:hover,
+.nav-link-item:hover,
+.nav-link:hover {
+  background: linear-gradient(90deg, #00ff9d, #00b0ff, #ff4ddd) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0px 0px 15px rgba(0, 255, 157, 0.4);
 }

@@ -13,6 +13,12 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      // Allow CSS link tags for Webflow stylesheets
+      "@next/next/no-css-tags": "off"
+    }
+  }
 ]);
 
 export default eslintConfig;
