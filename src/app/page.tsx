@@ -9,7 +9,8 @@ import {
   NeonButton,
   GlassCard,
   ScrollReveal,
-  AnimatedCounter
+  AnimatedCounter,
+  StepIcon
 } from '@/components/ui'
 import { CAL_LINKS } from '@/lib/constants'
 
@@ -92,11 +93,18 @@ export default function Home() {
           <div className="overflow-hidden">
             <div className="flex animate-marquee">
               {[...Array(2)].map((_, i) => (
-                <div key={i} className="flex items-center gap-16 shrink-0 px-8">
+                <div key={i} className="flex items-center gap-12 shrink-0 px-6">
                   <Image
                     src="/images/google-wordmarks-2x.webp"
                     alt="Google"
                     width={120}
+                    height={40}
+                    className="h-8 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
+                  />
+                  <Image
+                    src="/images/Logo_Google_Analytics.png"
+                    alt="Google Analytics"
+                    width={140}
                     height={40}
                     className="h-8 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
                   />
@@ -122,12 +130,30 @@ export default function Home() {
                     className="h-6 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
                   />
                   <Image
+                    src="/images/GTM.png"
+                    alt="Google Tag Manager"
+                    width={80}
+                    height={40}
+                    className="h-8 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
+                  />
+                  <Image
+                    src="/images/Looker-Studio-Logo-300x141.png"
+                    alt="Looker Studio"
+                    width={100}
+                    height={40}
+                    className="h-7 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
+                  />
+                  <Image
                     src="/images/large-3435affbf6896b9e737506d30ec5b48f.png"
                     alt="SEMRush"
                     width={120}
                     height={40}
                     className="h-6 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
                   />
+                  {/* Text-based logos for additional SaaS brands */}
+                  <span className="text-xl font-bold text-white/50 hover:text-white transition-all tracking-tight">HubSpot</span>
+                  <span className="text-xl font-bold text-white/50 hover:text-white transition-all tracking-tight">Calendly</span>
+                  <span className="text-xl font-bold text-white/50 hover:text-white transition-all tracking-tight">Slack</span>
                 </div>
               ))}
             </div>
@@ -155,36 +181,38 @@ export default function Home() {
               {
                 problem: 'Your Competitors Rank Higher',
                 solution: 'We reverse-engineer their playbook and outrank them',
-                icon: '📉',
+                iconType: 'ranking' as const,
                 stat: '#1',
                 statLabel: 'Target Position'
               },
               {
                 problem: 'Leads Cost Too Much',
                 solution: 'We cut your cost-per-lead by 40%+ with better targeting',
-                icon: '💸',
+                iconType: 'money' as const,
                 stat: '40%',
                 statLabel: 'Avg. CAC Reduction'
               },
               {
                 problem: "Can't Track ROI",
                 solution: 'Real-time dashboard that shows exactly what\'s working',
-                icon: '❓',
+                iconType: 'tracking' as const,
                 stat: '100%',
                 statLabel: 'Transparent Reporting'
               },
               {
                 problem: 'No Time to Manage It',
                 solution: 'We handle everything—you just answer the phone',
-                icon: '⏰',
+                iconType: 'time' as const,
                 stat: '0',
                 statLabel: 'Hours of Your Time'
               }
             ].map((item, index) => (
               <ScrollReveal key={item.problem} delay={index * 100}>
                 <GlassCard className="p-8 h-full">
-                  <div className="flex items-start gap-4">
-                    <span className="text-4xl">{item.icon}</span>
+                  <div className="flex items-start gap-5">
+                    <div className="w-16 h-16 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                      <StepIcon type={item.iconType} />
+                    </div>
                     <div className="flex-1">
                       <h3 className="text-xl font-semibold text-white mb-2">
                         {item.problem}
@@ -284,35 +312,35 @@ export default function Home() {
                 title: 'Audit Your Shit',
                 description:
                   "We tear apart your website, GBP, and competitors. Every leak, every opportunity—nothing's hidden.",
-                icon: '🔍'
+                iconType: 'audit' as const
               },
               {
                 step: '02',
                 title: 'Build the Machine',
                 description:
                   'SEO foundations, Google Business Profile optimization, content strategy, and conversion tracking—all working together.',
-                icon: '⚙️'
+                iconType: 'build' as const
               },
               {
                 step: '03',
                 title: 'Turn It On',
                 description:
                   'Launch the campaigns, flip the switches, and watch the leads start rolling in. Real-time dashboard included.',
-                icon: '🚀'
+                iconType: 'launch' as const
               },
               {
                 step: '04',
                 title: 'Scale & Dominate',
                 description:
                   'More revenue with the same effort. We optimize, you grow. Simple as that.',
-                icon: '📈'
+                iconType: 'scale' as const
               }
             ].map((item, index) => (
               <ScrollReveal key={item.step} delay={index * 150}>
                 <div className="relative flex gap-6 mb-12 last:mb-0">
-                  {/* Step Number */}
-                  <div className="relative z-10 w-16 h-16 rounded-full bg-space-deep border-2 border-neon-green flex items-center justify-center shrink-0">
-                    <span className="text-2xl">{item.icon}</span>
+                  {/* Step Icon */}
+                  <div className="relative z-10 w-16 h-16 rounded-full bg-space-deep border-2 border-neon-green/50 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,255,0,0.2)]">
+                    <StepIcon type={item.iconType} />
                   </div>
 
                   {/* Content */}
