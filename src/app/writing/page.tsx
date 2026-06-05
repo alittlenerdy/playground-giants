@@ -5,13 +5,25 @@ import { getAllPosts } from '@/lib/writing'
 
 export const metadata = {
   title: 'Writing — Playground Giants',
-  description: 'Building in public — what we ship, what breaks, what we learn.'
+  description: 'Building in public — what we ship, what breaks, what we learn.',
+  alternates: { types: { 'application/rss+xml': '/writing/rss.xml' } }
+}
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Jimmy Hackett',
+  url: 'https://www.playgroundgiants.com',
+  jobTitle: 'Founder',
+  worksFor: { '@type': 'Organization', name: 'Playground Giants', url: 'https://www.playgroundgiants.com' },
+  sameAs: ['https://x.com/j1mmyhackett']
 }
 
 export default function WritingIndex() {
   const posts = getAllPosts()
   return (
     <div className="min-h-screen bg-space-deep">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }} />
       <Header />
       <main className="max-w-3xl mx-auto px-6 pt-36 pb-24">
         <h1 className="text-4xl font-bold text-white mb-2">writing</h1>

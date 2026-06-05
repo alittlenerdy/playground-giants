@@ -4,6 +4,8 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { getAllPosts, getPost } from '@/lib/writing'
 
+const SITE = 'https://www.playgroundgiants.com'
+
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }))
 }
@@ -27,8 +29,20 @@ export default async function Post({ params }: { params: Promise<{ slug: string 
     notFound()
   }
   const { content } = await compileMDX({ source: post.content })
+  const articleLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.meta.title,
+    description: post.meta.summary,
+    datePublished: post.meta.date,
+    url: `${SITE}/writing/${post.meta.slug}`,
+    mainEntityOfPage: `${SITE}/writing/${post.meta.slug}`,
+    author: { '@type': 'Person', name: 'Jimmy Hackett', url: SITE },
+    publisher: { '@type': 'Organization', name: 'Playground Giants', url: SITE }
+  }
   return (
     <div className="min-h-screen bg-space-deep">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
       <Header />
       <article className="max-w-2xl mx-auto px-6 pt-36 pb-24">
         <time className="text-sm text-neon-blue">
