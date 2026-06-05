@@ -48,7 +48,8 @@ export default function Header() {
     { href: '#how-it-works', label: 'How It Works', isHash: true },
     { href: '/case-studies/fenced-up', label: 'Case Study', isHash: false },
     { href: '/packages', label: 'Pricing', isHash: false },
-    { href: '/about', label: 'About', isHash: false }
+    { href: '/about', label: 'About', isHash: false },
+    { href: '/writing', label: 'Writing', isHash: false }
   ]
 
   return (
