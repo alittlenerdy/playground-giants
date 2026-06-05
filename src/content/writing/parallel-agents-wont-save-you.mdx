@@ -1,0 +1,43 @@
+---
+title: "parallel agents won't save you (the part the demos skip)"
+date: "2026-06-05"
+summary: "throwing 300 agents at a problem isn't the unlock everyone thinks. the unlock is what brackets the swarm — before and after."
+---
+
+every few weeks a post goes viral: "i built a whole saas in an afternoon with 300 agents." and every time the replies split into the same two camps — the people who think it's magic, and the people who think it's fake.
+
+they're both missing it.
+
+i run a small army of agents on my own projects. not 300 — a handful, on a mini pc that pulls tasks off my clickup board and ships draft pull requests while i sleep. so i've watched closely where this actually breaks. it isn't the model. it's the geometry.
+
+## the geometry problem
+
+a single agent, even a brilliant one, works in a straight line. give it a 4,000-step job and it does step 1, then 2, then 3. you feel every second. parallelism fixes that — many workers doing many things at once instead of in sequence.
+
+but raw parallelism with no plan is just a lot of ways to drift off task. i learned this the hard way. early on i fanned a transcript job out to a few workers to go faster. each grabbed an overlapping chunk. none of them knew what the others had. the output didn't error — it came back confident and wrong. a clean summary of a conversation that never happened.
+
+that's the failure mode nobody screenshots. it doesn't crash. it lies.
+
+## what actually makes it work
+
+the swarm is the easy part. the two hard parts bracket it.
+
+**before:** something with real judgment has to break the goal into pieces that genuinely don't depend on each other, and mark what has to finish before what can start. get that wrong and you don't get a product — you get four incompatible halves of one.
+
+**after:** something with real judgment has to read all the output back and check it against what you actually asked for. this is the step the viral posts skip, and it's why they ship impressive-looking garbage. the loop only closes when something can tell the difference between "looks done" and "is done."
+
+the swarm in the middle is interchangeable. the planner and the reviewer are not.
+
+## the boring version that ships
+
+so here's what i'm building into my own setup, minus the hype:
+
+- a cheap planner that splits a task into pieces that don't touch the same files
+- a bounded fan-out — three or four workers, not three hundred — each in its own isolated branch
+- a reviewer that has to sign off before anything opens as a real pull request, with a hard checklist for the stuff that quietly breaks: auth, data correctness, anything touching money
+
+none of that is glamorous. it's also the whole difference between agents that help and agents that confidently hand you the wrong thing at scale.
+
+the number of agents was never the point. who's in charge of them is.
+
+what's the worst "confident and wrong" output you've gotten out of an ai pipeline?
