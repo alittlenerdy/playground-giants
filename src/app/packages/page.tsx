@@ -68,29 +68,29 @@ const packages = [
 
 export default function PackagesPage() {
   return (
-    <div className="min-h-screen bg-space-deep">
+    <div className="min-h-screen bg-paper">
       <Header />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-[120px]" />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/12 rounded-full blur-[120px]" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-green/10 rounded-full blur-[120px]" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-display">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink mb-6 font-display">
               Clear. Transparent. <GradientText>Infrastructure.</GradientText>
             </h1>
-            <p className="text-xl text-white/60 max-w-3xl mx-auto mb-4">
+            <p className="text-xl text-ink-3 max-w-3xl mx-auto mb-4">
               Built for <span className="text-neon-green font-semibold">High-Ticket Operators</span>
               <br />
               The enterprise growth infrastructure we use to scale{' '}
               <span className="text-neon-blue font-semibold">Home Service Leaders</span> and{' '}
               <span className="text-neon-purple font-semibold">Medical Aesthetic Practices</span>.
             </p>
-            <p className="text-lg text-white/40">
+            <p className="text-lg text-ink-3">
               We don&apos;t sell hours. We sell revenue engines.
             </p>
           </ScrollReveal>
@@ -119,7 +119,7 @@ export default function PackagesPage() {
                         </div>
                       </div>
                       {/* Most Popular badge */}
-                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-neon-green text-black text-sm font-bold rounded-full z-10 whitespace-nowrap">
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-neon-green text-paper text-sm font-bold rounded-full z-10 whitespace-nowrap">
                         Most Popular
                       </div>
                     </>
@@ -128,17 +128,17 @@ export default function PackagesPage() {
                     className={`p-8 h-full flex flex-col ${pkg.popular ? 'border-neon-green/50' : ''}`}
                     hover={false}
                   >
-                    <h2 className="text-2xl font-bold text-white mb-2">{pkg.name}</h2>
-                    <p className="text-white/60 mb-6">{pkg.description}</p>
+                    <h2 className="text-2xl font-bold text-ink mb-2">{pkg.name}</h2>
+                    <p className="text-ink-3 mb-6">{pkg.description}</p>
 
                     <div className="mb-8">
                       <span className="text-4xl font-bold text-neon-green">{pkg.price}</span>
-                      <span className="text-white/40 ml-2">one-time</span>
+                      <span className="text-ink-3 ml-2">one-time</span>
                     </div>
 
                     <ul className="space-y-3 mb-8 flex-1">
                       {pkg.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-3 text-white/70">
+                        <li key={feature} className="flex items-center gap-3 text-ink-2">
                           <span className="text-neon-green">✓</span>
                           {feature}
                         </li>
@@ -148,7 +148,7 @@ export default function PackagesPage() {
                     {pkg.popular ? (
                       <Link
                         href={pkg.href}
-                        className="w-full px-8 py-4 bg-neon-green text-black font-bold rounded-lg text-center shadow-[0_0_20px_rgba(0,255,0,0.3)] hover:shadow-[0_0_40px_rgba(0,255,0,0.6)] transition-all duration-300 hover:-translate-y-0.5"
+                        className="w-full px-8 py-4 bg-neon-green text-paper font-bold rounded-lg text-center shadow-[0_8px_20px_rgba(26,19,8,0.08)] hover:shadow-[0_14px_32px_rgba(74,149,224,0.28)] transition-all duration-300 hover:-translate-y-0.5"
                       >
                         {pkg.cta}
                       </Link>
@@ -157,7 +157,7 @@ export default function PackagesPage() {
                         href={pkg.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full px-8 py-4 bg-white/10 text-white font-semibold rounded-lg text-center border border-white/20 hover:bg-white/20 hover:border-neon-green/50 transition-all duration-300"
+                        className="w-full px-8 py-4 bg-card text-ink font-semibold rounded-lg text-center border border-line hover:bg-cream-2 hover:border-neon-green/50 transition-all duration-300"
                       >
                         {pkg.cta}
                       </a>
@@ -171,15 +171,15 @@ export default function PackagesPage() {
       </section>
 
       {/* Promo Section */}
-      <section className="py-20 bg-space-mid/30">
+      <section className="py-20 bg-cream-2/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <ScrollReveal>
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-display">
+                <h2 className="text-3xl md:text-4xl font-bold text-ink mb-6 font-display">
                   Our Unfair Advantage
                 </h2>
-                <p className="text-white/60 text-lg mb-8">
+                <p className="text-ink-3 text-lg mb-8">
                   We don&apos;t code from scratch. We use our proprietary AI to automate the build,
                   ensuring your site is pixel-perfect and production-ready in half the time.
                 </p>
@@ -197,7 +197,7 @@ export default function PackagesPage() {
                   alt="Playground Giants AI tool interface"
                   width={500}
                   height={300}
-                  className="relative rounded-xl border border-white/10 shadow-2xl"
+                  className="relative rounded-xl border border-line shadow-2xl"
                 />
               </div>
             </ScrollReveal>
@@ -209,7 +209,7 @@ export default function PackagesPage() {
       <section className="py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center font-display">
+            <h2 className="text-3xl md:text-4xl font-bold text-ink mb-12 text-center font-display">
               Common Questions
             </h2>
           </ScrollReveal>
@@ -235,8 +235,8 @@ export default function PackagesPage() {
             ].map((faq, index) => (
               <ScrollReveal key={faq.q} delay={index * 50}>
                 <GlassCard className="p-6">
-                  <h3 className="text-lg font-semibold text-white mb-2">{faq.q}</h3>
-                  <p className="text-white/60">{faq.a}</p>
+                  <h3 className="text-lg font-semibold text-ink mb-2">{faq.q}</h3>
+                  <p className="text-ink-3">{faq.a}</p>
                 </GlassCard>
               </ScrollReveal>
             ))}
@@ -245,13 +245,13 @@ export default function PackagesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-space-mid/30">
+      <section className="py-20 bg-cream-2/60">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+            <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4 font-display">
               Not sure which package is right?
             </h2>
-            <p className="text-xl text-white/60 mb-8">
+            <p className="text-xl text-ink-3 mb-8">
               Book a free 15-minute call and we&apos;ll recommend the best fit for your business.
             </p>
             <NeonButton href={CAL_LINKS.QUICK} size="lg" external>

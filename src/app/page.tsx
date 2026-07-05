@@ -16,7 +16,7 @@ import { CAL_LINKS } from '@/lib/constants'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-space-deep">
+    <div className="min-h-screen bg-paper">
       <Header />
 
       {/* Hero Section - Full Viewport */}
@@ -24,16 +24,16 @@ export default function Home() {
         {/* Animated Background */}
         <div className="absolute inset-0">
           {/* Gradient Orbs */}
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-[120px] animate-float" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-blue/20 rounded-full blur-[120px] animate-float animation-delay-2000" />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/12 rounded-full blur-[120px] animate-float" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-blue/12 rounded-full blur-[120px] animate-float animation-delay-2000" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-green/10 rounded-full blur-[150px]" />
 
           {/* Grid Pattern */}
           <div
             className="absolute inset-0 opacity-20"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
-                               linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px)`,
+              backgroundImage: `linear-gradient(rgba(26, 19, 8, 0.04) 1px, transparent 1px),
+                               linear-gradient(90deg, rgba(26, 19, 8, 0.04) 1px, transparent 1px)`,
               backgroundSize: '50px 50px'
             }}
           />
@@ -42,22 +42,22 @@ export default function Home() {
         {/* Hero Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-line mb-8 animate-fade-in">
             <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
-            <span className="text-sm font-mono text-white/60">
+            <span className="text-sm font-mono text-ink-3">
               HOME SERVICES + MEDSPA MARKETING
             </span>
           </div>
 
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] mb-6 animate-fade-in-up font-display">
-            <span className="text-white">Your Competitors Rank Higher.</span>
+            <span className="text-ink">Your Competitors Rank Higher.</span>
             <br />
             <GradientText animate>{"Let's Fix That."}</GradientText>
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto mb-12 animate-fade-in-up animate-delay-200">
+          <p className="text-lg sm:text-xl text-ink-3 max-w-2xl mx-auto mb-12 animate-fade-in-up animate-delay-200">
             We help roofing, HVAC, fencing, and home service companies dominate local search.
             More qualified leads. Better rankings. Real results you can measure.
           </p>
@@ -69,7 +69,7 @@ export default function Home() {
             </NeonButton>
             <Link
               href="/case-studies/fenced-up"
-              className="px-8 py-4 text-lg font-semibold text-white/70 hover:text-neon-green transition-colors"
+              className="px-8 py-4 text-lg font-semibold text-ink-2 hover:text-neon-green transition-colors"
             >
               See Our Results
             </Link>
@@ -78,16 +78,16 @@ export default function Home() {
 
         {/* Scroll Indicator - bouncing pill with green dot */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+          <div className="w-6 h-10 rounded-full border-2 border-line flex items-start justify-center p-2">
             <div className="w-1.5 h-2.5 bg-neon-green rounded-full animate-pulse" />
           </div>
         </div>
       </section>
 
       {/* Trust Strip - Logo Marquee */}
-      <section className="py-12 border-y border-white/5 bg-space-mid/30">
+      <section className="py-12 border-y border-line bg-cream-2/60">
         <div className="max-w-7xl mx-auto px-4">
-          <p className="text-center text-sm font-mono text-white/40 mb-8">
+          <p className="text-center text-sm font-mono text-ink-3 mb-8">
             POWERED BY MODERN INFRASTRUCTURE
           </p>
           <div className="overflow-hidden">
@@ -151,9 +151,9 @@ export default function Home() {
                     className="h-6 w-auto opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"
                   />
                   {/* Text-based logos for additional SaaS brands */}
-                  <span className="text-xl font-bold text-white/50 hover:text-white transition-all tracking-tight">HubSpot</span>
-                  <span className="text-xl font-bold text-white/50 hover:text-white transition-all tracking-tight">Calendly</span>
-                  <span className="text-xl font-bold text-white/50 hover:text-white transition-all tracking-tight">Slack</span>
+                  <span className="text-xl font-bold text-ink-3 hover:text-ink transition-all tracking-tight">HubSpot</span>
+                  <span className="text-xl font-bold text-ink-3 hover:text-ink transition-all tracking-tight">Calendly</span>
+                  <span className="text-xl font-bold text-ink-3 hover:text-ink transition-all tracking-tight">Slack</span>
                 </div>
               ))}
             </div>
@@ -166,10 +166,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+              <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4 font-display">
                 Sound Familiar?
               </h2>
-              <p className="text-white/60 max-w-2xl mx-auto">
+              <p className="text-ink-3 max-w-2xl mx-auto">
                 These are the problems keeping home service business owners up at night.
                 We solve all of them.
               </p>
@@ -210,19 +210,19 @@ export default function Home() {
               <ScrollReveal key={item.problem} delay={index * 100}>
                 <GlassCard className="p-8 h-full">
                   <div className="flex items-start gap-5">
-                    <div className="w-16 h-16 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                    <div className="w-16 h-16 rounded-xl bg-card border border-line flex items-center justify-center shrink-0">
                       <StepIcon type={item.iconType} />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-white mb-2">
+                      <h3 className="text-xl font-semibold text-ink mb-2">
                         {item.problem}
                       </h3>
-                      <p className="text-white/60 mb-4">{item.solution}</p>
+                      <p className="text-ink-3 mb-4">{item.solution}</p>
                       <div className="flex items-baseline gap-2">
                         <span className="text-3xl font-bold text-neon-green">
                           {item.stat}
                         </span>
-                        <span className="text-sm text-white/40">{item.statLabel}</span>
+                        <span className="text-sm text-ink-3">{item.statLabel}</span>
                       </div>
                     </div>
                   </div>
@@ -234,7 +234,7 @@ export default function Home() {
       </section>
 
       {/* Proof Section - Case Study Teaser */}
-      <section className="py-24 md:py-32 bg-space-mid/30">
+      <section className="py-24 md:py-32 bg-cream-2/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <ScrollReveal>
@@ -245,7 +245,7 @@ export default function Home() {
                   alt="Fenced Up analytics dashboard showing 400% traffic growth"
                   width={600}
                   height={400}
-                  className="relative rounded-xl border border-white/10 shadow-2xl"
+                  className="relative rounded-xl border border-line shadow-2xl"
                 />
               </div>
             </ScrollReveal>
@@ -255,10 +255,10 @@ export default function Home() {
                 <span className="text-sm font-mono text-neon-green mb-4 block">
                   CASE STUDY: FENCED UP
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-display">
+                <h2 className="text-3xl md:text-4xl font-bold text-ink mb-6 font-display">
                   From Invisible to <GradientText>#1 in Houston</GradientText>
                 </h2>
-                <p className="text-white/60 mb-8">
+                <p className="text-ink-3 mb-8">
                   Fenced Up was spending $5k/month on ads with nothing to show for it.
                   We rebuilt their entire digital presence and turned them into the
                   most visible fencing company in Houston.
@@ -269,13 +269,13 @@ export default function Home() {
                     <div className="text-4xl md:text-5xl font-bold text-neon-green">
                       <AnimatedCounter end={400} suffix="%" />
                     </div>
-                    <p className="text-white/40 text-sm">Traffic Growth</p>
+                    <p className="text-ink-3 text-sm">Traffic Growth</p>
                   </div>
                   <div>
                     <div className="text-4xl md:text-5xl font-bold text-neon-blue">
                       <AnimatedCounter end={83} suffix="%" />
                     </div>
-                    <p className="text-white/40 text-sm">GBP Visibility Increase</p>
+                    <p className="text-ink-3 text-sm">GBP Visibility Increase</p>
                   </div>
                 </div>
 
@@ -293,10 +293,10 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+              <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4 font-display">
                 How We <GradientText>Dominate</GradientText> Local Search
               </h2>
-              <p className="text-white/60 max-w-xl mx-auto">
+              <p className="text-ink-3 max-w-xl mx-auto">
                 A proven process that transforms your online presence in 90 days or less.
               </p>
             </div>
@@ -339,7 +339,7 @@ export default function Home() {
               <ScrollReveal key={item.step} delay={index * 150}>
                 <div className="relative flex gap-6 mb-12 last:mb-0">
                   {/* Step Icon */}
-                  <div className="relative z-10 w-16 h-16 rounded-full bg-space-deep border-2 border-neon-green/50 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(0,255,0,0.2)]">
+                  <div className="relative z-10 w-16 h-16 rounded-full bg-paper border-2 border-neon-green/50 flex items-center justify-center shrink-0 shadow-[0_6px_16px_rgba(74,149,224,0.15)]">
                     <StepIcon type={item.iconType} />
                   </div>
 
@@ -348,10 +348,10 @@ export default function Home() {
                     <span className="text-xs font-mono text-neon-green mb-1 block">
                       STEP {item.step}
                     </span>
-                    <h3 className="text-xl font-semibold text-white mb-2">
+                    <h3 className="text-xl font-semibold text-ink mb-2">
                       {item.title}
                     </h3>
-                    <p className="text-white/60">{item.description}</p>
+                    <p className="text-ink-3">{item.description}</p>
                   </div>
                 </div>
               </ScrollReveal>
@@ -361,21 +361,21 @@ export default function Home() {
       </section>
 
       {/* Pricing Teaser */}
-      <section className="py-24 md:py-32 bg-space-mid/30">
+      <section className="py-24 md:py-32 bg-cream-2/60">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <GlassCard className="p-12 md:p-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+              <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4 font-display">
                 One Price. Everything Included. No Surprises.
               </h2>
-              <p className="text-white/60 mb-8 max-w-xl mx-auto">
+              <p className="text-ink-3 mb-8 max-w-xl mx-auto">
                 No hidden fees. No long-term contracts. Just results.
               </p>
 
               <div className="mb-8">
-                <span className="text-sm text-white/40">Starting at</span>
+                <span className="text-sm text-ink-3">Starting at</span>
                 <div className="text-5xl md:text-6xl font-bold text-neon-green">
-                  $2,500<span className="text-2xl text-white/40">/mo</span>
+                  $2,500<span className="text-2xl text-ink-3">/mo</span>
                 </div>
               </div>
 
@@ -388,7 +388,7 @@ export default function Home() {
                   'Monthly Strategy Calls',
                   'No Long-Term Contracts'
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-white/70">
+                  <li key={item} className="flex items-center gap-3 text-ink-2">
                     <span className="text-neon-green">✓</span>
                     {item}
                   </li>
@@ -412,12 +412,12 @@ export default function Home() {
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-display">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink mb-6 font-display">
               Ready to <GradientText animate>Dominate</GradientText>
               <br />
               Local Search?
             </h2>
-            <p className="text-xl text-white/60 mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-ink-3 mb-10 max-w-2xl mx-auto">
               Book a free 15-minute call. We&apos;ll audit your current setup and show you
               exactly how to outrank your competitors.
             </p>
@@ -428,7 +428,7 @@ export default function Home() {
               </NeonButton>
             </div>
 
-            <p className="text-sm text-white/40">
+            <p className="text-sm text-ink-3">
               No sales pitch. No obligation. Just honest advice.
             </p>
           </ScrollReveal>

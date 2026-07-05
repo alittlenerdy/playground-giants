@@ -56,7 +56,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-space-deep/90 backdrop-blur-lg border-b border-white/10 py-3'
+          ? 'bg-paper/90 backdrop-blur-lg border-b border-line py-3'
           : 'bg-transparent py-5'
       }`}
     >
@@ -65,7 +65,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="relative z-10">
             <Image
-              src="/images/White-logo---no-background.svg"
+              src="/images/Ink-logo---no-background.svg"
               alt="Playground Giants"
               width={160}
               height={35}
@@ -82,7 +82,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleHashLink(e, link.href)}
-                  className="text-sm font-medium text-white/70 hover:text-neon-green transition-colors duration-200 cursor-pointer"
+                  className="text-sm font-medium text-ink-2 hover:text-neon-green transition-colors duration-200 cursor-pointer"
                 >
                   {link.label}
                 </a>
@@ -90,7 +90,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-white/70 hover:text-neon-green transition-colors duration-200"
+                  className="text-sm font-medium text-ink-2 hover:text-neon-green transition-colors duration-200"
                 >
                   {link.label}
                 </Link>
@@ -113,17 +113,17 @@ export default function Header() {
           >
             <div className="w-6 h-5 flex flex-col justify-between">
               <span
-                className={`block h-0.5 bg-white transition-all duration-300 ${
+                className={`block h-0.5 bg-ink transition-all duration-300 ${
                   isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
                 }`}
               />
               <span
-                className={`block h-0.5 bg-white transition-all duration-300 ${
+                className={`block h-0.5 bg-ink transition-all duration-300 ${
                   isMobileMenuOpen ? 'opacity-0' : ''
                 }`}
               />
               <span
-                className={`block h-0.5 bg-white transition-all duration-300 ${
+                className={`block h-0.5 bg-ink transition-all duration-300 ${
                   isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
                 }`}
               />
@@ -134,7 +134,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden fixed inset-0 bg-space-deep/98 backdrop-blur-xl transition-all duration-300 ${
+        className={`md:hidden fixed inset-0 bg-paper/98 backdrop-blur-xl transition-all duration-300 ${
           isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
         style={{ top: '60px' }}
@@ -146,7 +146,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleHashLink(e, link.href)}
-                className="text-2xl font-semibold text-white hover:text-neon-green transition-colors cursor-pointer"
+                className="text-2xl font-semibold text-ink hover:text-neon-green transition-colors cursor-pointer"
               >
                 {link.label}
               </a>
@@ -155,7 +155,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-2xl font-semibold text-white hover:text-neon-green transition-colors"
+                className="text-2xl font-semibold text-ink hover:text-neon-green transition-colors"
               >
                 {link.label}
               </Link>

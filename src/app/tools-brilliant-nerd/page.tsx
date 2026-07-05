@@ -7,13 +7,13 @@ import { GradientText, NeonButton, GlassCard, ScrollReveal } from '@/components/
 
 export default function ToolsBrilliantNerdPage() {
   return (
-    <div className="min-h-screen bg-space-deep">
+    <div className="min-h-screen bg-paper">
       <Header />
 
       {/* Hero Section */}
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-[120px]" />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/12 rounded-full blur-[120px]" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-blue/10 rounded-full blur-[120px]" />
         </div>
 
@@ -22,10 +22,10 @@ export default function ToolsBrilliantNerdPage() {
             <span className="inline-block px-4 py-2 bg-neon-purple/20 border border-neon-purple/30 rounded-full text-sm font-mono text-neon-purple mb-6">
               INTERNAL TOOL
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-display">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink mb-6 font-display">
               Screenshot-to-Code AI for <GradientText>Designers</GradientText>
             </h1>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto mb-8">
+            <p className="text-xl text-ink-3 max-w-2xl mx-auto mb-8">
               Built by Playground Giants. The tool we use internally to ship projects 50% faster.
             </p>
             <NeonButton href="#demo" variant="purple" size="lg">
@@ -50,7 +50,7 @@ export default function ToolsBrilliantNerdPage() {
                 />
               </div>
             </GlassCard>
-            <p className="text-center text-white/40 text-sm mt-4">
+            <p className="text-center text-ink-3 text-sm mt-4">
               Video demo of our internal screenshot-to-code workflow
             </p>
           </ScrollReveal>
@@ -58,10 +58,10 @@ export default function ToolsBrilliantNerdPage() {
       </section>
 
       {/* Problem Section */}
-      <section className="py-20 bg-space-mid/30">
+      <section className="py-20 bg-cream-2/60">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center font-display">
+            <h2 className="text-3xl md:text-4xl font-bold text-ink mb-8 text-center font-display">
               The Manual Coding Bottleneck
             </h2>
           </ScrollReveal>
@@ -84,7 +84,7 @@ export default function ToolsBrilliantNerdPage() {
               <ScrollReveal key={item.label} delay={index * 100}>
                 <GlassCard className="p-6 text-center">
                   <div className="text-4xl font-bold text-neon-purple mb-2">{item.stat}</div>
-                  <p className="text-white/60 text-sm">{item.label}</p>
+                  <p className="text-ink-3 text-sm">{item.label}</p>
                 </GlassCard>
               </ScrollReveal>
             ))}
@@ -96,7 +96,7 @@ export default function ToolsBrilliantNerdPage() {
       <section className="py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center font-display">
+            <h2 className="text-3xl md:text-4xl font-bold text-ink mb-12 text-center font-display">
               How It Works
             </h2>
           </ScrollReveal>
@@ -126,8 +126,8 @@ export default function ToolsBrilliantNerdPage() {
                 <div className={`grid md:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
                   <div className={index % 2 === 1 ? 'md:order-2' : ''}>
                     <span className="text-sm font-mono text-neon-green mb-2 block">STEP {item.step}</span>
-                    <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
-                    <p className="text-white/60 text-lg">{item.description}</p>
+                    <h3 className="text-2xl font-bold text-ink mb-4">{item.title}</h3>
+                    <p className="text-ink-3 text-lg">{item.description}</p>
                   </div>
                   <div className={`relative ${index % 2 === 1 ? 'md:order-1' : ''}`}>
                     <div className="absolute -inset-4 bg-gradient-to-r from-neon-purple/20 to-neon-blue/20 rounded-2xl blur-xl" />
@@ -136,7 +136,7 @@ export default function ToolsBrilliantNerdPage() {
                       alt={item.title}
                       width={500}
                       height={300}
-                      className="relative rounded-xl border border-white/10 shadow-2xl w-full"
+                      className="relative rounded-xl border border-line shadow-2xl w-full"
                     />
                   </div>
                 </div>
@@ -147,10 +147,10 @@ export default function ToolsBrilliantNerdPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-space-mid/30">
+      <section className="py-20 bg-cream-2/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center font-display">
+            <h2 className="text-3xl md:text-4xl font-bold text-ink mb-12 text-center font-display">
               Power User Features
             </h2>
           </ScrollReveal>
@@ -176,8 +176,8 @@ export default function ToolsBrilliantNerdPage() {
             ].map((feature, index) => (
               <ScrollReveal key={feature.title} delay={index * 50}>
                 <GlassCard className="p-6">
-                  <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
-                  <p className="text-white/60">{feature.description}</p>
+                  <h3 className="text-xl font-semibold text-ink mb-2">{feature.title}</h3>
+                  <p className="text-ink-3">{feature.description}</p>
                 </GlassCard>
               </ScrollReveal>
             ))}
@@ -195,10 +195,10 @@ export default function ToolsBrilliantNerdPage() {
           <ScrollReveal>
             <GlassCard className="p-12">
               <span className="text-sm font-mono text-neon-green mb-4 block">&gt; SYSTEM_READY</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-display">
+              <h2 className="text-3xl md:text-4xl font-bold text-ink mb-6 font-display">
                 Want to See It in Action?
               </h2>
-              <p className="text-white/60 mb-8 max-w-xl mx-auto">
+              <p className="text-ink-3 mb-8 max-w-xl mx-auto">
                 This tool is how we deliver projects faster than anyone else. Book a call to see a live demo.
               </p>
               <NeonButton href="https://cal.com/alittleghost/30min" size="lg" external>

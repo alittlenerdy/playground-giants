@@ -22,23 +22,23 @@ const personLd = {
 export default function WritingIndex() {
   const posts = getAllPosts()
   return (
-    <div className="min-h-screen bg-space-deep">
+    <div className="min-h-screen bg-paper">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }} />
       <Header />
       <main className="max-w-3xl mx-auto px-6 pt-36 pb-24">
-        <h1 className="text-4xl font-bold text-white mb-2">writing</h1>
-        <p className="text-white/60 mb-12">building in public — what we ship, what breaks, what we learn.</p>
+        <h1 className="text-4xl font-bold text-ink mb-2">writing</h1>
+        <p className="text-ink-3 mb-12">building in public — what we ship, what breaks, what we learn.</p>
         <div className="space-y-10">
           {posts.map((p) => (
             <Link key={p.slug} href={`/writing/${p.slug}`} className="block group">
               <time className="text-sm text-neon-blue">
                 {new Date(p.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               </time>
-              <h2 className="text-2xl font-semibold text-white group-hover:text-neon-purple transition">{p.title}</h2>
-              <p className="text-white/60 mt-1">{p.summary}</p>
+              <h2 className="text-2xl font-semibold text-ink group-hover:text-neon-purple transition">{p.title}</h2>
+              <p className="text-ink-3 mt-1">{p.summary}</p>
             </Link>
           ))}
-          {posts.length === 0 && <p className="text-white/40">first post coming soon.</p>}
+          {posts.length === 0 && <p className="text-ink-3">first post coming soon.</p>}
         </div>
       </main>
       <Footer />

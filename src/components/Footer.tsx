@@ -14,13 +14,13 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="border-t border-white/10 bg-space-deep">
+    <footer className="border-t border-line bg-paper">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo */}
           <Link href="/">
             <Image
-              src="/images/White-logo---no-background.svg"
+              src="/images/Ink-logo---no-background.svg"
               alt="Playground Giants"
               width={140}
               height={30}
@@ -35,7 +35,7 @@ export default function Footer() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-white/50 hover:text-neon-green transition-colors"
+                  className="text-sm text-ink-3 hover:text-neon-green transition-colors"
                 >
                   {link.label}
                 </a>
@@ -43,7 +43,7 @@ export default function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-white/50 hover:text-neon-green transition-colors"
+                  className="text-sm text-ink-3 hover:text-neon-green transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -52,7 +52,7 @@ export default function Footer() {
           </nav>
 
           {/* Copyright */}
-          <p className="text-sm text-white/30 font-mono">
+          <p className="text-sm text-ink-3 font-mono">
             {`// ${currentYear} Playground Giants`}
           </p>
         </div>

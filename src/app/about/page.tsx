@@ -19,14 +19,14 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-space-deep">
+    <div className="min-h-screen bg-paper">
       <Header />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-green/20 rounded-full blur-[120px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-[120px]" />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-green/12 rounded-full blur-[120px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-purple/12 rounded-full blur-[120px]" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-neon-blue/10 rounded-full blur-[150px]" />
         </div>
 
@@ -42,10 +42,10 @@ export default function AboutPage() {
                     alt="Jimmy Hackett - Marketing Architect"
                     width={400}
                     height={400}
-                    className="rounded-2xl border-2 border-white/10 shadow-2xl mx-auto"
+                    className="rounded-2xl border-2 border-line shadow-2xl mx-auto"
                   />
                   {/* Status Badge */}
-                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-space-deep/90 backdrop-blur-sm border border-neon-green/50 rounded-full flex items-center gap-2">
+                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-paper/90 backdrop-blur-sm border border-neon-green/50 rounded-full flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
                     <span className="text-sm font-mono text-neon-green">Available for Projects</span>
                   </div>
@@ -59,11 +59,11 @@ export default function AboutPage() {
                 <span className="text-sm font-mono text-neon-green mb-4 block tracking-wider">
                   FOUNDER / MARKETING ARCHITECT
                 </span>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-display leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink mb-6 font-display leading-tight">
                   Jimmy<br />
                   <GradientText>Hackett</GradientText>
                 </h1>
-                <p className="text-xl text-white/60 mb-8 leading-relaxed">
+                <p className="text-xl text-ink-3 mb-8 leading-relaxed">
                   I build revenue engines for home service companies that are tired of
                   throwing money at marketing that doesn&apos;t work.
                 </p>
@@ -71,8 +71,8 @@ export default function AboutPage() {
                 {/* Terminal-style tagline */}
                 <GlassCard className="p-4 font-mono text-sm">
                   <span className="text-neon-green">&gt;</span>{' '}
-                  <span className="text-white/70">mission:</span>{' '}
-                  <span className="text-white">&quot;Kill manual work. Scale revenue.&quot;</span>
+                  <span className="text-ink-2">mission:</span>{' '}
+                  <span className="text-ink">&quot;Kill manual work. Scale revenue.&quot;</span>
                 </GlassCard>
               </div>
             </ScrollReveal>
@@ -81,7 +81,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 border-y border-white/5 bg-space-mid/30">
+      <section className="py-16 border-y border-line bg-cream-2/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -95,7 +95,7 @@ export default function AboutPage() {
                   <div className="text-3xl md:text-4xl font-bold text-neon-green mb-2">
                     {stat.value}
                   </div>
-                  <p className="text-white/40 text-sm font-mono tracking-wider">{stat.label}</p>
+                  <p className="text-ink-3 text-sm font-mono tracking-wider">{stat.label}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -107,7 +107,7 @@ export default function AboutPage() {
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center font-display">
+            <h2 className="text-3xl md:text-4xl font-bold text-ink mb-12 text-center font-display">
               The <GradientText>Origin Story</GradientText>
             </h2>
           </ScrollReveal>
@@ -120,8 +120,8 @@ export default function AboutPage() {
                     <span className="text-neon-green font-bold">01</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-3">The Problem I Kept Seeing</h3>
-                    <p className="text-white/60 leading-relaxed">
+                    <h3 className="text-xl font-semibold text-ink mb-3">The Problem I Kept Seeing</h3>
+                    <p className="text-ink-3 leading-relaxed">
                       I spent years watching home service business owners burn through their marketing
                       budgets on agencies that delivered vanity metrics instead of leads. Pretty
                       websites with zero traffic. Ad campaigns that generated clicks but no calls.
@@ -139,8 +139,8 @@ export default function AboutPage() {
                     <span className="text-neon-blue font-bold">02</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-3">The Realization</h3>
-                    <p className="text-white/60 leading-relaxed">
+                    <h3 className="text-xl font-semibold text-ink mb-3">The Realization</h3>
+                    <p className="text-ink-3 leading-relaxed">
                       A beautiful website is worthless without an engine behind it. What these
                       businesses needed wasn&apos;t another redesign—they needed infrastructure.
                       Tracking. Automation. A system that captures demand and converts it into
@@ -158,8 +158,8 @@ export default function AboutPage() {
                     <span className="text-neon-purple font-bold">03</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-3">Building Playground Giants</h3>
-                    <p className="text-white/60 leading-relaxed">
+                    <h3 className="text-xl font-semibold text-ink mb-3">Building Playground Giants</h3>
+                    <p className="text-ink-3 leading-relaxed">
                       So I built the agency I wished existed. One that treats marketing as
                       infrastructure, not decoration. Where every decision is data-driven.
                       Where we measure success in revenue, not impressions. Where we actually
@@ -174,14 +174,14 @@ export default function AboutPage() {
       </section>
 
       {/* My Approach / Philosophy */}
-      <section className="py-24 bg-space-mid/30">
+      <section className="py-24 bg-cream-2/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+              <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4 font-display">
                 My <GradientText>Approach</GradientText>
               </h2>
-              <p className="text-white/60 max-w-2xl mx-auto">
+              <p className="text-ink-3 max-w-2xl mx-auto">
                 Three principles that guide every project I take on.
               </p>
             </div>
@@ -210,11 +210,11 @@ export default function AboutPage() {
             ].map((item, index) => (
               <ScrollReveal key={item.title} delay={index * 100}>
                 <GlassCard className="p-8 h-full text-center">
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-6">
+                  <div className="w-16 h-16 rounded-2xl bg-card border border-line flex items-center justify-center mx-auto mb-6">
                     <StepIcon type={item.icon} />
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-4">{item.title}</h3>
-                  <p className="text-white/60 leading-relaxed">{item.description}</p>
+                  <h3 className="text-xl font-semibold text-ink mb-4">{item.title}</h3>
+                  <p className="text-ink-3 leading-relaxed">{item.description}</p>
                 </GlassCard>
               </ScrollReveal>
             ))}
@@ -227,10 +227,10 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+              <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4 font-display">
                 The <GradientText>Stack</GradientText>
               </h2>
-              <p className="text-white/60">
+              <p className="text-ink-3">
                 Modern tools. Enterprise-grade results.
               </p>
             </div>
@@ -258,7 +258,7 @@ export default function AboutPage() {
                       className="h-8 w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity"
                     />
                   </div>
-                  <p className="text-xs font-mono text-white/40 uppercase tracking-wider">
+                  <p className="text-xs font-mono text-ink-3 uppercase tracking-wider">
                     {tool.category}
                   </p>
                 </GlassCard>
@@ -269,16 +269,16 @@ export default function AboutPage() {
       </section>
 
       {/* Quote / Philosophy */}
-      <section className="py-24 bg-space-mid/30">
+      <section className="py-24 bg-cream-2/60">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="relative">
               <div className="absolute -top-6 -left-4 text-8xl text-neon-green/20 font-serif">&ldquo;</div>
-              <blockquote className="text-2xl md:text-3xl lg:text-4xl font-display text-white text-center leading-relaxed pl-8">
+              <blockquote className="text-2xl md:text-3xl lg:text-4xl font-display text-ink text-center leading-relaxed pl-8">
                 If you have to do it twice,{' '}
                 <GradientText>automate it.</GradientText>
               </blockquote>
-              <p className="text-center text-white/40 mt-6 font-mono text-sm">
+              <p className="text-center text-ink-3 mt-6 font-mono text-sm">
                 — My operating principle
               </p>
             </div>
@@ -295,10 +295,10 @@ export default function AboutPage() {
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <GlassCard className="p-12 md:p-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+              <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4 font-display">
                 Ready to Work Together?
               </h2>
-              <p className="text-xl text-white/60 mb-10 max-w-xl mx-auto">
+              <p className="text-xl text-ink-3 mb-10 max-w-xl mx-auto">
                 Let&apos;s talk about your business. No pitch, no pressure—just an honest
                 conversation about what&apos;s working and what&apos;s not.
               </p>

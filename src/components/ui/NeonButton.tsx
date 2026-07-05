@@ -10,9 +10,9 @@ interface NeonButtonProps {
 }
 
 const variantStyles = {
-  green: 'bg-neon-green text-black hover:shadow-[0_0_40px_rgba(0,255,0,0.6)]',
-  purple: 'bg-neon-purple text-white hover:shadow-[0_0_40px_rgba(157,0,255,0.6)]',
-  blue: 'bg-neon-blue text-black hover:shadow-[0_0_40px_rgba(0,217,255,0.6)]'
+  green: 'bg-canary text-paper hover:shadow-[0_14px_32px_rgba(74,149,224,0.28)]',
+  purple: 'bg-sage text-paper hover:shadow-[0_14px_32px_rgba(62,124,106,0.28)]',
+  blue: 'bg-blue-deep text-paper hover:shadow-[0_14px_32px_rgba(45,112,186,0.28)]'
 }
 
 const sizeStyles = {
@@ -31,8 +31,8 @@ export default function NeonButton({
 }: NeonButtonProps) {
   const baseStyles = `
     inline-flex items-center justify-center
-    font-bold rounded-lg
-    shadow-[0_0_20px_rgba(0,255,0,0.3)]
+    font-semibold rounded-lg
+    shadow-[0_8px_20px_rgba(26,19,8,0.08)]
     transition-all duration-300
     hover:-translate-y-0.5
     ${variantStyles[variant]}

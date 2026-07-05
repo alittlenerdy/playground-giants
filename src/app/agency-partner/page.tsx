@@ -45,13 +45,13 @@ export default function AgencyPartnerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-space-deep">
+    <div className="min-h-screen bg-paper">
       <Header />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-[120px]" />
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-neon-purple/12 rounded-full blur-[120px]" />
           <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-neon-green/10 rounded-full blur-[120px]" />
         </div>
 
@@ -61,17 +61,17 @@ export default function AgencyPartnerPage() {
               <span className="text-sm font-mono text-neon-green mb-4 block">
                 {`// AGENCY_PARTNER_PROGRAM`}
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-display leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink mb-6 font-display leading-tight">
                 Add an AI Revenue Stream to{' '}
                 <GradientText>Your Agency</GradientText>
               </h1>
-              <p className="text-xl text-white/60 mb-8">
+              <p className="text-xl text-ink-3 mb-8">
                 Get our white-label AI tool + monthly expert audits. Sell higher-value retainers
                 without doing the work.
               </p>
               <a
                 href="#apply"
-                className="inline-flex items-center justify-center px-8 py-4 bg-neon-green text-black font-bold rounded-lg shadow-[0_0_20px_rgba(0,255,0,0.3)] hover:shadow-[0_0_40px_rgba(0,255,0,0.6)] transition-all duration-300 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center px-8 py-4 bg-neon-green text-paper font-bold rounded-lg shadow-[0_8px_20px_rgba(26,19,8,0.08)] hover:shadow-[0_14px_32px_rgba(74,149,224,0.28)] transition-all duration-300 hover:-translate-y-0.5"
               >
                 Claim 1 of 10 Spots →
               </a>
@@ -85,7 +85,7 @@ export default function AgencyPartnerPage() {
                   width={556}
                   height={400}
                   alt="Dashboard interface for Brilliant Nerd showing Upload Design Screenshot page."
-                  className="relative rounded-xl border border-white/10 shadow-2xl"
+                  className="relative rounded-xl border border-line shadow-2xl"
                 />
               </div>
             </ScrollReveal>
@@ -94,17 +94,17 @@ export default function AgencyPartnerPage() {
       </section>
 
       {/* Bundle Section */}
-      <section className="py-20 bg-space-mid/30">
+      <section className="py-20 bg-cream-2/60">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <GlassCard className="p-8 md:p-12">
               <div className="grid md:grid-cols-2 gap-8 md:gap-12">
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">01. White-Label AI</h2>
+                  <h2 className="text-2xl font-bold text-ink mb-2">01. White-Label AI</h2>
                   <span className="inline-block px-3 py-1 bg-neon-green/20 text-neon-green text-sm font-mono rounded mb-4">
                     $97/mo Value
                   </span>
-                  <ul className="space-y-2 text-white/60">
+                  <ul className="space-y-2 text-ink-3">
                     <li className="flex items-center gap-2">
                       <span className="text-neon-green">✓</span> Your Agency Domain
                     </li>
@@ -117,11 +117,11 @@ export default function AgencyPartnerPage() {
                   </ul>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">02. Strategic Audits</h2>
+                  <h2 className="text-2xl font-bold text-ink mb-2">02. Strategic Audits</h2>
                   <span className="inline-block px-3 py-1 bg-neon-purple/20 text-neon-purple text-sm font-mono rounded mb-4">
                     $400/mo Value
                   </span>
-                  <ul className="space-y-2 text-white/60">
+                  <ul className="space-y-2 text-ink-3">
                     <li className="flex items-center gap-2">
                       <span className="text-neon-green">✓</span> We audit your client sites
                     </li>
@@ -139,7 +139,7 @@ export default function AgencyPartnerPage() {
 
           <ScrollReveal delay={100}>
             <div className="mt-8 text-center">
-              <p className="text-2xl md:text-3xl font-bold text-white">
+              <p className="text-2xl md:text-3xl font-bold text-ink">
                 Total Value: $500/mo → Partner Price:{' '}
                 <span className="text-neon-green">$300/mo</span>
               </p>
@@ -153,10 +153,10 @@ export default function AgencyPartnerPage() {
         <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <div className="text-center mb-10">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+              <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4 font-display">
                 Secure Your Spot
               </h2>
-              <p className="text-white/60">
+              <p className="text-ink-3">
                 Only 10 spots available for this pilot batch. Priority given to agencies with active
                 client rosters.
               </p>
@@ -168,8 +168,8 @@ export default function AgencyPartnerPage() {
                   <div className="w-16 h-16 bg-neon-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-3xl">✓</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Application Received!</h3>
-                  <p className="text-white/60">
+                  <h3 className="text-xl font-bold text-ink mb-2">Application Received!</h3>
+                  <p className="text-ink-3">
                     Thank you! We&apos;ll review your application and get back to you within 24 hours.
                   </p>
                 </div>
@@ -178,8 +178,8 @@ export default function AgencyPartnerPage() {
                   <div className="w-16 h-16 bg-accent-danger/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-3xl">✕</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Something went wrong</h3>
-                  <p className="text-white/60 mb-4">
+                  <h3 className="text-xl font-bold text-ink mb-2">Something went wrong</h3>
+                  <p className="text-ink-3 mb-4">
                     Please try again or email us directly.
                   </p>
                   <button
@@ -192,7 +192,7 @@ export default function AgencyPartnerPage() {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-white/70 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-ink-2 mb-2">
                       Name
                     </label>
                     <input
@@ -202,12 +202,12 @@ export default function AgencyPartnerPage() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Bob Smith"
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/30 focus:outline-none focus:border-neon-green/50 focus:ring-1 focus:ring-neon-green/50 transition-colors"
+                      className="w-full px-4 py-3 bg-card border border-line rounded-lg text-ink placeholder-white/30 focus:outline-none focus:border-neon-green/50 focus:ring-1 focus:ring-neon-green/50 transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-white/70 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-ink-2 mb-2">
                       Email Address
                     </label>
                     <input
@@ -218,12 +218,12 @@ export default function AgencyPartnerPage() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="email@company.com"
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/30 focus:outline-none focus:border-neon-green/50 focus:ring-1 focus:ring-neon-green/50 transition-colors"
+                      className="w-full px-4 py-3 bg-card border border-line rounded-lg text-ink placeholder-white/30 focus:outline-none focus:border-neon-green/50 focus:ring-1 focus:ring-neon-green/50 transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="agencyUrl" className="block text-sm font-medium text-white/70 mb-2">
+                    <label htmlFor="agencyUrl" className="block text-sm font-medium text-ink-2 mb-2">
                       Agency URL
                     </label>
                     <input
@@ -234,12 +234,12 @@ export default function AgencyPartnerPage() {
                       value={formData.agencyUrl}
                       onChange={(e) => setFormData({ ...formData, agencyUrl: e.target.value })}
                       placeholder="https://www.youragency.com"
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/30 focus:outline-none focus:border-neon-green/50 focus:ring-1 focus:ring-neon-green/50 transition-colors"
+                      className="w-full px-4 py-3 bg-card border border-line rounded-lg text-ink placeholder-white/30 focus:outline-none focus:border-neon-green/50 focus:ring-1 focus:ring-neon-green/50 transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="revenue" className="block text-sm font-medium text-white/70 mb-2">
+                    <label htmlFor="revenue" className="block text-sm font-medium text-ink-2 mb-2">
                       Monthly Revenue
                     </label>
                     <select
@@ -248,19 +248,19 @@ export default function AgencyPartnerPage() {
                       required
                       value={formData.revenue}
                       onChange={(e) => setFormData({ ...formData, revenue: e.target.value })}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-neon-green/50 focus:ring-1 focus:ring-neon-green/50 transition-colors"
+                      className="w-full px-4 py-3 bg-card border border-line rounded-lg text-ink focus:outline-none focus:border-neon-green/50 focus:ring-1 focus:ring-neon-green/50 transition-colors"
                     >
-                      <option value="" className="bg-space-deep">Select one...</option>
-                      <option value="<10k" className="bg-space-deep">&lt; $10k/mo</option>
-                      <option value="10k - 50k" className="bg-space-deep">$10k - $50k/mo</option>
-                      <option value="50k+" className="bg-space-deep">$50k+/mo</option>
+                      <option value="" className="bg-paper">Select one...</option>
+                      <option value="<10k" className="bg-paper">&lt; $10k/mo</option>
+                      <option value="10k - 50k" className="bg-paper">$10k - $50k/mo</option>
+                      <option value="50k+" className="bg-paper">$50k+/mo</option>
                     </select>
                   </div>
 
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="w-full px-8 py-4 bg-neon-green text-black font-bold rounded-lg shadow-[0_0_20px_rgba(0,255,0,0.3)] hover:shadow-[0_0_40px_rgba(0,255,0,0.6)] transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                    className="w-full px-8 py-4 bg-neon-green text-paper font-bold rounded-lg shadow-[0_8px_20px_rgba(26,19,8,0.08)] hover:shadow-[0_14px_32px_rgba(74,149,224,0.28)] transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                   >
                     {status === 'loading' ? 'Submitting...' : 'Apply for Partner Access →'}
                   </button>

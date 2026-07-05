@@ -3,42 +3,47 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --font-newsreader: 'Newsreader', Georgia, serif;
+    --font-switzer: 'Switzer', system-ui, sans-serif;
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-space-deep text-white antialiased;
+    @apply bg-paper text-ink antialiased;
   }
 
   ::selection {
-    @apply bg-neon-green/30 text-white;
+    @apply bg-canary/25 text-ink;
   }
 }
 
 @layer components {
   .gradient-text {
-    @apply bg-gradient-to-r from-neon-green via-neon-blue to-neon-purple bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-canary via-blue-deep to-pink bg-clip-text text-transparent;
   }
 
   .gradient-text-animated {
-    @apply bg-gradient-to-r from-neon-green via-neon-blue to-neon-purple bg-200% bg-clip-text text-transparent animate-gradient-x;
+    @apply bg-gradient-to-r from-canary via-blue-deep to-pink bg-200% bg-clip-text text-transparent animate-gradient-x;
   }
 
   .glass-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+    @apply bg-card border border-line rounded-2xl shadow-[0_10px_30px_rgba(26,19,8,0.06)];
   }
 
   .glass-card-hover {
-    @apply glass-card transition-all duration-300 hover:bg-white/10 hover:border-neon-green/30 hover:shadow-[0_0_30px_rgba(0,255,0,0.1)];
+    @apply glass-card transition-all duration-300 hover:border-canary/40 hover:shadow-[0_16px_40px_rgba(26,19,8,0.1)];
   }
 
   .neon-border {
-    @apply border border-neon-green/50 shadow-[0_0_15px_rgba(0,255,0,0.3)];
+    @apply border border-canary/40;
   }
 
   .neon-glow {
-    @apply shadow-[0_0_20px_rgba(0,255,0,0.5)];
+    @apply shadow-[0_8px_24px_rgba(74,149,224,0.18)];
   }
 
   .section-padding {

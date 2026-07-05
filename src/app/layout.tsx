@@ -1,25 +1,6 @@
 import type { Metadata } from 'next'
-import { Inter, Plus_Jakarta_Sans, Space_Mono } from 'next/font/google'
 import './globals.css'
 import Script from 'next/script'
-
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700']
-})
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: '--font-plus-jakarta-sans',
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800']
-})
-
-const spaceMono = Space_Mono({
-  variable: '--font-space-mono',
-  subsets: ['latin'],
-  weight: ['400', '700']
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.playgroundgiants.com'),
@@ -53,6 +34,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap"
+          rel="stylesheet"
+        />
         <Script id="schema-org" type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
@@ -76,11 +67,7 @@ export default function RootLayout({
           })}
         </Script>
       </head>
-      <body
-        className={`${inter.variable} ${plusJakartaSans.variable} ${spaceMono.variable} font-sans`}
-      >
-        {children}
-      </body>
+      <body className="font-sans">{children}</body>
     </html>
   )
 }

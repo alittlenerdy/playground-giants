@@ -15,13 +15,13 @@ import { CAL_LINKS } from '@/lib/constants'
 
 export default function FencedUpCaseStudyPage() {
   return (
-    <div className="min-h-screen bg-space-deep">
+    <div className="min-h-screen bg-paper">
       <Header />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-green/20 rounded-full blur-[120px]" />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-green/12 rounded-full blur-[120px]" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-blue/10 rounded-full blur-[120px]" />
         </div>
 
@@ -29,10 +29,10 @@ export default function FencedUpCaseStudyPage() {
           <ScrollReveal>
             {/* Status Bar */}
             <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm font-mono text-white/60">
+              <span className="px-3 py-1 bg-card border border-line rounded-full text-sm font-mono text-ink-3">
                 CASE: HIGH-TICKET SCALE
               </span>
-              <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm font-mono text-white/60">
+              <span className="px-3 py-1 bg-card border border-line rounded-full text-sm font-mono text-ink-3">
                 SYSTEM: ACQUISITION ENGINE
               </span>
               <span className="px-3 py-1 bg-neon-green/20 border border-neon-green/30 rounded-full text-sm font-mono text-neon-green">
@@ -40,11 +40,11 @@ export default function FencedUpCaseStudyPage() {
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 font-display text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink mb-6 font-display text-center">
               Scaling High-Ticket Local Revenue by{' '}
               <GradientText>147%</GradientText>
             </h1>
-            <p className="text-xl text-white/60 max-w-3xl mx-auto mb-10 text-center">
+            <p className="text-xl text-ink-3 max-w-3xl mx-auto mb-10 text-center">
               How we installed the automated Acquisition Engine to capture demand for a high-volume
               local service business.
             </p>
@@ -58,7 +58,7 @@ export default function FencedUpCaseStudyPage() {
                 width={800}
                 height={500}
                 alt="Screenshot of Fenced Up website showing local SEO metrics"
-                className="relative rounded-xl border border-white/10 shadow-2xl w-full"
+                className="relative rounded-xl border border-line shadow-2xl w-full"
                 priority
               />
             </div>
@@ -67,26 +67,26 @@ export default function FencedUpCaseStudyPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-space-mid/30 border-y border-white/5">
+      <section className="py-16 bg-cream-2/60 border-y border-line">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-3 gap-8 text-center">
             <ScrollReveal>
               <div className="text-4xl md:text-5xl font-bold text-neon-green mb-2">
                 <AnimatedCounter end={715} />
               </div>
-              <p className="text-white/40 text-sm">Ad Sessions</p>
+              <p className="text-ink-3 text-sm">Ad Sessions</p>
             </ScrollReveal>
             <ScrollReveal delay={100}>
               <div className="text-4xl md:text-5xl font-bold text-neon-blue mb-2">
                 <AnimatedCounter end={5400} suffix="+" />
               </div>
-              <p className="text-white/40 text-sm">Engagement Events</p>
+              <p className="text-ink-3 text-sm">Engagement Events</p>
             </ScrollReveal>
             <ScrollReveal delay={200}>
               <div className="text-4xl md:text-5xl font-bold text-neon-purple mb-2">
                 <AnimatedCounter end={883} />
               </div>
-              <p className="text-white/40 text-sm">Active Users</p>
+              <p className="text-ink-3 text-sm">Active Users</p>
             </ScrollReveal>
           </div>
         </div>
@@ -97,16 +97,16 @@ export default function FencedUpCaseStudyPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Situational Analysis */}
           <ScrollReveal>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 font-display">
+            <h2 className="text-2xl md:text-3xl font-bold text-ink mb-6 font-display">
               1. Situational Analysis
             </h2>
             <GlassCard className="p-8 mb-12">
-              <ul className="space-y-4 text-white/70">
+              <ul className="space-y-4 text-ink-2">
                 <li className="flex gap-3">
                   <span className="text-neon-green shrink-0">→</span>
                   <span>
                     The client possessed a high-quality service delivery mechanism but suffered from{' '}
-                    <strong className="text-white">analog dependency</strong>. Reliance on
+                    <strong className="text-ink">analog dependency</strong>. Reliance on
                     inconsistent word-of-mouth created a &apos;feast or famine&apos; revenue cycle,
                     with zero data visibility into real-time market demand.
                   </span>
@@ -132,7 +132,7 @@ export default function FencedUpCaseStudyPage() {
 
           {/* Mission Parameters */}
           <ScrollReveal>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 font-display">
+            <h2 className="text-2xl md:text-3xl font-bold text-ink mb-6 font-display">
               2. Mission Parameters
             </h2>
             <div className="grid md:grid-cols-2 gap-4 mb-12">
@@ -145,7 +145,7 @@ export default function FencedUpCaseStudyPage() {
               ].map((item) => (
                 <GlassCard key={item.label} className="p-4">
                   <span className="text-neon-green font-semibold">{item.label}</span>
-                  <span className="text-white/60"> {item.desc}</span>
+                  <span className="text-ink-3"> {item.desc}</span>
                 </GlassCard>
               ))}
             </div>
@@ -153,7 +153,7 @@ export default function FencedUpCaseStudyPage() {
 
           {/* System Deployment */}
           <ScrollReveal>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 font-display">
+            <h2 className="text-2xl md:text-3xl font-bold text-ink mb-6 font-display">
               3. System Deployment
             </h2>
           </ScrollReveal>
@@ -161,10 +161,10 @@ export default function FencedUpCaseStudyPage() {
           {/* Phase 1 */}
           <ScrollReveal>
             <GlassCard className="p-8 mb-8">
-              <h3 className="text-xl font-semibold text-white mb-4">
+              <h3 className="text-xl font-semibold text-ink mb-4">
                 <span className="text-neon-green">Phase 1:</span> Core Infrastructure
               </h3>
-              <ul className="space-y-3 text-white/70 mb-6">
+              <ul className="space-y-3 text-ink-2 mb-6">
                 <li className="flex gap-2">
                   <span className="text-neon-green">✓</span>
                   Rebuilt the entire Fenced Up website from HTML into Webflow with no prior template.
@@ -190,7 +190,7 @@ export default function FencedUpCaseStudyPage() {
 
           {/* Video Embed */}
           <ScrollReveal>
-            <div className="mb-8 rounded-xl overflow-hidden border border-white/10">
+            <div className="mb-8 rounded-xl overflow-hidden border border-line">
               <div className="relative pb-[56.25%] h-0">
                 <iframe
                   src="https://www.youtube.com/embed/K383IQcjTvQ?autoplay=0&mute=1&controls=1&loop=1&playlist=K383IQcjTvQ&showinfo=0&rel=0"
@@ -206,10 +206,10 @@ export default function FencedUpCaseStudyPage() {
           {/* Phase 2 */}
           <ScrollReveal>
             <GlassCard className="p-8 mb-8">
-              <h3 className="text-xl font-semibold text-white mb-4">
+              <h3 className="text-xl font-semibold text-ink mb-4">
                 <span className="text-neon-blue">Phase 2:</span> Asset Configuration
               </h3>
-              <ul className="space-y-3 text-white/70 mb-6">
+              <ul className="space-y-3 text-ink-2 mb-6">
                 <li className="flex gap-2">
                   <span className="text-neon-blue">✓</span>
                   Created brand identity (logo, color palette, fonts).
@@ -233,7 +233,7 @@ export default function FencedUpCaseStudyPage() {
                   alt="Fenced Up logo variations"
                   width={700}
                   height={400}
-                  className="rounded-lg border border-white/10"
+                  className="rounded-lg border border-line"
                 />
               </div>
             </GlassCard>
@@ -242,10 +242,10 @@ export default function FencedUpCaseStudyPage() {
           {/* Phase 3 */}
           <ScrollReveal>
             <GlassCard className="p-8 mb-8">
-              <h3 className="text-xl font-semibold text-white mb-4">
+              <h3 className="text-xl font-semibold text-ink mb-4">
                 <span className="text-neon-purple">Phase 3:</span> Market Trust Protocols
               </h3>
-              <ul className="space-y-3 text-white/70 mb-6">
+              <ul className="space-y-3 text-ink-2 mb-6">
                 <li className="flex gap-2">
                   <span className="text-neon-purple">✓</span>
                   Claimed and verified Fenced Up&apos;s GBP in-person using photo verification.
@@ -271,7 +271,7 @@ export default function FencedUpCaseStudyPage() {
                   alt="GBP post updates dashboard"
                   width={500}
                   height={300}
-                  className="rounded-lg border border-white/10"
+                  className="rounded-lg border border-line"
                 />
               </div>
             </GlassCard>
@@ -280,10 +280,10 @@ export default function FencedUpCaseStudyPage() {
           {/* Phase 4 */}
           <ScrollReveal>
             <GlassCard className="p-8 mb-8">
-              <h3 className="text-xl font-semibold text-white mb-4">
+              <h3 className="text-xl font-semibold text-ink mb-4">
                 <span className="text-neon-green">Phase 4:</span> Revenue Operations (RevOps)
               </h3>
-              <ul className="space-y-3 text-white/70 mb-6">
+              <ul className="space-y-3 text-ink-2 mb-6">
                 <li className="flex gap-2">
                   <span className="text-neon-green">✓</span>
                   <span>Deployed Server-Side Tracking (GTM) to bypass cookie restrictions and capture 100% of conversion data.</span>
@@ -307,7 +307,7 @@ export default function FencedUpCaseStudyPage() {
                   alt="Website traffic dashboard"
                   width={800}
                   height={500}
-                  className="rounded-lg border border-white/10"
+                  className="rounded-lg border border-line"
                 />
               </div>
             </GlassCard>
@@ -316,7 +316,7 @@ export default function FencedUpCaseStudyPage() {
       </section>
 
       {/* Tech Stack - Animated Marquee */}
-      <section className="py-16 bg-space-mid/50 border-y border-white/10 overflow-hidden">
+      <section className="py-16 bg-cream-2/70 border-y border-line overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-sm font-mono text-neon-green mb-10 tracking-wider">
             POWERED BY MODERN INFRASTRUCTURE
@@ -412,10 +412,10 @@ export default function FencedUpCaseStudyPage() {
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">
+            <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4 font-display">
               Ready to dominate <GradientText>your neighborhood?</GradientText>
             </h2>
-            <p className="text-xl text-white/60 mb-10">
+            <p className="text-xl text-ink-3 mb-10">
               Stop chasing leads. Start attracting them.
             </p>
             <NeonButton href={CAL_LINKS.MAIN} size="lg" external>

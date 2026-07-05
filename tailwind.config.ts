@@ -11,27 +11,51 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Enkily editorial palette
+        paper: '#FAF6EE',
+        card: '#FFFCF6',
+        'cream-2': '#F2EADB',
+        line: {
+          DEFAULT: '#E5DBC8',
+          soft: '#EFE6D2'
+        },
+        ink: {
+          DEFAULT: '#1A1308',
+          2: '#3D2F1A',
+          3: '#776652'
+        },
+        canary: '#4A95E0',
+        'blue-deep': '#2D70BA',
+        pink: {
+          DEFAULT: '#FF7099',
+          soft: '#FFEAF1'
+        },
+        sage: {
+          DEFAULT: '#3E7C6A',
+          soft: '#E4F1EB'
+        },
+        // Legacy keys remapped so old classes re-skin to the new palette
         neon: {
-          green: '#00FF00',
-          purple: '#9D00FF',
-          blue: '#00D9FF',
-          pink: '#FF00FF'
+          green: '#4A95E0', // canary
+          purple: '#3E7C6A', // sage
+          blue: '#2D70BA', // blue-deep
+          pink: '#FF7099' // pink
         },
         space: {
-          deep: '#0A0E27',
-          mid: '#1a1f3a',
-          light: '#2d3454'
+          deep: '#FAF6EE', // paper
+          mid: '#F2EADB', // cream-2
+          light: '#FFFCF6' // card
         },
         accent: {
-          warning: '#FFD700',
-          success: '#00FF00',
-          danger: '#FF006E'
+          warning: '#E0A93E',
+          success: '#4A95E0',
+          danger: '#FF7099'
         }
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-plus-jakarta-sans)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-space-mono)', 'monospace']
+        sans: ['var(--font-switzer)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-newsreader)', 'Georgia', 'serif'],
+        mono: ['ui-monospace', 'Menlo', 'monospace']
       },
       animation: {
         'gradient-x': 'gradient-x 3s ease infinite',
@@ -60,8 +84,8 @@ const config: Config = {
           '50%': { transform: 'translateY(-20px)' }
         },
         'pulse-glow': {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(0, 255, 0, 0.4)' },
-          '50%': { boxShadow: '0 0 40px rgba(0, 255, 0, 0.8)' }
+          '0%, 100%': { boxShadow: '0 8px 24px rgba(74, 149, 224, 0.12)' },
+          '50%': { boxShadow: '0 12px 32px rgba(74, 149, 224, 0.22)' }
         },
         'marquee': {
           '0%': { transform: 'translateX(0%)' },

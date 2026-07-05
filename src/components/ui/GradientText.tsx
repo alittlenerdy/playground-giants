@@ -13,7 +13,7 @@ export default function GradientText({
 }: GradientTextProps) {
   return (
     <span
-      className={`bg-gradient-to-r from-neon-green via-neon-blue to-neon-purple bg-clip-text text-transparent ${
+      className={`bg-gradient-to-r from-canary via-blue-deep to-pink bg-clip-text text-transparent ${
         animate ? 'bg-200% animate-gradient-x' : ''
       } ${className}`}
     >
