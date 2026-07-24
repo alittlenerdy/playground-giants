@@ -25,6 +25,7 @@ const STATIC_ROUTES: { path: string; priority: number }[] = [
   { path: '/workflow-audit', priority: 0.95 },
   { path: '/packages', priority: 0.9 },
   { path: '/case-studies/personal-injury-intake', priority: 0.9 },
+  { path: '/case-studies/medical-practice-audit', priority: 0.9 },
   { path: '/contact', priority: 0.9 },
   { path: '/about', priority: 0.7 },
   { path: '/writing', priority: 0.7 },

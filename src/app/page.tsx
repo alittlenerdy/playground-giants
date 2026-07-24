@@ -241,19 +241,23 @@ export default function Home() {
               <span className="text-sm font-semibold text-blue-deep">Read the case study</span>
             </Link>
 
-            <div className="rounded-2xl border border-line bg-card p-6">
+            <Link
+              href="/case-studies/medical-practice-audit"
+              className="rounded-2xl border border-line bg-card p-6 hover:border-canary/50 transition-colors"
+            >
               <p className="text-xs font-semibold tracking-[0.12em] uppercase text-blue-deep mb-3">
                 Medical
               </p>
               <h3 className="font-display text-lg font-semibold text-ink mb-2 leading-snug">
-                An orthopaedic practice, 18 years of records
+                A specialist practice, 18 years of records
               </h3>
-              <p className="text-sm text-ink-3 leading-relaxed">
-                Referral tracking and a self-routing team inbox, built inside the Google
-                Workspace and the agreement they already had. Nothing new to sign, no patient
-                data anywhere new, AI confined to the back office.
+              <p className="text-sm text-ink-3 leading-relaxed mb-3">
+                What the audit found: referrals chased from memory, email as the coordination
+                layer, and reporting quietly wrong. The whole first phase could be built inside
+                an agreement they already held.
               </p>
-            </div>
+              <span className="text-sm font-semibold text-blue-deep">Read the case study</span>
+            </Link>
 
             <div className="rounded-2xl border border-line bg-card p-6">
               <p className="text-xs font-semibold tracking-[0.12em] uppercase text-blue-deep mb-3">
