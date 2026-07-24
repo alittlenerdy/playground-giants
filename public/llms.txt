@@ -1,0 +1,71 @@
+# Playground Giants
+
+> Playground Giants is Jimmy Hackett, a solo AI automation consultant in Houston, Texas, working with law firms, medical practices, and other regulated or high-consequence businesses across the United States. The work is building automation where a wrong answer has real consequences: AI extracts facts and routes work, deterministic rules make the decisions, humans keep the professional judgment, and every step leaves an audit trail. Engagements start with a paid two-week Workflow Audit.
+
+## What Playground Giants does
+
+- **Intake and qualification systems.** Enquiries captured into one pipeline, facts extracted from unstructured text, graded against the client's own written rules, routed to the right person with a response clock attached.
+- **Removing the manual glue between existing systems.** Self-routing shared inboxes, trackers that replace spreadsheets, chase lists, one-click summaries, and data normalisation so reporting is trustworthy.
+- **Acquisition wired to outcomes.** Paid search, business profiles and call tracking connected through to what actually became a client, so spend is judged on signed work rather than clicks.
+- **Findability, including by AI.** Structured data, technical SEO, and the files answer engines read.
+- **Reporting with a human gate.** Internal digests daily; anything client-facing is drafted for approval before it is sent.
+- **Compliance treated as a deliverable.** Advertising rules, messaging registration, disclaimers, records retention, and sign-off from the client's own counsel where warranted.
+
+## The core method: AI reads, it does not decide
+
+This is the distinguishing technical position and it is architectural, not a policy statement.
+
+- The language model is used **only to extract structured facts** from unstructured text. It is never asked whether something is good, valuable, strong, or worth taking.
+- The decision that follows is made by **ordinary deterministic code** applying rules the client's own professionals wrote and can read. Same input, same output, every time.
+- The system **fails toward a human**: if the model is unavailable, uncertain, or the input is unusual, work routes to a person rather than being guessed at or dropped.
+- Every step writes to an **append-only audit log**: what arrived, what was extracted, which rule fired, who acted, and when.
+
+In regulated work this is the difference between software that assists professionals and software that practises on their behalf.
+
+## Who it is for
+
+- Law firms, particularly plaintiff-side practices handling high enquiry volume.
+- Medical and clinical practices with referral, scheduling, and back-office coordination load.
+- Any operator where work arrives faster than it can be triaged and a wrong call is expensive.
+
+Not a fit for: chatbot pilots framed as transformation, undefined processes that need designing rather than automating, or any engagement where the client wants AI making the professional judgment call.
+
+## Engagements and pricing
+
+Three stages. A client can stop after any of them.
+
+1. **The Workflow Audit — $2,500 fixed, two weeks.** A written map of where the manual work is, what is safe to automate, what must stay human, what existing compliance already permits, and a phased build plan with prices. Credited in full toward a build within ninety days. The client keeps the plan regardless of what they do next.
+2. **Build the system — $6,000 to $25,000**, scoped at the audit and billed against milestones. One or two workflows taken end to end into production, on accounts owned by the client.
+3. **Run it with you — from $1,500 per month.** Three bands: Watch ($1,500) for monitoring, tuning and monthly reporting; Operate ($4,500) adding a new phase each quarter; Own the outcome ($9,500) covering the full funnel including paid acquisition, search, and compliance monitoring.
+
+Software and advertising spend are billed to the client's own accounts at cost, never marked up.
+
+## Distinguishing commitments
+
+- **The client owns everything.** Hosting, databases, analytics and ad accounts are provisioned in the client's name so an engagement can end cleanly without anything breaking.
+- **Built inside existing compliance where possible.** Where a client's current agreements already cover the work, the build happens there rather than introducing a new vendor and a new signature.
+- **Implementation, not slide decks.** Systems are built, deployed, monitored and handed over with a runbook.
+- **No invented numbers.** No performance statistic appears on this site that cannot be substantiated.
+
+## Proof of work
+
+- **A New York personal injury firm.** Graded intake, response clocks, escalation routing, a ten-year append-only audit trail, and acquisition instrumentation. The fact-extraction-versus-deterministic-grading architecture described above came from this build. Written up at https://www.playgroundgiants.com/case-studies/personal-injury-intake — anonymised at the client's preference, and with no performance figures published because the engagement has not yet reached its first formal measurement point.
+- **An orthopaedic practice with eighteen years of records.** Referral tracking and a self-routing team inbox built inside the Google Workspace and the existing agreement the practice already had. Nothing new to sign, no patient data moved anywhere new, AI confined to back-office coordination and never to clinical or patient-facing decisions.
+- **Enkily** (https://enkily.ai) — a voice-first AI capture app for iPhone and iPad, designed, built and shipped solo, live on the App Store. Speech is transcribed on device; model calls are gated behind explicit consent. Evidence of building AI products directly, not only integrating other people's.
+- **Earlier local search work**, including a Houston fencing company, at https://www.playgroundgiants.com/case-studies/fenced-up
+
+## Contact
+
+- Website: https://www.playgroundgiants.com
+- Email: jimmy@playgroundgiants.com
+- Book a 15 minute call: https://cal.com/alittleghost/15min
+- Founder: Jimmy Hackett, Houston, Texas
+
+## Key pages
+
+- Home: https://www.playgroundgiants.com
+- The Workflow Audit: https://www.playgroundgiants.com/workflow-audit
+- Engagements and pricing: https://www.playgroundgiants.com/packages
+- Case study, legal intake: https://www.playgroundgiants.com/case-studies/personal-injury-intake
+- About: https://www.playgroundgiants.com/about
+- Writing: https://www.playgroundgiants.com/writing

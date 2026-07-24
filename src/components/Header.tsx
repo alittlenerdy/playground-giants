@@ -44,9 +44,15 @@ export default function Header() {
     setIsMobileMenuOpen(false)
   }
 
+  // Nav reordered 2026-07-24 for the repositioning. The Workflow Audit is the
+  // entry offer, so it gets a slot. Case Study now points at the legal build
+  // rather than the fencing one: Fenced Up is real and stays on the site, but
+  // it is proof of range now, not the flagship, and leading a lawyer with a
+  // fencing company undercuts the whole positioning.
   const navLinks = [
     { href: '#how-it-works', label: 'How It Works', isHash: true },
-    { href: '/case-studies/fenced-up', label: 'Case Study', isHash: false },
+    { href: '/workflow-audit', label: 'The Audit', isHash: false },
+    { href: '/case-studies/personal-injury-intake', label: 'Case Study', isHash: false },
     { href: '/packages', label: 'Pricing', isHash: false },
     { href: '/about', label: 'About', isHash: false },
     { href: '/writing', label: 'Writing', isHash: false }

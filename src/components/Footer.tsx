@@ -5,10 +5,14 @@ import { CONTACT } from '@/lib/constants'
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
+  // Updated 2026-07-24. Dropped the "Tools" link: it pointed at
+  // /tools-brilliant-nerd, and Brilliantnerd has been dormant since
+  // 2026-04-30. That page is now deleted rather than left live for a
+  // shelved brand.
   const footerLinks = [
-    { href: '/case-studies/fenced-up', label: 'Case Study' },
+    { href: '/workflow-audit', label: 'The Audit' },
     { href: '/packages', label: 'Pricing' },
-    { href: '/tools-brilliant-nerd', label: 'Tools' },
+    { href: '/case-studies/personal-injury-intake', label: 'Case Study' },
     { href: '/agency-partner', label: 'Agency Partner' },
     { href: `mailto:${CONTACT.EMAIL}`, label: 'Email', external: true }
   ]

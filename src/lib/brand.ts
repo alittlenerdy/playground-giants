@@ -1,11 +1,25 @@
 export const brand = {
   name: 'Playground Giants',
-  tagline: "We don't just move the needle. We break the scoreboard.",
+  tagline: 'AI that does the busywork. A human still makes the call.',
 
+  // Repositioned 2026-07-24. The old line ("We don't just move the needle. We
+  // break the scoreboard.") and the old voice belonged to the home-services SEO
+  // offer. The buyer now is a lawyer, a practice manager, or an operator in a
+  // regulated business, and for them swagger reads as risk. Calm and specific
+  // outsells confident and loud here.
   voice: {
-    primary: 'Direct, confident, no bullshit',
-    tone: 'Results-obsessed with personality',
-    avoid: ['corporate speak', 'we leverage', 'synergy', 'solutions']
+    primary: 'Plain, specific, first-person. Jimmy solo, never "we".',
+    tone: 'Calm and precise. Name the risk before naming the benefit.',
+    avoid: [
+      'corporate speak',
+      'we leverage',
+      'synergy',
+      'solutions',
+      'we/our/us — Playground Giants is one person',
+      'invented statistics or percentages',
+      'passive-income framing ("just answer the phone")',
+      'em-dashes in body copy'
+    ]
   },
 
   colors: {
