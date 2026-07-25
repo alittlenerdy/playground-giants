@@ -5,7 +5,17 @@ import './globals.css'
 // Services" / "roofing, HVAC, fencing". That described a business Jimmy no
 // longer runs, and anchored every visitor to the wrong offer and the wrong
 // price before they read a word of the page.
-const TITLE = 'Playground Giants — AI automation for firms and practices that cannot afford a wrong answer'
+// Two titles on purpose, split 2026-07-25 after an audit measured the single
+// TITLE at 91 characters. Google truncates around 60, so "that cannot afford a
+// wrong answer" — the entire differentiator — never rendered in a search
+// result. It was doing no work where it cost the most.
+//
+// TITLE is the SERP title and is kept under 60. TITLE_SOCIAL keeps the full
+// positioning line for OG/Twitter cards, where the constraint is far looser and
+// the whole sentence actually displays.
+const TITLE = 'Playground Giants — AI automation for law firms & practices'
+const TITLE_SOCIAL =
+  'Playground Giants — AI automation for firms and practices that cannot afford a wrong answer'
 const DESCRIPTION =
   'I build AI automation for law firms, medical practices, and regulated operators. The AI sorts, extracts and routes. A human still makes the judgment call, and every step leaves an audit trail.'
 
@@ -13,19 +23,28 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.playgroundgiants.com'),
   title: TITLE,
   description: DESCRIPTION,
+  // No page on this site emitted a canonical until 2026-07-25. The apex
+  // redirects to www, so every page was reachable on two hosts with nothing
+  // declaring which one counts.
+  //
+  // './' is RELATIVE and resolves against metadataBase + the current route, so
+  // each page self-canonicalises. An absolute '/' here would point every page
+  // at the homepage and deindex the site — which is why this was verified
+  // against the built HTML on four different routes, not trusted from docs.
+  alternates: { canonical: './' },
   icons: {
     icon: '/images/favicon.png',
     apple: '/images/webclip.png'
   },
   openGraph: {
-    title: TITLE,
+    title: TITLE_SOCIAL,
     description: DESCRIPTION,
     images: ['/images/og_image_charcoal.png'],
     siteName: 'Playground Giants'
   },
   twitter: {
     card: 'summary_large_image',
-    title: TITLE,
+    title: TITLE_SOCIAL,
     description: DESCRIPTION
   }
 }
