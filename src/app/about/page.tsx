@@ -6,13 +6,18 @@ import { GradientText, NeonButton, GlassCard, ScrollReveal, StepIcon } from '@/c
 import { CAL_LINKS } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'About | Playground Giants - Marketing Architect & Automation',
+  // Rewritten 2026-07-25. Everything here was pre-repositioning: "Marketing
+  // Architect", "I don't just build websites", "Houston businesses", "marketing
+  // infrastructure". The 2026-07-24 positioning doc named this exact problem —
+  // "your website describes a different company" — and this page was the last
+  // core route still describing it. 189 chars, too.
+  title: 'About | Playground Giants — AI automation, human judgment',
   description:
-    "I don't just build websites; I build revenue engines. Learn how Playground Giants helps Houston businesses kill manual work and scale through modern marketing infrastructure and automation.",
+    'I build AI automation for law firms, medical practices and other regulated operators. The model reads and routes. A human still makes the call.',
   openGraph: {
-    title: 'About | Playground Giants - Marketing Architect & Automation',
+    title: 'About | Playground Giants — AI automation, human judgment',
     description:
-      "I don't just build websites; I build revenue engines. Learn how Playground Giants helps Houston businesses kill manual work and scale through modern marketing infrastructure and automation.",
+      'I build AI automation for law firms, medical practices and other regulated operators. The model reads and routes. A human still makes the call.',
     images: ['/images/og_image_charcoal.png']
   }
 }
@@ -39,7 +44,7 @@ export default function AboutPage() {
                 <div className="relative">
                   <Image
                     src="/images/Screenshot-2025-03-24-at-09.50.56.png"
-                    alt="Jimmy Hackett - Marketing Architect"
+                    alt="Jimmy Hackett, founder of Playground Giants"
                     width={400}
                     height={400}
                     className="rounded-2xl border-2 border-line shadow-2xl mx-auto"
@@ -57,22 +62,22 @@ export default function AboutPage() {
             <ScrollReveal delay={100}>
               <div>
                 <span className="text-sm font-mono text-neon-green mb-4 block tracking-wider">
-                  FOUNDER / MARKETING ARCHITECT
+                  FOUNDER / AI AUTOMATION
                 </span>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink mb-6 font-display leading-tight">
                   Jimmy<br />
                   <GradientText>Hackett</GradientText>
                 </h1>
                 <p className="text-xl text-ink-3 mb-8 leading-relaxed">
-                  I build revenue engines for home service companies that are tired of
-                  throwing money at marketing that doesn&apos;t work.
+                  I put AI inside regulated work without letting it make the call. Law firms,
+                  medical practices, and other operators who cannot afford a wrong answer.
                 </p>
 
                 {/* Terminal-style tagline */}
                 <GlassCard className="p-4 font-mono text-sm">
                   <span className="text-neon-green">&gt;</span>{' '}
                   <span className="text-ink-2">mission:</span>{' '}
-                  <span className="text-ink">&quot;Kill manual work. Scale revenue.&quot;</span>
+                  <span className="text-ink">&quot;AI does the busywork. A human makes the call.&quot;</span>
                 </GlassCard>
               </div>
             </ScrollReveal>
@@ -84,11 +89,29 @@ export default function AboutPage() {
       <section className="py-16 border-y border-line bg-cream-2/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {/*
+              Replaced 2026-07-25. The old block read 50+ Projects Shipped /
+              $2M+ Revenue Generated / 147% Avg. Traffic Growth / 8+ Years
+              Experience. Two problems, and the smaller one was that they were
+              from the previous positioning.
+
+              The larger one: they were unsubstantiated aggregate results claims
+              on a site now selling to law firms and medical practices — buyers
+              who are themselves regulated on advertising claims and will read a
+              vendor's numbers with that lens. There is an open task on the legal
+              engagement to pull unsubstantiated results claims off a client site
+              before ads run. Selling claim-discipline while displaying
+              unverified numbers undercuts the whole pitch.
+
+              These four describe METHOD, not results, so they need no
+              substantiation beyond the build itself: each is a property of how
+              the systems are architected and is verifiable by reading one.
+            */}
             {[
-              { value: '50+', label: 'Projects Shipped' },
-              { value: '$2M+', label: 'Revenue Generated' },
-              { value: '147%', label: 'Avg. Traffic Growth' },
-              { value: '8+', label: 'Years Experience' }
+              { value: '0', label: 'Decisions Made By A Model' },
+              { value: '100%', label: 'Infrastructure You Own' },
+              { value: '10 yr', label: 'Append-Only Audit Trail' },
+              { value: 'Human', label: 'Fallback When AI Fails' }
             ].map((stat, index) => (
               <ScrollReveal key={stat.label} delay={index * 100}>
                 <div className="text-center">
@@ -122,10 +145,11 @@ export default function AboutPage() {
                   <div>
                     <h3 className="text-xl font-semibold text-ink mb-3">The Problem I Kept Seeing</h3>
                     <p className="text-ink-3 leading-relaxed">
-                      I spent years watching home service business owners burn through their marketing
-                      budgets on agencies that delivered vanity metrics instead of leads. Pretty
-                      websites with zero traffic. Ad campaigns that generated clicks but no calls.
-                      &quot;SEO strategies&quot; that took 18 months to show any results.
+                      The friction inside a law firm or a medical practice is almost never the
+                      software. It is the manual glue between it. Someone re-typing an intake form
+                      into a case system. Someone working out from memory which referral has gone
+                      quiet. The work that appears on nobody&apos;s job description and eats the
+                      week anyway.
                     </p>
                   </div>
                 </div>
@@ -141,10 +165,11 @@ export default function AboutPage() {
                   <div>
                     <h3 className="text-xl font-semibold text-ink mb-3">The Realization</h3>
                     <p className="text-ink-3 leading-relaxed">
-                      A beautiful website is worthless without an engine behind it. What these
-                      businesses needed wasn&apos;t another redesign—they needed infrastructure.
-                      Tracking. Automation. A system that captures demand and converts it into
-                      revenue without requiring 40 hours of manual work every week.
+                      The obvious move is to let the AI decide. In regulated work that is the one
+                      thing you cannot do. So I split it: the model reads documents and extracts
+                      facts, and a deterministic function no model touches makes the actual call.
+                      That split is why a decision can be audited line by line, and why a model
+                      outage degrades to a human instead of dropping the work on the floor.
                     </p>
                   </div>
                 </div>
@@ -160,10 +185,10 @@ export default function AboutPage() {
                   <div>
                     <h3 className="text-xl font-semibold text-ink mb-3">Building Playground Giants</h3>
                     <p className="text-ink-3 leading-relaxed">
-                      So I built the agency I wished existed. One that treats marketing as
-                      infrastructure, not decoration. Where every decision is data-driven.
-                      Where we measure success in revenue, not impressions. Where we actually
-                      give a damn about whether your phone rings.
+                      So I build the automation I would be willing to defend in front of a
+                      regulator. Every step leaves a trail. The infrastructure sits in your
+                      accounts rather than mine, so leaving is a handover and not a hostage
+                      negotiation. And the judgment stays where it belongs, which is with you.
                     </p>
                   </div>
                 </div>
@@ -191,9 +216,9 @@ export default function AboutPage() {
             {[
               {
                 icon: 'tracking' as const,
-                title: 'Data Over Opinions',
+                title: 'Facts Over Judgment',
                 description:
-                  "I don't guess. Every strategy is built on data—your competitors, your market, your numbers. If we can't measure it, we don't do it."
+                  "The model is allowed to read, extract and route. It is never allowed to decide. The call is made by deterministic code you can read line by line."
               },
               {
                 icon: 'build' as const,
@@ -203,9 +228,9 @@ export default function AboutPage() {
               },
               {
                 icon: 'scale' as const,
-                title: 'Revenue Over Vanity',
+                title: 'Auditable Over Clever',
                 description:
-                  "I don't care about impressions or followers. I care about leads, conversions, and revenue. The only metric that matters is your bottom line."
+                  "If a decision cannot be explained to a regulator, a partner or a patient, it does not ship. Every step leaves a trail, on infrastructure you own."
               }
             ].map((item, index) => (
               <ScrollReveal key={item.title} delay={index * 100}>
