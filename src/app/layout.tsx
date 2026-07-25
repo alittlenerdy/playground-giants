@@ -17,7 +17,7 @@ const TITLE = 'Playground Giants — AI automation for law firms & practices'
 const TITLE_SOCIAL =
   'Playground Giants — AI automation for firms and practices that cannot afford a wrong answer'
 const DESCRIPTION =
-  'I build AI automation for law firms, medical practices, and regulated operators. The AI sorts, extracts and routes. A human still makes the judgment call, and every step leaves an audit trail.'
+  'AI automation for law firms, medical practices and regulated operators. The model reads and routes. A human makes the call, and every step is auditable.'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.playgroundgiants.com'),

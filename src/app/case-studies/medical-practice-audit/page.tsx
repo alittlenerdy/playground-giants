@@ -22,7 +22,7 @@ import { CAL_LINKS } from '@/lib/constants'
 export const metadata: Metadata = {
   title: 'Case study: what a workflow audit found in a medical practice',
   description:
-    'A worked example of the diagnosis phase. What the audit found inside a long-established specialist practice, what was safe to automate, what had to stay human, and why the plan started smaller than expected.'
+    'A worked example of the diagnosis phase: what the audit found inside a specialist practice, what was safe to automate, and what had to stay human.'
 }
 
 export default function MedicalPracticeAudit() {

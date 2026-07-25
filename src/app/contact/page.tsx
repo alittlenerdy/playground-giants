@@ -51,7 +51,7 @@ export default function ContactPage() {
             <ScrollReveal>
               <div className="space-y-6">
                 <GlassCard className="p-6">
-                  <h3 className="text-lg font-semibold text-ink mb-4">Quick Links</h3>
+                  <h2 className="text-lg font-semibold text-ink mb-4">Quick Links</h2>
                   <div className="space-y-4">
                     <a
                       href={`mailto:${CONTACT.EMAIL}?subject=Inquiry from Playground Giants`}
@@ -82,7 +82,7 @@ export default function ContactPage() {
                 </GlassCard>
 
                 <GlassCard className="p-6">
-                  <h3 className="text-lg font-semibold text-ink mb-4">What to Expect</h3>
+                  <h2 className="text-lg font-semibold text-ink mb-4">What to Expect</h2>
                   <ul className="space-y-3 text-ink-3">
                     <li className="flex items-start gap-2">
                       <span className="text-neon-green mt-1">✓</span>

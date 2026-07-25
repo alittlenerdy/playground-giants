@@ -6,7 +6,16 @@ import { getAllPosts } from '@/lib/writing'
 export const metadata = {
   title: 'Writing — Playground Giants',
   description: 'Building in public — what we ship, what breaks, what we learn.',
-  alternates: { types: { 'application/rss+xml': '/writing/rss.xml' } }
+  // `canonical` is repeated here on purpose. Next.js REPLACES the whole
+  // `alternates` object during metadata merging rather than deep-merging it, so
+  // declaring `types` for the RSS feed silently dropped the `canonical: './'`
+  // inherited from the root layout — and /writing was the only page on the site
+  // without one. Any future page that sets `alternates` for any reason has to
+  // restate canonical too.
+  alternates: {
+    canonical: '/writing',
+    types: { 'application/rss+xml': '/writing/rss.xml' }
+  }
 }
 
 const personLd = {

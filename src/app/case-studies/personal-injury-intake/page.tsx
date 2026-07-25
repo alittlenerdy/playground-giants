@@ -21,7 +21,7 @@ import { CAL_LINKS } from '@/lib/constants'
 export const metadata: Metadata = {
   title: 'Case study: intake and grading for a New York personal injury firm',
   description:
-    'How I built graded intake, response clocks and a regulator-ready audit trail for a NYC personal injury firm, with the AI restricted to extracting facts and never to deciding merit.'
+    'Graded intake, response clocks and a regulator-ready audit trail for a NYC personal injury firm. The AI extracts facts. It never decides merit.'
 }
 
 export default function PersonalInjuryIntake() {
