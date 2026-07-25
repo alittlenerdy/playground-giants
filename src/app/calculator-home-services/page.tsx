@@ -6,11 +6,11 @@ import Footer from '@/components/Footer'
 export const metadata: Metadata = {
   title: 'How Much Revenue Is Sitting In Your CRM? | Free Calculator',
   description:
-    'Most home service businesses have 20-40% of leads sitting uncontacted. Use our free 60-second calculator to see exactly how much revenue you are losing right now.',
+    'Paid for leads that never got a second call? Use the free 60-second calculator to put a number on what yours are worth.',
   openGraph: {
     title: 'How Much Revenue Is Sitting In Your CRM? | Free Calculator',
     description:
-      'Most home service businesses have 20-40% of leads sitting uncontacted. Use our free 60-second calculator to see exactly how much revenue you are losing right now.',
+      'Paid for leads that never got a second call? Use the free 60-second calculator to put a number on what yours are worth.',
     images: ['/images/og-1200x630.png']
   }
 }
@@ -25,8 +25,8 @@ export default function CalculatorHomeServicesPage() {
         <div className="container-main">
           <h1 className="hero-heading">How Much Revenue Is Sitting In Your CRM?</h1>
           <p className="hero-subhead">
-            Most home service businesses have 20-40% of leads sitting uncontacted. That&apos;s
-            thousands in lost jobs. Find out how much in 60 seconds.
+            You paid for leads that never got a second call. Put a number on what yours are
+            worth, using your figures, in 60 seconds.
           </p>
           <a href="#calculator" className="button-primary hero w-button">
             Calculate My Lost Revenue
@@ -40,7 +40,7 @@ export default function CalculatorHomeServicesPage() {
           <h2 className="heading-problem">Where Your Revenue Is Leaking</h2>
           <div className="grid-problem">
             <div className="card-problem">
-              <div className="icon-stat">40%</div>
+              <div className="icon-stat">Cold</div>
               <h3 className="icon-text">Leads Never Contacted</h3>
               <p className="icon-paragraph">
                 From Angi, HomeAdvisor, Thumbtack - paid for but sitting cold in your CRM.
