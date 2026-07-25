@@ -108,10 +108,10 @@ export default function AboutPage() {
               the systems are architected and is verifiable by reading one.
             */}
             {[
+              { value: '2 wk', label: 'Workflow Audit' },
+              { value: '$2,500', label: 'Credited Toward The Build' },
               { value: '0', label: 'Decisions Made By A Model' },
-              { value: '100%', label: 'Infrastructure You Own' },
-              { value: '10 yr', label: 'Append-Only Audit Trail' },
-              { value: 'Human', label: 'Fallback When AI Fails' }
+              { value: '100%', label: 'Infrastructure You Own' }
             ].map((stat, index) => (
               <ScrollReveal key={stat.label} delay={index * 100}>
                 <div className="text-center">
