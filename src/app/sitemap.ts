@@ -16,8 +16,11 @@ const BASE = 'https://www.playgroundgiants.com'
 //
 // Reordered 2026-07-24 for the repositioning. /workflow-audit is the entry
 // offer and the legal case study is the flagship proof, so both rank high.
-// The home-services and medspa pages stay listed (they may still pull traffic)
-// but drop down, and /tools-brilliant-nerd is GONE: Brilliantnerd has been
+// 2026-07-26: /medspa-guide and /calculator-home-services are GONE. Both sold
+// the home-services and medspa offer this site stopped selling on 2026-07-24,
+// so 2 of 14 pages contradicted the positioning. Both now 308 in next.config.ts:
+// the calculator to its rebuilt successor at /calculator, the medspa guide to
+// /workflow-audit since it has no equivalent. /tools-brilliant-nerd is GONE too: Brilliantnerd has been
 // dormant since 2026-04-30, and a live page for a shelved brand is exactly the
 // kind of stale surface that should not be advertised to crawlers.
 const STATIC_ROUTES: { path: string; priority: number }[] = [
@@ -31,8 +34,7 @@ const STATIC_ROUTES: { path: string; priority: number }[] = [
   { path: '/writing', priority: 0.7 },
   { path: '/agency-partner', priority: 0.6 },
   { path: '/case-studies/fenced-up', priority: 0.5 },
-  { path: '/medspa-guide', priority: 0.4 },
-  { path: '/calculator-home-services', priority: 0.4 }
+  { path: '/calculator', priority: 0.6 }
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
