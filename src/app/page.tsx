@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import FlowDiagram from '@/components/FlowDiagram'
 import { CAL_LINKS } from '@/lib/constants'
 
 // Repositioned 2026-07-24.
@@ -70,6 +71,8 @@ export default function Home() {
               Or book a 15 minute call
             </a>
           </div>
+
+          <FlowDiagram />
         </div>
       </section>
 
