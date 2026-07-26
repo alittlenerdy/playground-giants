@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { CAL_LINKS } from '@/lib/constants'
+import Faq, { type FaqItem } from '@/components/Faq'
 
 // New page, 2026-07-24. This is the rung that was missing from the ladder.
 //
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     'Two weeks, $2,500, credited toward a build. A written map of where your manual work is, what is safe to automate, what must stay human, and what it would cost.'
 }
 
-const FAQS = [
+const FAQS: FaqItem[] = [
   {
     q: 'What do I actually receive?',
     a: 'A written report and a phased plan. The report maps your current workflow step by step, flags where the time goes, and marks each step as safe to automate, needs a human checkpoint, or should stay manual. The plan sequences the work into phases with prices, ordered so the first phase pays for itself before the next begins.'
@@ -48,22 +49,6 @@ export default function WorkflowAudit() {
   return (
     <div className="min-h-screen bg-paper">
       <Header />
-
-      {/* FAQPage schema, server-rendered so answer engines can read it. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: FAQS.map((f) => ({
-              '@type': 'Question',
-              name: f.q,
-              acceptedAnswer: { '@type': 'Answer', text: f.a }
-            }))
-          })
-        }}
-      />
 
       <section className="pt-36 pb-16 md:pt-44 border-b border-line-soft">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -228,23 +213,7 @@ export default function WorkflowAudit() {
           </div>
         </div>
       </section>
-
-      {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-      <section className="py-16 md:py-20 border-b border-line-soft">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl md:text-4xl font-medium tracking-tight text-ink mb-9">
-            Questions people ask
-          </h2>
-          <div className="space-y-7">
-            {FAQS.map((f) => (
-              <div key={f.q}>
-                <h3 className="font-display text-lg font-semibold text-ink mb-1.5">{f.q}</h3>
-                <p className="text-ink-3 leading-relaxed">{f.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Faq items={FAQS} />
 
       <section className="py-20 md:py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

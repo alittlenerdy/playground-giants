@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { CAL_LINKS } from '@/lib/constants'
+import Faq, { type FaqItem } from '@/components/Faq'
 
 // Anonymized case study, 2026-07-24. Framing decision worth recording:
 //
@@ -24,6 +25,32 @@ export const metadata: Metadata = {
   description:
     'A worked example of the diagnosis phase: what the audit found inside a specialist practice, what was safe to automate, and what had to stay human.'
 }
+
+// FAQ added 2026-07-26. This page documents a diagnosis, not a finished build,
+// and the answers below keep to that: no outcome numbers, because there are no
+// outcomes yet.
+const FAQS: FaqItem[] = [
+  {
+    q: 'Is this a finished project?',
+    a: 'No. This is the diagnosis. The audit was delivered and the phased plan is with the practice, but the build is gated on their go-ahead and has not begun. It is published because the diagnosis is the part most people have never seen, and it is exactly what the Workflow Audit produces.'
+  },
+  {
+    q: 'Why are there no outcome numbers?',
+    a: 'Because nothing has been built yet, so there are no outcomes to report. A page claiming results at this stage would be describing a projection.'
+  },
+  {
+    q: 'What was ruled out, and why?',
+    a: 'Anything patient-facing, anything clinical, any decision a clinician is professionally accountable for, and moving patient information anywhere it was not already held. Those were off the table from the start rather than negotiated away later, because automating a clinical judgment is not a feature, it is a liability.'
+  },
+  {
+    q: 'Did the practice have to buy new software?',
+    a: 'No, and that was the most useful finding in the audit. The assumption going in was that new capability means new vendors, new agreements, and a legal review that adds months. Checking rather than assuming turned up a suitable agreement the practice had already held with its existing platform provider since 2018, and the entire first phase could be built inside it.'
+  },
+  {
+    q: 'What does an audit like this cost?',
+    a: 'The Workflow Audit is $2,500 and takes about two weeks. If you go on to a build within ninety days, the full fee comes off the build price.'
+  }
+]
 
 export default function MedicalPracticeAudit() {
   return (
@@ -320,6 +347,8 @@ export default function MedicalPracticeAudit() {
           </div>
         </div>
       </section>
+
+      <Faq items={FAQS} />
 
       <Footer />
     </div>

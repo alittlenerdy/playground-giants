@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { CAL_LINKS } from '@/lib/constants'
+import Faq, { type FaqItem } from '@/components/Faq'
 
 // Rebuilt 2026-07-24 as a three-stage ladder (audit -> build -> run).
 //
@@ -21,6 +22,36 @@ export const metadata: Metadata = {
   description:
     'Three stages: a $2,500 Workflow Audit, a $6,000 to $25,000 build, and monthly operation from $1,500. Prices are what I actually charge.'
 }
+
+// FAQ content added 2026-07-26. Every figure here is taken from the RETAINERS
+// array and the stage pricing on this page, so the schema, the visible answers
+// and the price cards cannot disagree with each other.
+const FAQS: FaqItem[] = [
+  {
+    q: 'What does the whole thing cost, end to end?',
+    a: 'The Workflow Audit is $2,500. A build is $6,000 to $25,000 depending on how many workflows it covers. Running it afterwards is $1,500, $4,500 or $9,500 a month. These are prices that have actually been charged, not a rate card written to look impressive.'
+  },
+  {
+    q: 'Do I have to do all three stages?',
+    a: 'No. You can stop after any of them. Plenty of people take the audit, get the plan, and build it themselves or hand it to their own team. That is a normal outcome and you owe nothing further.'
+  },
+  {
+    q: 'Is the audit fee really credited against a build?',
+    a: 'Yes. If you proceed to a build within ninety days, the full $2,500 comes off the build price.'
+  },
+  {
+    q: 'Why is there no cheap monthly tier?',
+    a: 'Because a system doing regulated work with a person in the loop needs someone accountable for it, and there is no honest version of that for a few hundred a month. Watch at $1,500 is the floor: monitoring, tuning as your work changes, and a monthly report. Below that I would be selling attention I could not actually give.'
+  },
+  {
+    q: 'What happens to the system if we stop working together?',
+    a: 'You keep all of it. Everything is built inside the systems and the accounts you already own, so there is nothing to hand back and nothing that stops working when I do. That is deliberate, and it is why nothing here is built on a platform only I can log into.'
+  },
+  {
+    q: 'Who am I actually hiring?',
+    a: 'Me. Playground Giants is one person, not an agency with a bench. That is the trade: you get a named senior person on your work, and I take on fewer engagements than an agency would.'
+  }
+]
 
 const RETAINERS = [
   {
@@ -317,6 +348,8 @@ export default function Packages() {
           </div>
         </div>
       </section>
+
+      <Faq items={FAQS} />
 
       <Footer />
     </div>

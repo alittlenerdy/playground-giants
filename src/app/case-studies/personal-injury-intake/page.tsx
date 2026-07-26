@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { CAL_LINKS } from '@/lib/constants'
+import Faq, { type FaqItem } from '@/components/Faq'
 
 // Anonymized case study, 2026-07-24. Rules applied here, deliberately:
 //
@@ -23,6 +24,32 @@ export const metadata: Metadata = {
   description:
     'Graded intake, response clocks and a regulator-ready audit trail for a NYC personal injury firm. The AI extracts facts. It never decides merit.'
 }
+
+// FAQ added 2026-07-26. Answers are held to the same three rules as the page
+// itself: no client name, no outcome metrics, and nothing claimed that was not
+// actually built. Where the honest answer is "we cannot say yet", it says that.
+const FAQS: FaqItem[] = [
+  {
+    q: 'Which firm is this?',
+    a: 'A New York personal injury firm, and that is as specific as this page gets. The agreed level of disclosure does not include the firm name, the attorneys, or the commercial terms. Those are the client\'s to disclose, not mine.'
+  },
+  {
+    q: 'Why are there no results numbers?',
+    a: 'Because there are none yet that would be honest. The engagement has not reached its first formal measurement point and paid acquisition has not gone live, so any cost-per-case or lead-volume figure printed today would be a projection dressed as a result. When there are real numbers and permission to publish them, they will appear here.'
+  },
+  {
+    q: 'Does the AI decide which cases the firm takes?',
+    a: 'No, and the system is built specifically so it cannot. The model reads an inbound message and extracts facts, then stops. Rules the firm owns decide what those facts mean, and a person makes the actual call. Anything uncertain routes to a human rather than being resolved automatically.'
+  },
+  {
+    q: 'How does that stay inside the attorney advertising rules?',
+    a: 'By keeping the machine away from anything that constitutes legal judgment. Grades describe facts, never the merit or value of a claim, every A-grade lead is reviewed by a person before contact, and the whole path is inbound only. Every step writes an audit record, so the firm can show what happened and when.'
+  },
+  {
+    q: 'Would this work for a practice that is not a law firm?',
+    a: 'The shape carries over: extract facts with a model, decide with rules the client owns, fail toward a person, and log everything. What does not carry over is the rule set, which is specific to how a given firm or practice actually decides. That is what the audit stage is for.'
+  }
+]
 
 export default function PersonalInjuryIntake() {
   return (
@@ -288,6 +315,8 @@ export default function PersonalInjuryIntake() {
           </div>
         </div>
       </section>
+
+      <Faq items={FAQS} />
 
       <Footer />
     </div>

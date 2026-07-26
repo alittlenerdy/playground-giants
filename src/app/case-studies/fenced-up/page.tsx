@@ -114,14 +114,14 @@ export default function FencedUpCaseStudyPage() {
                 <li className="flex gap-3">
                   <span className="text-neon-green shrink-0">→</span>
                   <span>
-                    They had no web presence, tracking, or local visibility — and relied solely on
+                    They had no web presence, tracking, or local visibility, and relied solely on
                     word-of-mouth.
                   </span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-neon-green shrink-0">→</span>
                   <span>
-                    The goal: build every core system from the ground up — a modern Webflow website,
+                    The goal: build every core system from the ground up, a modern Webflow website,
                     an optimized Google Business Profile (GBP), domain configuration, and analytics
                     infrastructure to enable data-driven growth.
                   </span>
