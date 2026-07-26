@@ -1,0 +1,86 @@
+---
+title: "how to tell which parts of your workflow are safe to automate"
+date: "2026-07-26"
+summary: "the sort test isn't repetitive vs. rare. it's fact vs. judgment. here's the six-step way to find the real boundary in a regulated workflow."
+---
+
+<img src="/blog/how-to-tell-which-parts-of-your-workflow-are-safe-to-automate-hero.png" alt="how to tell which parts of your workflow are safe to automate" style="width:100%;border-radius:12px;margin:0 0 32px 0;" />
+
+the common heuristic is "automate the repetitive stuff." that's how firms end up automating the wrong half of a workflow. the repetitive part is often repetitive because it requires judgment applied consistently, not because it's mechanical. intake staff triage the same handful of scenarios every day. that doesn't make the triage decision mechanical. it makes it a decision they've gotten fast at making.
+
+the safe-to-automate boundary isn't about how repetitive or low-value a step looks. it's about whether the step ends in a decision that a person is accountable for, or a fact that can be checked against a rule. those are different things and they get automated differently, if they get automated at all.
+
+## the wrong question is "is this task boring"
+
+boring and repetitive are what get a task onto the automation shortlist. they're also a bad filter, because tedium doesn't tell you what's inside the task. "review the intake form and decide if we take the case" is boring by the fortieth time you've done it. it's still a judgment call every time. sort by tedium and you'll automate the boring judgment calls right alongside the boring facts, because from the outside they look the same: someone reading a document and producing an answer.
+
+the failure mode isn't a system that refuses to work. it's a system that works fine on the easy 90 percent and quietly makes the call on the hard 10 percent, because nobody drew the line before building it.
+
+## the right question is where does a decision happen
+
+trace the workflow step by step and find the point where something irreversible or judgment-based gets decided. not where information gets moved, formatted, or summarized. where an actual call gets made that someone would have to defend later. that point is the boundary. everything before it is a candidate for automation. everything at it and after it needs a person's name attached, or a deterministic rule that doesn't need judgment at all.
+
+## step 1: write the workflow down as verbs, not a description
+
+list every step as a single verb: read, extract, check, decide, notify, file. not a paragraph, a verb.
+
+example, an intake triage workflow:
+
+1. read (the intake form)
+2. extract (name, date of injury, state, injury type)
+3. check (statute of limitations window for that state)
+4. decide (does this qualify for review)
+5. notify (assign to attorney or decline)
+6. file (log the decision and the basis for it)
+
+six verbs. that's the whole workflow at the resolution that matters.
+
+## step 2: for each verb, ask does this produce a fact or a judgment
+
+sort the verbs into two buckets. a fact is checkable against the source document. a judgment requires weighing something.
+
+"extract the date of injury" is a fact. it's either on the form or it isn't, and you can check the extraction against the form in ten seconds.
+
+"decide whether this qualifies under the statute of limitations for this state" sounds like judgment. it usually isn't, and that's the point of the next step.
+
+## step 3: check whether the judgment step can be rewritten as a rule
+
+for every step you flagged as judgment, ask if the actual criteria can be written down as a deterministic function: a checklist, a date calculation, a threshold. if yes, it's not a judgment step. it's an unwritten rule that's been living in someone's head and getting called "judgment" because nobody wrote it down.
+
+the statute of limitations check is a date calculation plus a jurisdiction lookup table: injury date, plus the tolling period for that state, minus today's date. that's arithmetic against a table, not judgment. write it as a function once and it never drifts, never gets tired on a friday, never applies last month's deadline to this month's case.
+
+what's left after this step, the stuff that genuinely doesn't reduce to a rule, that's your real judgment layer. it's usually much smaller than the intake team thinks.
+
+![a workflow diagram showing verbs sorted into fact, rule, and judgment columns](https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200)
+
+## step 4: put the model before the rule, never inside it
+
+once you know which check is actually a rule, the model's job is narrow: read the document, extract the fields the rule needs, hand them off. the model never applies the statute of limitations. it reads the intake form, pulls the injury date and the state, and passes both to a deterministic function that does the date math and returns yes, no, or borderline. the function is code. nobody can argue with it about mood or phrasing. and it's the same function for the tenth case and the ten-thousandth.
+
+this is the actual split that matters: the model reads and routes, the rule decides. if you can't point to the line in your system where a deterministic function, not a model, produces the answer, you don't have this split. you have a model making the call and calling it automation.
+
+## step 5: define what happens when the model can't read the input
+
+every automated step needs a fallback that goes to a person, not a guess. an illegible intake form, a missing field, a state the jurisdiction table doesn't cover yet: all of these should route to a human within a defined window. the system should never invent a date of injury because the form was smudged. it should flag the case and stop.
+
+this is where a lot of automation projects quietly fail. they work great on clean inputs during the demo and then hit a scanned fax with a coffee ring on it, and instead of stopping, they fill in something plausible. the fallback isn't a nice-to-have. it's the difference between a system that degrades safely and one that fails silently.
+
+## step 6: test the boundary by asking who signs their name to the output
+
+the last check. if a licensed professional would have to personally attest to the output, that step isn't automatable. only the steps feeding into it are.
+
+an intake summary can be machine-generated: dates, parties, injury type, a first pass at the statute check. the acceptance of the case, the decision to represent this person, cannot be. that's the attorney's name on it, and it stays that way regardless of how good the summary is. automating the summary and leaving the acceptance decision with a person isn't a compromise. it's the correct boundary, found by asking who's accountable rather than what's boring.
+
+## common pitfalls
+
+four mistakes show up in almost every project that gets this wrong.
+
+automating the exception path along with the common path. the clean 90 percent of intakes fits the rule easily. the edge cases are exactly where judgment was doing real work, and they get swept in because nobody separated them.
+
+treating "the model was right most of the time" as validation. right most of the time is not the same as right in a way you can check. if you can't point to why it was right on a specific case, you don't have a validated system, you have a lucky one.
+
+no audit trail, so nobody can check the routing later. every step in a regulated workflow should leave a record of what was extracted, what rule fired, and what the outcome was, in a form a person can review after the fact without reverse-engineering the system.
+
+letting the system silently drop work instead of degrading to a human. a case that goes unprocessed because a form didn't parse is worse than a case that takes an extra day because it got flagged. the second is a delay. the first is a missed deadline nobody knew was missed.
+
+if you want an outside pass on where your own workflow's boundary actually sits, that's what the workflow audit is for: two weeks, a fixed cost of $2,500, credited toward a build if you move forward. [start with a workflow audit](/workflow-audit).
