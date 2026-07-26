@@ -20,7 +20,7 @@ import { CAL_LINKS } from '@/lib/constants'
 // vendor is deliberately not named. Specialty plus vendor plus region would
 // narrow this to a handful of practices. "Their EHR" is enough for the point.
 export const metadata: Metadata = {
-  title: 'Case study: what a workflow audit found in a medical practice',
+  title: 'Case study: a workflow audit in a medical practice',
   description:
     'A worked example of the diagnosis phase: what the audit found inside a specialist practice, what was safe to automate, and what had to stay human.'
 }

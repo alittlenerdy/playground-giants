@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { pageTitle } from '@/lib/seo-title'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   try {
     const { meta } = getPost(slug)
-    return { title: `${meta.title} — Playground Giants`, description: meta.summary }
+    return { title: pageTitle(meta.title), description: meta.summary }
   } catch {
     return {}
   }

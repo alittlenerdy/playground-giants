@@ -25,9 +25,9 @@ export function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Playground Giants — Writing</title>
+    <title>Playground Giants: Writing</title>
     <link>${SITE}/writing</link>
-    <description>Building in public — what we ship, what breaks, what we learn.</description>
+    <description>Building in public: what we ship, what breaks, what we learn.</description>
     <language>en-us</language>
 ${items}
   </channel>

@@ -15,7 +15,7 @@ export const brand = {
       'we leverage',
       'synergy',
       'solutions',
-      'we/our/us — Playground Giants is one person',
+      'we/our/us, Playground Giants is one person',
       'invented statistics or percentages',
       'passive-income framing ("just answer the phone")',
       'em-dashes in body copy'

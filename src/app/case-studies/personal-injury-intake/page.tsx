@@ -19,7 +19,7 @@ import { CAL_LINKS } from '@/lib/constants'
 // If the client later grants permission to be named and there are real numbers
 // to publish, this page gets upgraded rather than replaced.
 export const metadata: Metadata = {
-  title: 'Case study: intake and grading for a New York personal injury firm',
+  title: 'Case study: graded intake for a NY personal injury firm',
   description:
     'Graded intake, response clocks and a regulator-ready audit trail for a NYC personal injury firm. The AI extracts facts. It never decides merit.'
 }

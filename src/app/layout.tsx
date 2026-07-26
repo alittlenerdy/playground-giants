@@ -13,9 +13,9 @@ import './globals.css'
 // TITLE is the SERP title and is kept under 60. TITLE_SOCIAL keeps the full
 // positioning line for OG/Twitter cards, where the constraint is far looser and
 // the whole sentence actually displays.
-const TITLE = 'Playground Giants — AI automation for law firms & practices'
+const TITLE = 'Playground Giants: AI automation for law firms & practices'
 const TITLE_SOCIAL =
-  'Playground Giants — AI automation for firms and practices that cannot afford a wrong answer'
+  'Playground Giants: AI automation for firms and practices that cannot afford a wrong answer'
 const DESCRIPTION =
   'AI automation for law firms, medical practices and regulated operators. The model reads and routes. A human makes the call, and every step is auditable.'
 
@@ -69,7 +69,7 @@ export default function RootLayout({
         />
         {/*
           Server-rendered JSON-LD. This was previously a `next/script` block,
-          which injects the tag CLIENT-SIDE — so a raw-HTML fetch of the
+          which injects the tag CLIENT-SIDE, so a raw-HTML fetch of the
           homepage returned NO parseable structured data at all. A 2026-07-24
           audit caught it: enkily.ai and binderlawpc.com both exposed valid
           schema in their served HTML, and the agency's own site exposed none.

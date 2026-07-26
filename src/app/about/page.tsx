@@ -11,11 +11,11 @@ export const metadata: Metadata = {
   // infrastructure". The 2026-07-24 positioning doc named this exact problem —
   // "your website describes a different company" — and this page was the last
   // core route still describing it. 189 chars, too.
-  title: 'About | Playground Giants — AI automation, human judgment',
+  title: 'About | Playground Giants: AI automation, human judgment',
   description:
     'I build AI automation for law firms, medical practices and other regulated operators. The model reads and routes. A human still makes the call.',
   openGraph: {
-    title: 'About | Playground Giants — AI automation, human judgment',
+    title: 'About | Playground Giants: AI automation, human judgment',
     description:
       'I build AI automation for law firms, medical practices and other regulated operators. The model reads and routes. A human still makes the call.',
     images: ['/images/og_image_charcoal.png']
@@ -96,7 +96,7 @@ export default function AboutPage() {
               from the previous positioning.
 
               The larger one: they were unsubstantiated aggregate results claims
-              on a site now selling to law firms and medical practices — buyers
+              on a site now selling to law firms and medical practices, buyers
               who are themselves regulated on advertising claims and will read a
               vendor's numbers with that lens. There is an open task on the legal
               engagement to pull unsubstantiated results claims off a client site
@@ -304,7 +304,7 @@ export default function AboutPage() {
                 <GradientText>automate it.</GradientText>
               </blockquote>
               <p className="text-center text-ink-3 mt-6 font-mono text-sm">
-                — My operating principle
+                My operating principle
               </p>
             </div>
           </ScrollReveal>
@@ -324,7 +324,7 @@ export default function AboutPage() {
                 Ready to Work Together?
               </h2>
               <p className="text-xl text-ink-3 mb-10 max-w-xl mx-auto">
-                Let&apos;s talk about your business. No pitch, no pressure—just an honest
+                Let&apos;s talk about your business. No pitch, no pressure, just an honest
                 conversation about what&apos;s working and what&apos;s not.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

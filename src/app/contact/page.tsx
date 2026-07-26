@@ -36,7 +36,7 @@ export default function ContactPage() {
               </h1>
               <p className="text-xl text-ink-3 max-w-2xl mx-auto">
                 Stop wasting time on manual follow-ups. Book a call to see exactly where you&apos;re
-                losing money—and how we can fix it.
+                losing money, and how we can fix it.
               </p>
             </div>
           </ScrollReveal>

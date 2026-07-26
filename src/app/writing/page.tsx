@@ -4,8 +4,8 @@ import Footer from '@/components/Footer'
 import { getAllPosts } from '@/lib/writing'
 
 export const metadata = {
-  title: 'Writing — Playground Giants',
-  description: 'Building in public — what we ship, what breaks, what we learn.',
+  title: 'Writing | Playground Giants',
+  description: 'Building in public: what we ship, what breaks, what we learn.',
   // `canonical` is repeated here on purpose. Next.js REPLACES the whole
   // `alternates` object during metadata merging rather than deep-merging it, so
   // declaring `types` for the RSS feed silently dropped the `canonical: './'`
@@ -36,7 +36,7 @@ export default function WritingIndex() {
       <Header />
       <main className="max-w-3xl mx-auto px-6 pt-36 pb-24">
         <h1 className="text-4xl font-bold text-ink mb-2">writing</h1>
-        <p className="text-ink-3 mb-12">building in public — what we ship, what breaks, what we learn.</p>
+        <p className="text-ink-3 mb-12">building in public: what we ship, what breaks, what we learn.</p>
         <div className="space-y-10">
           {posts.map((p) => (
             <Link key={p.slug} href={`/writing/${p.slug}`} className="block group">

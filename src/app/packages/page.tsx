@@ -17,7 +17,7 @@ import { CAL_LINKS } from '@/lib/constants'
 // which is where most deals will land. The audit at $2,500 is the new rung and
 // the important one: that work was previously given away free.
 export const metadata: Metadata = {
-  title: 'Engagements and pricing — Playground Giants',
+  title: 'Engagements and pricing | Playground Giants',
   description:
     'Three stages: a $2,500 Workflow Audit, a $6,000 to $25,000 build, and monthly operation from $1,500. Prices are what I actually charge.'
 }

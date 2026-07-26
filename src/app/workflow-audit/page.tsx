@@ -12,7 +12,7 @@ import { CAL_LINKS } from '@/lib/constants'
 // for exactly this, credited toward the build, and it doubles as qualification:
 // a buyer who will not pay for the plan was never going to buy the build.
 export const metadata: Metadata = {
-  title: 'The Workflow Audit — Playground Giants',
+  title: 'The Workflow Audit | Playground Giants',
   description:
     'Two weeks, $2,500, credited toward a build. A written map of where your manual work is, what is safe to automate, what must stay human, and what it would cost.'
 }

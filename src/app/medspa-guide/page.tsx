@@ -35,7 +35,7 @@ export default function MedSpaGuidePage() {
               </h2>
               <p className="text-hero-body">
                 Free guide: The exact local SEO framework we used to help a Houston business get 4x
-                organic traffic in 6 months—now applied to aesthetics.
+                organic traffic in 6 months, now applied to aesthetics.
               </p>
               <a
                 href={DOWNLOADS.MEDSPA_PLAYBOOK}
