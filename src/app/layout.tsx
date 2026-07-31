@@ -1,5 +1,26 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
+
+// GA4. Added 2026-07-31.
+//
+// The property (G-VCE75005SR) has existed for a while and reported "No data
+// received from your website yet" the entire time, because THE SITE CARRIED NO
+// TAG AT ALL. That is a different problem from the ReplySequence one solved the
+// same day, where the tag was live and the property simply had not been shared
+// with the right Google account. Property exists != site is measured.
+//
+// ⚠️ Read the JSON-LD comment further down before touching this. That block is
+// deliberately NOT next/script, because AI answer engines read raw HTML and
+// generally do not execute JS, so client-injected structured data is invisible
+// to them.
+//
+// GA4 is the exact opposite case and next/script is correct here: gtag.js is a
+// browser-side measurement library. There is nothing for a crawler to read, and
+// server-rendering it would do nothing useful. `afterInteractive` keeps it off
+// the critical path so it cannot cost LCP on a site whose whole pitch is that
+// it is well built.
+const GA4_ID = 'G-VCE75005SR'
 
 // Repositioned 2026-07-24. Previously: "Local Search Domination for Home
 // Services" / "roofing, HVAC, fencing". That described a business Jimmy no
@@ -174,7 +195,19 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        {children}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA4_ID}');`}
+        </Script>
+      </body>
     </html>
   )
 }
