@@ -18,7 +18,8 @@ export const metadata: Metadata = {
     title: 'About | Playground Giants: AI automation, human judgment',
     description:
       'I build AI automation for law firms, medical practices and other regulated operators. The model reads and routes. A human still makes the call.',
-    images: ['/images/og_image_charcoal.png']
+    // See the note in layout.tsx: the old charcoal card was the previous brand.
+    images: ['/images/og-playground-giants.png']
   }
 }
 

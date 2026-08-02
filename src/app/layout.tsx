@@ -57,16 +57,31 @@ export const metadata: Metadata = {
     icon: '/images/favicon.png',
     apple: '/images/webclip.png'
   },
+  // Card replaced 2026-08-02. The previous image (og_image_charcoal.png, made
+  // 2026-02-05) was from the brand BEFORE this one: black ground, matrix-green
+  // monospace, and a fake terminal reading `user: alittleghost` /
+  // `role: marketing_architect` over "I don't just build websites. I build
+  // revenue engines."
+  //
+  // The copy on this page was repositioned on 2026-07-24 and the palette moved
+  // to cream and Newsreader, but the card never moved with them, so every share
+  // of this domain for five months presented the old identity and the old
+  // offer. Regenerate with `node scripts/render-og.mjs` after any repositioning
+  // — the card is the one asset nobody sees while working on the site.
   openGraph: {
     title: TITLE_SOCIAL,
     description: DESCRIPTION,
-    images: ['/images/og_image_charcoal.png'],
+    images: ['/images/og-playground-giants.png'],
     siteName: 'Playground Giants'
   },
   twitter: {
     card: 'summary_large_image',
     title: TITLE_SOCIAL,
-    description: DESCRIPTION
+    description: DESCRIPTION,
+    // Stated explicitly rather than left to inherit from openGraph. It does
+    // inherit today, but that is a Next behaviour, not a guarantee, and a
+    // silently missing twitter:image degrades to a small card with no warning.
+    images: ['/images/og-playground-giants.png']
   }
 }
 
