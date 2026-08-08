@@ -1,0 +1,92 @@
+---
+title: "how to let AI touch regulated work without deciding"
+date: "2026-07-30"
+summary: "a working method for putting AI inside regulated processes while keeping every decision in a deterministic, auditable function a model never touches."
+---
+
+![how to let AI touch regulated work without deciding](/blog/how-to-let-ai-touch-regulated-work-without-letting-it-decide-hero.png)
+
+the common instinct is to keep AI out of regulated work entirely, or to let it touch everything once it passes a demo. both are wrong. the fix isn't how much access the model gets, it's where the decision boundary sits.
+
+firms that lock AI out entirely are still doing intake by hand, still missing conflict flags at 11pm, still paying someone to retype an intake form into a case management system. firms that let AI touch everything once it seems to work are one bad extraction away from a compliance incident they can't explain to a bar association or a state board. neither posture is a strategy. it's a mood.
+
+## the wrong question is 'how much should the model see'
+
+access isn't the risk. unaudited judgment is. a model reading every intake form that comes into a firm is not dangerous by itself. a model deciding, on its own, whether that intake represents a conflict of interest, and doing so inside a black box nobody can replay, is dangerous. the anxiety about AI in regulated work almost always gets pointed at the wrong variable. the question isn't how much information the model touches. it's whether the model is the thing making the call, or whether it's just gathering what a separate, fixed piece of logic needs to make the call.
+
+that distinction, reading versus deciding, is the entire architecture. everything below is just how to build it so it holds up.
+
+## step 1: map the decision, not the workflow
+
+before any model touches anything, find the exact point in the process where a judgment gets made. approve, reject, flag, route, escalate. most intake or triage processes have one or two of these buried inside a longer sequence of otherwise mechanical steps: receive form, read form, decide, notify, file.
+
+isolate that decision point. write it down as its own step, separate from everything around it. for an intake process at a personal injury firm, the decision might be: does this matter get routed to an attorney queue, or does it get auto-declined based on statute of limitations and jurisdiction. that's the whole decision. everything else, reading the form, extracting the incident date, formatting a response, is not a decision. it's plumbing.
+
+## step 2: let the model read and extract, nothing else
+
+once the decision is isolated, give the model a narrow job: pull structured fields out of unstructured input. intake forms, call transcripts, emails. the model's output should look like data, never like a verdict.
+
+a model reading an intake call transcript should return something like:
+
+```
+{
+ "incident_date": "2024-03-14",
+ "incident_state": "NJ",
+ "injury_type": "soft tissue",
+ "prior_representation": false,
+ "named_defendant": "unknown"
+}
+```
+
+notice what's missing: no field called `should_accept`, no field called `case_quality`. the model extracted facts. it did not render a judgment. if the transcript is ambiguous about the incident date, the correct output is a null or a flag, not a guess dressed up as a fact.
+
+## step 3: write the decision as code a model never touches
+
+the extracted fields become input to a deterministic function. plain logic, not a prompt. no model runs at this step at all.
+
+```
+if incident_state == "NJ" and days_since(incident_date) > 730:
+ route_to("auto_decline_soL")
+elif prior_representation == True:
+ route_to("conflict_review_queue")
+elif injury_type in HIGH_VALUE_TYPES:
+ route_to("senior_attorney_queue")
+else:
+ route_to("standard_intake_queue")
+```
+
+this function is boring on purpose. it's boring because it has to be the same every time given the same inputs, and boring, fixed logic is the only kind of logic you can hand to an examiner and say: here is exactly why this case went to this queue. a model cannot promise that. a function can.
+
+## step 4: log every handoff between the two
+
+every transition gets a timestamped record: the raw input the model saw, the structured fields it returned, the inputs the function received, the route the function chose, the action taken as a result. four records per case, minimum, each with a timestamp and an id linking it to the case file.
+
+this is the difference between a system that's explainable in a sales deck and one that's auditable in a deposition. explainable means you can describe roughly how it works. auditable means you can pull the exact record for case 4471 and show, line by line, what the model extracted and what the fixed function did with it, with nothing inferred after the fact.
+
+## step 5: build the degrade path before you need it
+
+define, in advance, what happens when the model is unavailable, times out, or returns something the extraction schema can't parse. the rule is simple and non-negotiable: it falls to a human queue. it never guesses and it never silently drops the item.
+
+concretely: if the extraction step fails validation, or the model API doesn't respond inside a fixed window, the case doesn't sit in a retry loop and it doesn't get auto-routed to a default queue as if that were a safe assumption. it goes to a flagged human review queue with a note: "extraction failed, manual review required." someone sees it inside the same business day. the system's failure mode is a person, not a shrug.
+
+## step 6: keep the infrastructure somewhere you can leave
+
+run this inside the client's own cloud accounts, not a vendor's. if the extraction logic, the routing function, and the logs all live in infrastructure the firm owns, walking away from any vendor is an export and a handover. if they live inside a vendor's proprietary environment, walking away is a negotiation, and the firm is negotiating from a position of having nothing without the vendor's cooperation.
+
+when scoping this with any vendor, ask directly: whose cloud account does this run in, and what does day one without you look like. if the answer is vague, that's the answer.
+
+## common pitfalls
+
+the most common mistake is letting the model output a decision-shaped field, something like `approved: true`, instead of extracted facts. once that field exists, someone downstream will eventually trust it without checking the function, and the whole split collapses back into the model deciding.
+
+the second is skipping the log on the function side because it "feels like just code." the function is the part regulators and opposing counsel will actually ask about. if it isn't logged with the same discipline as the model call, the audit trail has a hole exactly where it matters most.
+
+the third is leaving the fallback path undefined until the first real outage, at which point someone improvises a workaround under pressure and that workaround becomes the unofficial process.
+
+the fourth is treating a vendor's own cloud as good enough for an audit trail. good enough for a demo isn't the same as good enough for a bar complaint.
+
+## what to do differently starting monday
+
+find the one decision point in your current process most exposed to ungoverned AI use, the place where a model's output currently gets treated as a verdict instead of a fact. separate its extraction step from its judgment step before adding any new tool, and write the judgment step down as fixed rules, in plain language, before anyone touches a model at all.
+
+if you want a second set of eyes on where that line should sit in your own process, a workflow audit is two weeks, $2,500, and the fee is credited toward a build if you move forward. details are at /workflow-audit.
