@@ -1,0 +1,49 @@
+---
+title: "what an auditable ai decision actually looks like"
+date: "2026-08-06"
+summary: "most vendors log model inputs and outputs and call it auditable. that tells you what happened, not why. here is the difference."
+---
+
+![what an auditable ai decision actually looks like](/blog/what-an-auditable-ai-decision-actually-looks-like-hero.png)
+
+every vendor says their ai is auditable. it is close to a universal claim on every deck and every site, including at times mine. but most of them do not mean what you think they mean when they say it.
+
+what they mean, usually, is that they keep a log. the prompt went in, the output came out, and both are timestamped and stored somewhere you could theoretically go look at. that is not nothing. but it is not an audit trail either. it is a receipt.
+
+## the typical audit does not satisfy
+
+ask a vendor what happens when a client disputes a decision their ai made, and most of them will point you to a log viewer. you can see the input. you can see the output. what you cannot see is why the model went from one to the other. the reasoning, if the model produced any, is a paragraph of plausible-sounding text generated after the fact, not a record of the actual computation. it reads like an explanation. it is closer to a guess about its own guess.
+
+for a lot of use cases that is fine. nobody needs a causal chain for why a chatbot suggested a blog topic. but the moment a decision affects someone's eligibility, someone's case, someone's money, "here's what went in and here's what came out" stops being an audit and starts being a liability. a regulator, a bar association, or opposing counsel does not want to know that a black box produced a plausible answer. they want to know what rule was applied and who is responsible for that rule existing.
+
+## the problem is in the 'why'
+
+take a compliance decision in a medical or legal practice: this intake gets flagged as a conflict, this document gets routed to a partner for review, this claim gets rejected as outside a filing window. the outcome matters, but the outcome is not the thing that gets challenged. the reasoning is. if a client asks why their case was declined, or a regulator asks why a disclosure was or wasn't made, the answer has to be a rule, not a probability distribution.
+
+a model can tell you, in words, that it "considered the statute of limitations and the date of injury." it cannot tell you that with certainty, because language models don't apply rules, they predict text that sounds like rule-application. that distinction is invisible until someone with standing asks a hard question about a specific decision, and the honest answer turns out to be "the model said so." that answer does not hold up in a regulated practice, and it should not.
+
+## splitting the brain: extract then decide
+
+the fix isn't a better log. it's a different architecture. split the model's job from the decision's job.
+
+the model reads. it extracts dates, dollar amounts, party names, document types, the raw material buried in an intake form or a scanned pdf. it categorizes and it routes candidates for a decision. what it does not do is make the decision. the model's output is treated as untrusted input to a separate system, the same way you'd treat a number typed in by a junior paralegal: useful, probably right, but not authoritative until checked against a rule.
+
+the actual decision, whether a matter gets accepted, whether a document gets escalated, whether a claim proceeds, is made by deterministic code. plain conditional logic, written by a human, that a court or a regulator could read line by line without needing to understand machine learning at all. the model prepares the facts. the code applies the rule to the facts. those are two different jobs, done by two different kinds of system, and conflating them is the actual failure mode behind most "ai went rogue" stories.
+
+![a flowchart showing a model extracting structured data on one side and a deterministic rules engine making the decision on the other, connected by an audit log](/images/blog/auditable-ai-split-architecture.png)
+
+## decision trails are lines of code, not probabilities
+
+once the decision lives in code, the audit trail changes shape. instead of a transcript of model reasoning, you get a trace: which rule fired, on what extracted values, producing what outcome. "filing date extracted as march 3. statute deadline calculated as march 1 plus two years. rule 14 triggered: date exceeds window. route to declined-review queue." every step in that chain is checkable independently of the model. you can re-run rule 14 by hand with the same inputs and get the same output, every time, because it isn't probabilistic. that's the whole point of keeping it out of the model in the first place.
+
+this is also what makes the system correctable. if rule 14 is wrong, you fix rule 14 and every future decision changes predictably. if the "rule" lives inside a model's weights, you don't get to fix it. you get to retrain and hope, and you still can't point to the line that changed.
+
+## the human fallback is deterministic, too
+
+the same logic has to apply when the model itself is unavailable, rate-limited, or simply unsure. a system that guesses when it can't extract cleanly is not degrading gracefully, it's hiding a failure behind a plausible-looking answer. the correct behavior, and the one that keeps the audit trail intact, is to route to a human with the same explicitness as any other rule: "extraction confidence below threshold, route to intake coordinator, flag reason: date field ambiguous."
+
+the human decision then gets logged the same way a rule-firing does, so the chain isn't broken just because a person made the call instead of code. work doesn't get dropped and nobody has to reconstruct, after the fact, whether the system "knew" something was wrong. it knew, because that's what it was built to check.
+
+most firms already have these human handoffs. an intake coordinator who flags ambiguous cases, a partner who signs off on anything above a dollar threshold, a compliance officer who reviews flagged disclosures. those existing breakpoints are usually the right seam to build a deterministic system around, because the rule already exists in someone's head, it just hasn't been written down as code yet.
+
+if you want to know where those seams are in your own workflow, and whether the decisions running through them could survive being read back to you line by line, that's what a workflow audit is for: two weeks, a fixed fee, and it's credited toward a build if you move forward. details are at /workflow-audit.
