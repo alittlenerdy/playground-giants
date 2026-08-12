@@ -1,0 +1,98 @@
+---
+title: "how to explain an automated decision to a regulator"
+date: "2026-07-27"
+summary: "a regulator does not need to trust the model. they need a decision they can trace to a rule. here is how to build that trail."
+---
+
+![how to explain an automated decision to a regulator](/blog/how-to-explain-an-automated-decision-to-a-regulator-hero.png)
+
+you might think an ai-driven decision is inherently a black box to a regulator. that's the assumption baked into most of the AI panic in regulated industries: the model is a black box, therefore the decision is a black box, therefore you cannot explain it, therefore you should not automate anything a regulator might ask about.
+
+but that's only true if you build it wrong.
+
+the mistake is letting the model make the decision. if a language model outputs "approved" or "denied" or "route to senior review," you have handed the regulator a black box, because you cannot ask a model why it said what it said and get the same answer twice. the fix is not a better model. it's a different architecture: the model reads and extracts, and something else, something deterministic and inspectable, decides. here is how to build that split so an explanation is a document you hand over, not a story you tell.
+
+## pre-reqs
+
+before you can explain a decision, you need three things to already exist for every decision the system makes:
+
+- a written rule that governs the decision, independent of any model output
+- a log of what the model extracted from the input, separate from the log of what the rule did with it
+- a record of what happened when the model was slow, wrong, or unavailable
+
+if any of those three don't exist yet, the steps below tell you how to build them. if they already exist, skip to step 4.
+
+## step 1: separate extraction from decision in the architecture, not just in your head
+
+most teams say "the AI just helps, a human decides" and then build a system where the model's output is passed straight into an approval field. that is not a separation. that is a relabeling.
+
+a real separation means the model's job ends at structured data. it reads a document, a form, an intake transcript, and produces fields: dates, amounts, categories, flags. it does not produce a verdict. a second component, a plain function with if/then logic that a compliance officer could read without knowing what a transformer is, takes those fields and applies the actual rule.
+
+concrete example: for an intake decision on whether a claim falls inside a statute of limitations, the model extracts "incident date: march 3, 2024" and "claim type: personal injury." it does not extract "still eligible." a deterministic function holds the jurisdiction's limitations period, does the date math, and returns eligible or not, with the two dates and the subtraction shown as its output.
+
+## step 2: log the extraction and the decision as two separate, timestamped records
+
+you cannot explain a decision from a single blob of output. you need to be able to hand a regulator two things: what did the model see and say it found, and what did the rule do with that.
+
+concrete example of what this looks like on paper:
+
+```
+extraction_log:
+  input_id: intake-88213
+  model: [version, timestamp]
+  extracted_fields: {incident_date: 2024-03-03, claim_type: PI, state: [x]}
+  confidence_notes: field flagged low-confidence: none
+
+decision_log:
+  input_id: intake-88213
+  rule_version: SOL-calc-v3
+  inputs_used: {incident_date: 2024-03-03, statute_period_months: 24}
+  output: within_limitations = true
+  decided_at: [timestamp]
+```
+
+this is the artifact you produce when asked "why was this claim accepted." you are not reconstructing a narrative from memory. you are pulling two rows.
+
+## step 3: make the rule itself a versioned, readable document
+
+a regulator's actual question is rarely "what did the AI think." it's "what standard did you apply, and did you apply it consistently." that means the rule that makes the decision needs to exist as a thing separate from the code, something a non-engineer on your team, or an examiner, can read and confirm matches what actually ran.
+
+this means: version every change to the rule. date it. keep the old version. when the statute period changes, or your firm's intake policy changes, that's a new version number, and every decision made under the old version stays attributed to the old version. "we used to require X, now we require Y, and this decision was made under the version that required X" is a complete, defensible answer. "we're not sure what logic was live that week" is not.
+
+## step 4: build in a documented degrade path, and make sure it fires
+
+a regulator will ask what happens when the automated system fails. "nothing, it just works" is not an answer that survives a follow-up question, because everything fails eventually: an API outage, a document that doesn't parse, a field the model can't extract with confidence.
+
+the answer needs to be a designed behavior, not an accident. when the model can't extract with confidence, or is unavailable, the case routes to a person. it does not get force-approved by a default value and it does not get silently dropped from the queue. that routing event gets logged with the same rigor as a normal decision: what triggered the fallback, when, who received it.
+
+concrete example of the log entry:
+
+```
+fallback_log:
+  input_id: intake-88214
+  trigger: model_confidence_below_threshold (field: incident_date)
+  routed_to: [named queue, not named individual]
+  routed_at: [timestamp]
+  resolution: manual_review_completed, decision_log entry SOL-88214-manual
+```
+
+this single log entry answers the question "what happens when it doesn't work" more convincingly than any assurance you could give verbally.
+
+## step 5: assemble the explanation as a walk-through, not a defense
+
+when a regulator or an examiner actually asks about a specific decision, the explanation is a sequence, not an argument. you pull the extraction log, show what the model read. you pull the decision log, show which version of the rule ran and what it output. you show the rule document itself, dated, so they can confirm the version matches. if it went to fallback, you show that log too.
+
+nobody is asking you to justify the model's reasoning, because the model didn't reason its way to the decision. the rule did, and the rule is a document that predates this specific case and applies to every case the same way. that consistency is the actual credential. a model's confidence score is not.
+
+## common pitfalls
+
+- **treating confidence scores as an explanation.** a percentage is not a reason. if your only artifact for a decision is "model was 94% confident," you have nothing to hand over.
+- **letting the rule live only in code with no separate readable version.** if the only place your eligibility logic exists is inside a function nobody outside engineering can read, you cannot produce it as a document on short notice, and you will be doing that reconstruction under time pressure during an actual inquiry.
+- **logging the decision but not the extraction.** you need both. the decision log alone looks like it appeared from nowhere. the extraction log alone doesn't show what was done with the information.
+- **letting the fallback path exist in theory but never fire in testing.** if you have never actually seen a case route to a human because the model failed, you don't have a degrade path, you have an assumption. test it before a regulator does.
+
+## what this actually requires of you
+
+none of this requires a more explainable model. it requires that the model never be the thing making the decision in the first place. everything above is architecture and discipline: extraction and decision as separate logged steps, a rule that's versioned like a document because it is one, and a fallback that's designed rather than hoped for.
+
+if you're looking at a workflow right now and you're not sure whether it has this separation or just has the appearance of it, that's a two-week question to answer properly, not a guess. a workflow audit maps the exact decision points in a process like this, shows where the model is extracting versus where something is deciding, and tells you what it would take to make every one of those decisions defensible on paper. it's $2,500, takes two weeks, and if you move forward with a build the cost is credited toward it. details at /workflow-audit.
