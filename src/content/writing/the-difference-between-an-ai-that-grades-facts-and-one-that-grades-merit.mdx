@@ -1,0 +1,49 @@
+---
+title: "the difference between an AI that grades facts and one that grades merit"
+date: "2026-08-10"
+summary: "AI can extract facts from a file reliably. Assessing legal merit is a different task entirely, and confusing the two is how firms get burned."
+---
+
+![the difference between an AI that grades facts and one that grades merit](/blog/the-difference-between-an-ai-that-grades-facts-and-one-that-grades-merit-hero.png)
+
+the biggest mistake firms make with AI isn't technical. it's conceptual. they confuse factual accuracy with legal merit, as if a system that can find a date in a contract has said anything useful about whether a claim is worth taking. these are not the same task, and they don't get harder versions of each other as you scale up. they're different kinds of work.
+
+i've built systems that do the first one well. i won't build one that claims to do the second.
+
+## factual extraction is a narrow task
+
+find the date of loss in an intake form. pull the policy number from a declarations page. flag whether a demand letter includes a specific statute citation. these are bounded, checkable tasks. the document either contains the information or it doesn't, and a model reading it can be tested against ground truth the same way you'd test a calculator. did it get the number right. did it find the clause. did it miss the exhibit on page 40.
+
+this is the part of the work that's genuinely mechanical, and it's the part AI is actually good at, provided the task is scoped tightly. a model told to extract five specific fields from a PDF and nothing else behaves close to deterministically. give it structure, give it a narrow job, and you can audit its output against the source document line by line. that's not intelligence. it's pattern matching against a spec, and it's reliable precisely because it's narrow.
+
+the trouble starts the moment someone stretches that same tool to answer a bigger question.
+
+## merit requires judgment, not just data
+
+whether a case is worth pursuing isn't a fact sitting in a file waiting to be extracted. it's a judgment made by weighing incomplete information against experience: how a specific judge tends to rule, whether a jury in this venue is sympathetic to this kind of plaintiff, whether the client's version of events will hold up under deposition, whether the opposing counsel settles or litigates. none of that is written down anywhere for a model to find. it has to be reasoned toward, and the reasoning depends on context a document doesn't contain.
+
+a model can tell you that a demand letter cites a three-year statute of limitations. it cannot tell you whether the underlying claim is strong. those look like adjacent questions. they're not. one is retrieval. the other is judgment built on years of pattern recognition that no firm has fully written down, which means no model has been trained on it either.
+
+## the danger of confusing the two
+
+the risk isn't that a model gives a wrong answer. models are wrong sometimes, and so are people. the risk is that a system framed as 'assessing merit' produces an output that looks like a judgment, sits in a workflow that looks authoritative, and gets treated as one, without anyone being able to explain why it landed where it did.
+
+that's the part that should worry a managing partner more than the accuracy rate. a merit score with no visible reasoning is a liability wearing the costume of an efficiency gain. if a case gets rejected by a model and no one can point to which factor drove the call, that's not a shortcut. it's a decision made by nobody, which is a hard thing to defend if a client or a bar asks how it was made. professional responsibility doesn't transfer to software just because the software was fast.
+
+## a system built for auditable facts
+
+the fix isn't a smarter model. it's a narrower one, paired with a decision layer that never lets the model make the call.
+
+the way i build this: the model reads a document and extracts specific, named facts. dates, party names, damages figures, clauses, whatever the intake needs. those facts get routed into a deterministic function, code that a human wrote and can read, that applies fixed rules to what was extracted. that function makes the actual determination, whether that's 'route to intake attorney' or 'flag for missing documentation' or 'assign to this queue.' the model never grades anything. it reads and hands off.
+
+when the model is unavailable or its confidence is low, the system doesn't guess. it routes to a person. it degrades to human review rather than dropping the file or filling the gap with a best guess dressed up as an answer.
+
+that split, model reads, function decides, human judges merit, is the entire mechanism. it's not a nuance. it's the whole reason this kind of system can sit inside regulated work without someone having to trust a black box.
+
+## auditability is the core requirement
+
+because the decision function is code, not a model's internal weights, every rule inside it can be read, tested, and defended to a bar auditor or a malpractice carrier the same way you'd defend a spreadsheet formula. every fact the model extracted is logged against the source document it came from, so if someone asks why a file got routed a certain way, the answer is a chain of specific inputs, not a shrug.
+
+that's the difference between a tool that helps and a tool that hides. an AI that grades facts leaves a trail you can walk backward. an AI that grades merit, even implicitly, leaves you a number with no path back to the reasoning, sitting in a firm that is itself regulated on how it makes and represents decisions.
+
+if you're trying to figure out where in your intake or triage process a model is being asked to do more than extract, that's a mapping exercise, not a guess. i run a workflow audit, two weeks, $2,500, credited toward a build if you move forward, where i go through the actual workflow and mark exactly where a model is reading versus where it's quietly being asked to decide. link is at /workflow-audit.
