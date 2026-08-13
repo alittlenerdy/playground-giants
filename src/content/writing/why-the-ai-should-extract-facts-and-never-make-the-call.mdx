@@ -1,0 +1,55 @@
+---
+title: "why the AI should extract facts and never make the call"
+date: "2026-08-13"
+summary: "in regulated work, AI should extract facts from documents. a deterministic system, not the model, should make the decision. here's why that split matters."
+---
+
+![why the AI should extract facts and never make the call](/blog/why-the-ai-should-extract-facts-and-never-make-the-call-hero.png)
+
+the most common misunderstanding about AI in regulated work is that it should be trusted to make decisions. this is wrong, and it misses the actual power of the technology. the model is good at reading. it is not good at deciding, and pretending otherwise is where every shaky AI deployment in a law firm or medical practice starts.
+
+i build systems that put AI inside intake, triage and document review for firms that cannot afford to guess. the pattern that works every time is the same: the model reads, extracts, and routes. it never decides. a separate piece of deterministic code, or a human, makes the actual call. that split is not a nuance. it is the entire product.
+
+## the model reads, it does not decide
+
+a large language model predicts the next token. that is what it does, mechanically, underneath every impressive output. it is a pattern-matcher trained on a huge amount of text, and when you ask it a question, it produces the statistically likely continuation given everything it has seen before.
+
+that is a genuinely useful capability. it is not reasoning, and it is not certainty. when a model tells you a document is a demand letter, or that a client's intake form mentions a prior settlement, it is offering a probability, dressed up as an answer. traditional code does not work this way. a rule that says "if the statute of limitations date is more than two years past the incident date, flag for review" is deterministic. it runs the same way every time, on every input, and you can point to the exact line that fired.
+
+regulated work runs on the second kind of logic, not the first. a firm needs to know that the same fact pattern produces the same outcome, every time, and that the outcome can be explained to a bar association, an insurer, or a judge without anyone shrugging and saying "the model thought so."
+
+## a human-in-the-loop is not enough
+
+the usual answer to this is "put a human in the loop." have someone review the AI's output before it goes anywhere. this sounds like control. it is usually theater.
+
+the problem is what the human is reviewing. if the AI has already made the decision, the human is being asked to audit a black box after the fact. they see a conclusion, not the reasoning that produced it, because there is no reasoning to inspect, only weights. so the human either rubber-stamps it, because re-deriving the answer from scratch is slower than trusting the tool, or they re-do the whole analysis themselves, in which case the AI added a step without removing any work.
+
+real control means the decision originates somewhere that can be inspected before it happens, not verified after. that means a human or a deterministic rule engine makes the call. the model's job ends at supplying the inputs to that call, cleanly and visibly.
+
+## the audit trail cannot be probabilistic
+
+regulated work runs on audit trails. a compliance review, a malpractice inquiry, a state bar complaint, all of them ask the same question: show me why this happened. the answer needs to be a chain of specific, checkable steps.
+
+if an AI "decided" something, the honest answer to "why" is a statistical weighting across billions of parameters. that is not an audit trail. it is a shrug with better vocabulary. no firm can hand that to a regulator and expect it to hold up, and no managing partner should want to try.
+
+contrast that with a system where the model extracts facts and a separate deterministic layer applies rules to those facts. now "why" has a real answer: the document contained this date, this dollar figure, this named party; the rule engine checked those values against these thresholds; the outcome followed from that check. every link in that chain is inspectable independently. nobody has to trust the model's judgment, because the model never exercised any.
+
+## facts are auditable, decisions are not
+
+this is the actual mechanism, and it is worth being specific about it. AI is very good at extraction: pulling a claimed loss amount out of a demand letter, identifying that a form references a minor, flagging that an intake mentions a prior attorney. these are discrete, checkable claims. you can go back to the source document and confirm the model got the date right or got it wrong. that is verifiable in a way that "the model recommended settlement" never is.
+
+once those facts are extracted, a separate, deterministic system, code with explicit rules or a person with defined authority, applies the actual business logic. does this claim value cross the threshold for partner review. does this intake need a conflict check before anyone touches the file. does this filing deadline fall inside the window that triggers an automatic escalation. none of that logic lives inside the model. all of it lives in code or in a person's judgment, both of which can be reviewed, versioned and explained.
+
+this is also why the infrastructure question matters as much as the model question. if the extraction and the rule engine sit in the client's own accounts, the firm can see every extracted fact and every rule that fired on it, at any time, without asking permission. leaving is a handover, not a hostage negotiation, because nothing about the audit trail was ever proprietary to begin with.
+
+## degradation is control, not failure
+
+the real test of a system like this is not the happy path. it is what happens when the model gets something wrong, or isn't available at all.
+
+if the extraction is wrong, a rule-based sanity check should catch it before it reaches a decision. if a claimed date falls outside a plausible range, or a required field comes back empty, the deterministic layer flags it and routes it to a person rather than passing a bad value downstream. if the model is unavailable entirely, the system does not stall and it does not guess. it drops to a human queue, and the work keeps moving under a person's judgment instead of the AI's.
+
+that is the actual meaning of "degrades gracefully." it does not mean the system tries its best and hopes. it means the system was built with a defined fallback that activates automatically, so a bad extraction or a dead API never turns into an unverified decision going out the door. the work never gets dropped, and it never gets guessed at.
+
+## what this means for how you evaluate a vendor
+
+if a vendor tells you their AI "decides" whether a case gets escalated, whether a claim gets denied, whether a filing gets flagged, ask them where the audit trail is. ask what happens when the model is wrong, and what happens when it's offline. if the answer involves trusting the model's output rather than inspecting a rule that fired on an extracted fact, you are being sold a black box with a good demo. the question worth asking isn't whether the AI is accurate. it's whether anyone can prove, line by line, why it did what it did.
