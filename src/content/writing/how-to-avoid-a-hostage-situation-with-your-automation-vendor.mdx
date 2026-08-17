@@ -1,0 +1,63 @@
+---
+title: "how to avoid a hostage situation with your automation vendor"
+date: "2026-08-17"
+summary: "a working system, held in someone else's cloud, is a hostage negotiation waiting to happen. here is how to structure ownership before you sign."
+---
+
+you have a working system. it processes leads, routes calls, qualifies new clients. it took months to get right and now it just runs.
+
+then the vendor raises prices. maybe it is not 300%, maybe it is 40%, but it lands like a threat because you cannot say no. the system lives in their cloud, in their repo, under their login. you want to leave. you cannot, not without rebuilding from nothing. that is not a vendor relationship. that is a hostage negotiation with a monthly invoice.
+
+this is avoidable. it just has to be avoided before you sign, not after you are already stuck.
+
+## the true cost of 'free' setup
+
+every vendor who offers to "handle everything" is offering to hold everything. free setup, zero infrastructure hassle, one flat fee, sounds like a favor. it is a deposit on leverage. the system runs in their AWS account under their billing. the workflows live in their instance of whatever orchestration tool they picked. the code, if there is code you'd recognize as yours, sits in a private repo you have never seen.
+
+none of this shows up as a cost on year one. it shows up in year two, when the renewal quote arrives and the only alternative is starting over. the hidden cost of vendor-managed infrastructure is not the monthly fee. it is the fact that leaving costs more than staying, forever, by design.
+
+ownership has to be explicit, in writing, before the first workflow goes live. not implied. not "of course you'd have access if you needed it." explicit.
+
+## step 1: demand a dedicated cloud account
+
+ask directly: does this run in my AWS, GCP, or Azure account, or yours? if the answer is "ours, but you're covered," that is the lock-in, stated politely.
+
+the system should deploy into a cloud account your firm owns and controls, with your firm on the billing. you can verify this in about five minutes: ask for the account ID and log into the console yourself. if you cannot see the resources, functions, and databases the system actually uses, from your own credentials, you don't have infrastructure. you have a subscription to someone else's infrastructure, styled to look like your own.
+
+this matters beyond leverage. it is also how you know what the system is actually doing, and what it costs to run, without taking the vendor's word for either.
+
+## step 2: own the code repository
+
+the vendor can maintain the code. that's fine, that's often the point of hiring them. but the repository itself needs to sit in an account your firm controls, github, gitlab, wherever, with your firm as the owner and the vendor added as a collaborator, not the reverse.
+
+when you look inside, you're not checking whether you can read the code line by line. you're checking that there's something to read at all: version history that predates last week, commit messages that describe actual changes, a structure that a different developer could pick up without a translator. a repo that was created the day before handover, with one commit called "initial upload," tells you the vendor built this somewhere else and is showing you a copy. that's not ownership. that's a display case.
+
+## step 3: require detailed documentation and runbooks
+
+ask for three things before launch, not after a problem: an architecture diagram showing what talks to what, a list of every API key and where it lives, and a runbook describing what a human does when the system breaks or the model it depends on goes down.
+
+the runbook is the one people skip and the one that matters most. it should say, plainly, what happens at 2am when the automation stalls. does it retry. does it alert someone. does it hand the task to a person, and if so, which person, notified how. a system with no runbook doesn't fail gracefully, it just fails, and you find out from a client instead of a dashboard.
+
+ask the vendor to walk you through the runbook out loud, on a call, without slides. if they can't do it fluently, it was written for the sales deck, not for the night the system goes down.
+
+## step 4: establish data export and migration paths
+
+everything the system generates while running, transcripts, extracted fields, routing decisions, timestamps, needs a defined export path in a format you could hand to a different vendor without translation. csv, json, a direct database connection, something a normal analyst could open without a decoder ring.
+
+test this before you need it. ask for a full export of six months of data, on demand, and see how long it takes and what format arrives. if the answer is "we'd need to build that," the export path doesn't exist, it's a promise. promises don't survive a vendor dispute. working exports do.
+
+the honest version of this step is uncomfortable: you're asking a vendor you presumably like, mid-relationship, to prove they could be fired. the ones worth keeping will not flinch at the question.
+
+## common pitfalls of vendor lock-in
+
+the firms that end up hostage almost always made the same handful of mistakes, and none of them look like mistakes at the time.
+
+they signed a contract that describes the service in outcomes, "automated intake," "faster routing," but never mentions where the infrastructure lives or who owns the repo. vague contracts protect the party who wrote them.
+
+they let the vendor's technical claims go unverified because no one internally had the standing to ask for the AWS console login. lack of technical oversight isn't a staffing gap, it's the actual mechanism of lock-in: you cannot negotiate leverage you cannot see.
+
+they chose based on setup cost alone, and setup cost is the one number a vendor has every incentive to make attractive, because it's the only number you see before you're locked in. the real cost of a system is the cost to leave it, and that number is never on the invoice.
+
+and they treated the runbook and documentation as a nice-to-have, something to request "eventually." eventually is the day the vendor goes quiet or the price triples, and by then the leverage has already changed hands.
+
+none of these are exotic risks. they are the predictable result of not asking four boring questions before signing: whose cloud account, whose repo, what documentation, what export. ask them in that order, in writing, before the first workflow goes live, and the hostage situation simply doesn't have room to start.
