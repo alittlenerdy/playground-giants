@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>MIDAS800 — The Vault</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,800;1,6..96,400&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#0B0D11; --surface:#12151B; --surface2:#171B23;
+  --bone:#E9E4D7; --dim:#95907F; --faint:#5E5C53;
+  --gold:#C79A3C; --gold-dim:#7A5F25; --verd:#5C9A85; --rust:#B4573C;
+  --rule:#22262F; --rule2:#2E3440;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ground);color:var(--bone);font-family:Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+.wrap{max-width:1140px;margin:0 auto;padding:0 26px}
+a{color:inherit}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+
+/* ── bar ── */
+.bar{border-bottom:1px solid var(--rule);position:sticky;top:0;background:rgba(11,13,17,.92);backdrop-filter:blur(10px);z-index:20}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:20px}
+.mark{font-family:'Bodoni Moda',serif;font-weight:800;font-size:20px;letter-spacing:.14em}
+.mark span{color:var(--gold)}
+.nav{display:flex;gap:26px;font-size:13px;color:var(--dim)}
+.nav a{text-decoration:none}
+.nav a:hover{color:var(--gold)}
+@media(max-width:760px){.nav{display:none}}
+
+/* ── hero ── */
+.hero{padding:92px 0 74px;border-bottom:1px solid var(--rule)}
+.hero h1{font-family:'Bodoni Moda',serif;font-weight:800;font-size:clamp(52px,11vw,124px);line-height:.88;letter-spacing:-.02em;text-wrap:balance;margin:22px 0 0}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--gold)}
+.lede{max-width:60ch;margin-top:28px;font-size:18.5px;color:var(--dim)}
+.lede b{color:var(--bone);font-weight:500}
+
+/* ── stat strip ── */
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));border-top:1px solid var(--rule);margin-top:56px}
+.stat{padding:26px 24px 26px 0;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:none}
+.stat dt{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:9px}
+.stat dd{font-family:'Bodoni Moda',serif;font-size:38px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.stat .sub{font-size:12px;color:var(--dim);margin-top:8px;font-family:Archivo,sans-serif}
+.stat.hero-stat dd{color:var(--gold)}
+
+/* ── sections ── */
+section{padding:86px 0;border-bottom:1px solid var(--rule)}
+h2{font-family:'Bodoni Moda',serif;font-weight:600;font-size:clamp(30px,4.6vw,46px);line-height:1.06;letter-spacing:-.01em;text-wrap:balance}
+.sec-head{max-width:64ch;margin-bottom:44px}
+.sec-head p{margin-top:16px;color:var(--dim);font-size:16.5px}
+
+/* ── ledger ── */
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:720px}
+th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);text-align:left;padding:0 16px 13px 0;border-bottom:1px solid var(--rule2);font-weight:400}
+td{padding:17px 16px 17px 0;border-bottom:1px solid var(--rule);vertical-align:top;font-size:14.5px}
+td.work{font-weight:500;font-size:15.5px}
+td.work small{display:block;color:var(--faint);font-weight:400;font-size:12.5px;margin-top:3px}
+tbody tr:hover{background:var(--surface)}
+.chip{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;border-radius:2px;white-space:nowrap}
+.ok{background:rgba(92,154,133,.14);color:var(--verd);border:1px solid rgba(92,154,133,.3)}
+.unk{background:rgba(180,87,60,.12);color:var(--rust);border:1px solid rgba(180,87,60,.28)}
+.na{color:var(--faint);border:1px solid var(--rule2);background:transparent}
+
+.callout{margin-top:38px;border-left:2px solid var(--gold);background:var(--surface);padding:26px 30px}
+.callout p{max-width:66ch;color:var(--dim)}
+.callout p+p{margin-top:12px}
+.callout b{color:var(--bone);font-weight:600}
+.quote{font-family:'Bodoni Moda',serif;font-style:italic;font-size:23px;line-height:1.4;color:var(--bone);margin-bottom:14px}
+
+/* ── record ── */
+.record{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+@media(max-width:860px){.record{grid-template-columns:1fr;gap:36px}}
+.embed{position:relative;padding-bottom:56.25%;height:0;border:1px solid var(--rule2);background:var(--surface)}
+.embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.facts-list{display:flex;flex-direction:column;gap:0;margin-top:8px}
+.facts-list div{display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid var(--rule)}
+.facts-list dt{color:var(--dim);font-size:14px}
+.facts-list dd{font-family:'JetBrains Mono',monospace;font-size:13.5px;text-align:right}
+
+/* ── kits ── */
+.kits{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:20px;margin-top:14px}
+.kit{background:var(--surface);border:1px solid var(--rule2);padding:28px;display:flex;flex-direction:column;gap:14px}
+.kit .tier{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.kit h3{font-family:'Bodoni Moda',serif;font-size:25px;font-weight:600;line-height:1.15}
+.kit p{font-size:14px;color:var(--dim);flex:1}
+.kit ul{list-style:none;display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--dim)}
+.kit li::before{content:"—";color:var(--gold-dim);margin-right:9px}
+.price{font-family:'Bodoni Moda',serif;font-size:34px;font-weight:600;font-variant-numeric:tabular-nums}
+.price small{font-size:13px;color:var(--faint);font-family:Archivo,sans-serif;font-weight:400}
+.btn{display:inline-block;text-align:center;padding:13px 20px;background:var(--gold);color:#0B0D11;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--gold);transition:background .18s,color .18s}
+.btn:hover,.btn:focus-visible{background:transparent;color:var(--gold)}
+.btn.ghost{background:transparent;color:var(--bone);border-color:var(--rule2)}
+.btn.ghost:hover,.btn.ghost:focus-visible{border-color:var(--gold);color:var(--gold)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* ── roster ── */
+.roster{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.roster span{font-family:'JetBrains Mono',monospace;font-size:12.5px;padding:8px 13px;border:1px solid var(--rule2);color:var(--dim)}
+
+/* ── contact ── */
+.cta{padding:96px 0;text-align:center}
+.cta h2{max-width:19ch;margin:0 auto}
+.cta .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+footer{padding:34px 0;border-top:1px solid var(--rule);color:var(--faint);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.proto{position:fixed;left:0;right:0;bottom:0;background:var(--gold);color:#0B0D11;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:9px;z-index:50}
+body{padding-bottom:38px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <div class="mark">MIDAS<span>800</span></div>
+  <nav class="nav">
+    <a href="#catalog">Catalog</a><a href="#record">The Record</a><a href="#kits">Kits</a><a href="#work">Work With Me</a>
+  </nav>
+</div></div>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Producer · Engineer · Mixer</div>
+    <h1>Ten million records.<br><em>Nobody counted them.</em></h1>
+    <p class="lede">I produced the record that put NLE Choppa on the Hot 100. Since then I have placed beats across a catalog nobody has ever fully accounted for &mdash; <b>including me.</b> This page is the beginning of that accounting.</p>
+    <dl class="strip">
+      <div class="stat hero-stat"><dt>Certified</dt><dd>2&times;</dd><div class="sub">RIAA platinum &mdash; "Shotta Flow"</div></div>
+      <div class="stat"><dt>Hot 100 peak</dt><dd>#36</dd><div class="sub">Billboard, 2019</div></div>
+      <div class="stat"><dt>Beats published</dt><dd>141</dd><div class="sub">YouTube catalog</div></div>
+      <div class="stat"><dt>Subscribers</dt><dd>14,600</dd><div class="sub">Built, and still there</div></div>
+    </dl>
+  </header>
+</div>
+
+<!-- ══ CATALOG LEDGER ══ -->
+<div class="wrap"><section id="catalog">
+  <div class="sec-head">
+    <div class="eyebrow">The register</div>
+    <h2>What is registered, and what is not</h2>
+    <p>Performance royalties, mechanical royalties and neighbouring rights are three separate lanes that do not talk to each other. A work registered in one is <em>not</em> registered in the others. This is the current state of the register, stated honestly.</p>
+  </div>
+
+  <div class="scroll"><table>
+    <thead><tr>
+      <th>Work</th><th>Year</th><th>Certification</th><th>BMI<br><span style="text-transform:none;letter-spacing:0">performance</span></th><th>MLC<br><span style="text-transform:none;letter-spacing:0">mechanicals</span></th><th>Publishing admin</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="work">Shotta Flow<small>NLE Choppa</small></td>
+        <td class="mono">2019</td>
+        <td><span class="chip ok">2&times; Platinum</span></td>
+        <td><span class="chip ok">Registered</span></td>
+        <td><span class="chip unk">Unverified</span></td>
+        <td><span class="chip ok">Downtown</span></td>
+      </tr>
+      <tr>
+        <td class="work">Shotta Flow 7<small>NLE Choppa · co-production</small></td>
+        <td class="mono">2023</td>
+        <td><span class="chip na">Not counted</span></td>
+        <td><span class="chip unk">Unverified</span></td>
+        <td><span class="chip unk">Unverified</span></td>
+        <td><span class="chip ok">Downtown</span></td>
+      </tr>
+      <tr>
+        <td class="work">Capo<small>NLE Choppa</small></td>
+        <td class="mono">2020</td>
+        <td><span class="chip na">Not counted</span></td>
+        <td><span class="chip unk">Unverified</span></td>
+        <td><span class="chip unk">Unverified</span></td>
+        <td><span class="chip unk">Unverified</span></td>
+      </tr>
+      <tr>
+        <td class="work">The remaining catalog<small>Placements across the roster below</small></td>
+        <td class="mono">2018&ndash;</td>
+        <td><span class="chip unk">Never counted</span></td>
+        <td><span class="chip unk">Unverified</span></td>
+        <td><span class="chip unk">Unverified</span></td>
+        <td><span class="chip unk">Unverified</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <p class="quote">"I don't even know. I definitely lost track."</p>
+    <p><b>That sentence is why this page exists.</b> Every red mark above is a lane where money either is or is not arriving, and right now nobody can say which. <b>Not a single one of them is a guess about whether the work is good.</b> They are all questions about whether the paperwork followed the record.</p>
+    <p>The first job is to turn every red mark green or prove it was already fine. Both are real answers, and both are worth having in writing.</p>
+  </div>
+</section></div>
+
+<!-- ══ THE RECORD ══ -->
+<div class="wrap"><section id="record">
+  <div class="sec-head">
+    <div class="eyebrow">Exhibit A</div>
+    <h2>The record found the producer</h2>
+  </div>
+  <div class="record">
+    <div>
+      <div class="embed">
+        <iframe src="https://www.youtube-nocookie.com/embed/arsD5Y1VzEg" title="The Making Of NLE Choppa's Shotta Flow With Midas800 — Genius Deconstructed" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p style="margin-top:16px;font-size:13px;color:var(--faint)">Genius, <em>Deconstructed</em> &mdash; August 2019</p>
+    </div>
+    <div>
+      <p style="color:var(--dim);font-size:16.5px">Nobody was introduced. Nobody pitched anybody. Choppa searched a type beat on YouTube, found mine, pulled it down and recorded to it. <b style="color:var(--bone)">By the time he reached out, the song already had millions of plays.</b></p>
+      <p style="color:var(--dim);font-size:16.5px;margin-top:16px">The machine that produced a 2&times; platinum record was a search result. That machine is still switched on, and it is still searchable.</p>
+      <dl class="facts-list">
+        <div><dt>Released</dt><dd>11 Jan 2019</dd></div>
+        <div><dt>Billboard Hot 100 peak</dt><dd>#36</dd></div>
+        <div><dt>RIAA</dt><dd>2&times; Platinum</dd></div>
+        <div><dt>Producer agreement</dt><dd>Signed after release</dd></div>
+        <div><dt>Points on master</dt><dd>Yes</dd></div>
+        <div><dt>Writer's share</dt><dd>50%</dd></div>
+        <div><dt>Genius episode views</dt><dd>1,034,793</dd></div>
+      </dl>
+    </div>
+  </div>
+</section></div>
+
+<!-- ══ KITS ══ -->
+<div class="wrap"><section id="kits">
+  <div class="sec-head">
+    <div class="eyebrow">The shop</div>
+    <h2>Drum kits &amp; loops</h2>
+    <p>The same drums, the same chains and the same process behind a 2&times; platinum record. Instant download, cleared for commercial use, no royalty owed on anything you make with them.</p>
+  </div>
+
+  <div class="kits">
+    <div class="kit">
+      <div class="tier">Volume 01</div>
+      <h3>The Midas Kit</h3>
+      <p>The core drum library. Every 808, kick, snare and hat from the sessions that built the catalog.</p>
+      <ul><li>One-shots, 808s, percussion</li><li>Royalty-free commercial licence</li><li>WAV, DAW-agnostic</li></ul>
+      <div class="price">$49 <small>one time</small></div>
+      <a class="btn" href="#work">Add to cart</a>
+    </div>
+    <div class="kit">
+      <div class="tier">Volume 02</div>
+      <h3>Evil Piano Loops</h3>
+      <p>The melodic signature. Loop pack with stems and MIDI, in the voicings the records were built on.</p>
+      <ul><li>Loops with MIDI and stems</li><li>Key and BPM labelled</li><li>Royalty-free commercial licence</li></ul>
+      <div class="price">$39 <small>one time</small></div>
+      <a class="btn" href="#work">Add to cart</a>
+    </div>
+    <div class="kit">
+      <div class="tier">Complete</div>
+      <h3>The Vault Bundle</h3>
+      <p>Everything above, plus the session walkthrough breaking down how a type beat became a Hot 100 record.</p>
+      <ul><li>All kits and loop packs</li><li>Session walkthrough video</li><li>Every future volume included</li></ul>
+      <div class="price">$99 <small>one time</small></div>
+      <a class="btn" href="#work">Add to cart</a>
+    </div>
+  </div>
+  <p style="margin-top:26px;font-size:13px;color:var(--faint);max-width:62ch">Placeholder pricing and titles &mdash; the kits exist and are unreleased. Names, contents and price are Midas's call.</p>
+</section></div>
+
+<!-- ══ ROSTER ══ -->
+<div class="wrap"><section>
+  <div class="sec-head" style="margin-bottom:20px">
+    <div class="eyebrow">Placements</div>
+    <h2>Artists who have recorded on my beats</h2>
+  </div>
+  <div class="roster">
+    <span>NLE Choppa</span><span>DaBaby</span><span>BigXThaPlug</span><span>Veeze</span><span>SleazyWorld Go</span>
+    <span>Rio Da Yung Og</span><span>Slimesito</span><span>Goonew</span><span>Xangang</span><span>So Faygo</span>
+    <span>Reco Havoc</span><span>Splurge</span><span>Big Yavo</span><span>Elle Teresa</span><span>JustZeke</span>
+  </div>
+  <p style="margin-top:22px;font-size:13px;color:var(--faint);max-width:62ch">Drawn from published credits and channel collaborations. The audit is what turns this list into a verified, sourced register.</p>
+</section></div>
+
+<!-- ══ CTA ══ -->
+<div class="wrap"><section class="cta" id="work">
+  <div class="eyebrow">Work with me</div>
+  <h2>Beats, mixing, and full production</h2>
+  <p style="max-width:54ch;margin:18px auto 0;color:var(--dim);font-size:17px">Placements, custom production, mix and master. If you are an artist, a label or a supervisor, the fastest route is a direct message.</p>
+  <div class="row">
+    <a class="btn" href="#">Send a message</a>
+    <a class="btn ghost" href="https://www.youtube.com/channel/UCk1XxZ--lg_jRJn7RqX4urw">Hear the catalog</a>
+  </div>
+</section></div>
+
+<div class="wrap"><footer>
+  <span>MIDAS800 &mdash; producer, engineer, mixer</span>
+  <span class="mono">Prototype 01 · The Vault</span>
+</footer></div>
+
+<div class="proto">Prototype · Playground Giants · direction 01 of 3 &mdash; "The Vault"</div>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>MIDAS800 — Daylight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&family=Chivo+Mono:wght@400;600">
+<style>
+:root{
+  --ground:#EFF1F4; --panel:#FFFFFF; --panel2:#F6F7F9; --rule:#DFE3E9; --rule2:#C7CDD6;
+  --bone:#14171C; --dim:#5A6272; --faint:#8A93A2;
+  --cue:#0B5FFF; --cue-dim:#5C93FF; --hot:#B4700E; --live:#1B8F4B;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ground);color:var(--bone);font-family:'Public Sans',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:96px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+.mono{font-family:'Chivo Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.eyebrow{font-family:'Chivo Mono',monospace;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--cue)}
+h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;letter-spacing:-.02em;text-wrap:balance}
+a:focus-visible,button:focus-visible{outline:2px solid var(--cue);outline-offset:3px}
+
+/* ── bar ── */
+.bar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:18px}
+.mark{font-family:'Bricolage Grotesque';font-weight:800;font-size:19px;letter-spacing:.02em}
+.mark span{color:var(--cue)}
+.nav{display:flex;gap:24px;font-size:13.5px;color:var(--dim)}
+.nav a{text-decoration:none}.nav a:hover{color:var(--cue)}
+@media(max-width:820px){.nav{display:none}}
+.cart{font-family:'Chivo Mono',monospace;font-size:12px;border:1px solid var(--rule2);padding:7px 13px;color:var(--dim)}
+
+/* ── hero ── */
+.hero{padding:76px 0 60px}
+.hero h1{font-size:clamp(44px,8.4vw,92px);font-weight:800;line-height:.94}
+.hero h1 span{color:var(--cue)}
+.hero .lede{max-width:56ch;margin-top:22px;font-size:18px;color:var(--dim)}
+.badges{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.badge{font-family:'Chivo Mono',monospace;font-size:11px;letter-spacing:.06em;padding:7px 12px;border:1px solid var(--rule2);color:var(--dim)}
+.badge b{color:var(--bone);font-weight:600}
+.badge.plat{border-color:var(--cue-dim);color:var(--cue)}
+
+/* ── section ── */
+section{padding:64px 0;border-top:1px solid var(--rule)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:32px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(26px,3.8vw,38px);font-weight:700}
+.sec-head p{color:var(--dim);font-size:15.5px;max-width:56ch;margin-top:10px}
+
+/* ── KITS (lead) ── */
+.kitgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.kit{background:var(--panel);border:1px solid var(--rule);display:flex;flex-direction:column}
+.kit.feature{border-color:var(--cue-dim);box-shadow:0 0 0 1px rgba(59,201,219,.14)}
+.kit-art{height:150px;position:relative;overflow:hidden;background:var(--panel2);border-bottom:1px solid var(--rule)}
+.kit-art canvas{display:block;width:100%;height:100%}
+.kit-tag{position:absolute;top:12px;left:12px;font-family:'Chivo Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:5px 9px;background:var(--cue);color:#FFFFFF;font-weight:600}
+.kit-body{padding:22px;display:flex;flex-direction:column;gap:12px;flex:1}
+.kit-body h3{font-size:21px;font-weight:700}
+.kit-body p{font-size:14px;color:var(--dim);flex:1}
+.spec{display:flex;gap:16px;font-family:'Chivo Mono',monospace;font-size:11.5px;color:var(--faint);flex-wrap:wrap}
+.kit-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 22px;border-top:1px solid var(--rule)}
+.price{font-family:'Chivo Mono',monospace;font-size:24px;font-weight:600}
+.btn{display:inline-block;text-align:center;padding:11px 18px;background:var(--cue);color:#FFFFFF;font-weight:600;font-size:13.5px;text-decoration:none;border:1px solid var(--cue);cursor:pointer;transition:background .16s,color .16s;font-family:'Public Sans',sans-serif}
+.btn:hover,.btn:focus-visible{background:transparent;color:var(--cue)}
+.btn.ghost{background:transparent;color:var(--bone);border-color:var(--rule2)}
+.btn.ghost:hover,.btn.ghost:focus-visible{border-color:var(--cue);color:var(--cue)}
+
+/* ── beats table ── */
+.scroll{overflow-x:auto}
+.beats{width:100%;border-collapse:collapse;min-width:760px}
+.beats th{font-family:'Chivo Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);text-align:left;padding:0 14px 12px 0;border-bottom:1px solid var(--rule2);font-weight:400}
+.beats td{padding:0 14px 0 0;border-bottom:1px solid var(--rule);vertical-align:middle;height:66px;font-size:14.5px}
+.beats tbody tr:hover{background:var(--panel)}
+.play{width:34px;height:34px;border-radius:50%;border:1px solid var(--rule2);background:transparent;color:var(--cue);display:grid;place-items:center;cursor:pointer;flex:none}
+.play:hover{border-color:var(--cue);background:rgba(59,201,219,.1)}
+.tname{display:flex;align-items:center;gap:14px}
+.tname b{font-weight:600;font-size:14.5px}
+.tname small{display:block;color:var(--faint);font-size:12px;font-weight:400;margin-top:2px}
+.wave{height:26px;width:100%;min-width:110px}
+.beats .m{font-family:'Chivo Mono',monospace;font-size:12.5px;color:var(--dim)}
+.tag-free{font-family:'Chivo Mono',monospace;font-size:10px;padding:4px 7px;border:1px solid var(--rule2);color:var(--live);letter-spacing:.1em}
+
+/* ── licences ── */
+.lic{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.lcard{background:var(--panel);border:1px solid var(--rule);padding:24px;display:flex;flex-direction:column;gap:13px}
+.lcard.best{border-color:var(--cue-dim)}
+.lcard h3{font-size:16px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;font-family:'Chivo Mono',monospace}
+.lcard ul{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:var(--dim);flex:1}
+.lcard li::before{content:"+";color:var(--cue);margin-right:9px;font-family:'Chivo Mono',monospace}
+.lcard li.no{color:var(--faint)}
+.lcard li.no::before{content:"\2013";color:var(--faint)}
+
+/* ── stream ── */
+.streamrow{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:820px){.streamrow{grid-template-columns:1fr}}
+.panelbox{background:var(--panel);border:1px solid var(--rule);padding:28px}
+.panelbox h3{font-size:20px;font-weight:700;margin-bottom:10px}
+.panelbox p{color:var(--dim);font-size:14.5px}
+.livedot{display:inline-flex;align-items:center;gap:8px;font-family:'Chivo Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--live)}
+.livedot i{width:7px;height:7px;border-radius:50%;background:var(--live);display:block}
+
+/* ── player ── */
+.player{position:fixed;left:0;right:0;bottom:0;background:var(--panel2);border-top:1px solid var(--rule2);z-index:40}
+.player .wrap{display:flex;align-items:center;gap:18px;height:72px}
+.player .now{display:flex;align-items:center;gap:13px;min-width:0;flex:none}
+.player .now b{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px;display:block}
+.player .now small{color:var(--faint);font-size:11.5px;font-family:'Chivo Mono',monospace}
+.track{flex:1;height:4px;background:var(--rule);position:relative;min-width:60px}
+.track i{position:absolute;inset:0 62% 0 0;background:var(--cue);display:block}
+.track::after{content:"";position:absolute;top:-4px;left:38%;width:12px;height:12px;border-radius:50%;background:var(--cue)}
+.player .t{font-family:'Chivo Mono',monospace;font-size:12px;color:var(--dim);flex:none}
+@media(max-width:700px){.player .t,.player .now small{display:none}}
+
+footer{padding:30px 0;border-top:1px solid var(--rule);color:var(--faint);font-size:12.5px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.proto{background:var(--cue);color:#FFFFFF;font-family:'Chivo Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:8px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <div class="mark">MIDAS<span>800</span></div>
+  <nav class="nav"><a href="#kits">Kits &amp; Loops</a><a href="#beats">Beats</a><a href="#licence">Licensing</a><a href="#live">Live</a></nav>
+  <div class="cart">CART · 0</div>
+</div></div>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Producer · Memphis to the Hot 100</div>
+    <h1>Sounds from the sessions<br>behind <span>Shotta Flow</span>.</h1>
+    <p class="lede">The drums, the loops and the beats that built a 2&times; platinum record. Instant download. Royalty-free. Nothing owed on anything you make.</p>
+    <div class="badges">
+      <span class="badge plat"><b>2&times; PLATINUM</b> · RIAA</span>
+      <span class="badge"><b>#36</b> Billboard Hot 100</span>
+      <span class="badge"><b>141</b> beats published</span>
+      <span class="badge"><b>14,600</b> subscribers</span>
+    </div>
+  </header>
+</div>
+
+<!-- ══ KITS FIRST ══ -->
+<div class="wrap"><section id="kits" style="border-top:none;padding-top:12px">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">Out now</div>
+      <h2>Drum kits &amp; loop packs</h2>
+      <p>Same drums, same chains, same process. Download instantly and use them on anything, forever.</p>
+    </div>
+    <a class="btn ghost" href="#licence">How licensing works</a>
+  </div>
+
+  <div class="kitgrid">
+    <div class="kit feature">
+      <div class="kit-art"><span class="kit-tag">Volume 01</span><canvas class="art" data-seed="3"></canvas></div>
+      <div class="kit-body">
+        <h3>The Midas Kit</h3>
+        <p>The core drum library. Every 808, kick, snare, hat and percussion hit from the sessions that built the catalog.</p>
+        <div class="spec"><span>WAV · 24-bit</span><span>DAW-agnostic</span><span>Royalty-free</span></div>
+      </div>
+      <div class="kit-foot"><span class="price">$49</span><a class="btn" href="#">Add to cart</a></div>
+    </div>
+
+    <div class="kit">
+      <div class="kit-art"><span class="kit-tag">Volume 02</span><canvas class="art" data-seed="11"></canvas></div>
+      <div class="kit-body">
+        <h3>Evil Piano Loops</h3>
+        <p>The melodic signature, in the voicings the records were actually built on. Stems and MIDI included.</p>
+        <div class="spec"><span>Loops + MIDI</span><span>Key &amp; BPM labelled</span><span>Stems</span></div>
+      </div>
+      <div class="kit-foot"><span class="price">$39</span><a class="btn" href="#">Add to cart</a></div>
+    </div>
+
+    <div class="kit">
+      <div class="kit-art"><span class="kit-tag">Bundle</span><canvas class="art" data-seed="21"></canvas></div>
+      <div class="kit-body">
+        <h3>Everything + Session</h3>
+        <p>All kits and loop packs, plus a full walkthrough of how a type beat on YouTube became a Hot 100 record.</p>
+        <div class="spec"><span>All volumes</span><span>Walkthrough video</span><span>Future drops free</span></div>
+      </div>
+      <div class="kit-foot"><span class="price">$99</span><a class="btn" href="#">Add to cart</a></div>
+    </div>
+  </div>
+  <p style="margin-top:22px;font-size:13px;color:var(--faint);max-width:62ch">Placeholder titles, artwork and pricing. The kits exist and have never been distributed &mdash; contents and price are Midas's call.</p>
+</section></div>
+
+<!-- ══ BEATS ══ -->
+<div class="wrap"><section id="beats">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">The catalog</div>
+      <h2>Beats</h2>
+      <p>Every beat streams free. Buy a licence and the untagged files land in your inbox immediately.</p>
+    </div>
+    <a class="btn ghost" href="https://www.youtube.com/channel/UCk1XxZ--lg_jRJn7RqX4urw">All 141 on YouTube</a>
+  </div>
+
+  <div class="scroll"><table class="beats">
+    <thead><tr><th></th><th>Title</th><th>Waveform</th><th>BPM</th><th>Key</th><th>Tags</th><th></th></tr></thead>
+    <tbody>
+      <tr>
+        <td><button class="play" aria-label="Play SO SLIME">&#9654;</button></td>
+        <td class="tname"><span><b>SO SLIME</b><small>Slimesito × Lil Dude type beat</small></span></td>
+        <td><canvas class="wave" data-seed="7"></canvas></td>
+        <td class="m">145</td><td class="m">F&#9839;m</td><td><span class="tag-free">TRAP</span></td>
+        <td><a class="btn" href="#licence">$75</a></td>
+      </tr>
+      <tr>
+        <td><button class="play" aria-label="Play Euphoria">&#9654;</button></td>
+        <td class="tname"><span><b>Euphoria</b><small>Trapgokrazy × Xhulooo type beat</small></span></td>
+        <td><canvas class="wave" data-seed="13"></canvas></td>
+        <td class="m">152</td><td class="m">Am</td><td><span class="tag-free">HYPERPOP</span></td>
+        <td><a class="btn" href="#licence">$50</a></td>
+      </tr>
+      <tr>
+        <td><button class="play" aria-label="Play Love Hate">&#9654;</button></td>
+        <td class="tname"><span><b>Love Hate</b><small>Rich Amiri × ATL SMOOK type beat</small></span></td>
+        <td><canvas class="wave" data-seed="19"></canvas></td>
+        <td class="m">138</td><td class="m">Dm</td><td><span class="tag-free">R&amp;B</span></td>
+        <td><a class="btn" href="#licence">$50</a></td>
+      </tr>
+      <tr>
+        <td><button class="play" aria-label="Play NO EVIDENCE">&#9654;</button></td>
+        <td class="tname"><span><b>NO EVIDENCE</b><small>NLE Choppa × DaBaby type beat</small></span></td>
+        <td><canvas class="wave" data-seed="29"></canvas></td>
+        <td class="m">142</td><td class="m">Gm</td><td><span class="tag-free">FREE</span></td>
+        <td><a class="btn ghost" href="#licence">Free DL</a></td>
+      </tr>
+      <tr>
+        <td><button class="play" aria-label="Play DEAGLE">&#9654;</button></td>
+        <td class="tname"><span><b>DEAGLE</b><small>Yuno Miles Detroit type beat</small></span></td>
+        <td><canvas class="wave" data-seed="37"></canvas></td>
+        <td class="m">148</td><td class="m">Cm</td><td><span class="tag-free">DETROIT</span></td>
+        <td><a class="btn ghost" href="#licence">Free DL</a></td>
+      </tr>
+    </tbody>
+  </table></div>
+</section></div>
+
+<!-- ══ LICENCE ══ -->
+<div class="wrap"><section id="licence">
+  <div class="sec-head"><div>
+    <div class="eyebrow">Licensing</div>
+    <h2>Four ways to use a beat</h2>
+    <p>Plain English, no lawyer required. Every licence is instant and permanent.</p>
+  </div></div>
+  <div class="lic">
+    <div class="lcard">
+      <h3>MP3</h3><div class="price">$50</div>
+      <ul><li>Tagged MP3</li><li>100,000 streams</li><li>Non-profit performances</li><li class="no">No trackouts</li><li class="no">Not exclusive</li></ul>
+      <a class="btn ghost" href="#">Choose</a>
+    </div>
+    <div class="lcard">
+      <h3>WAV</h3><div class="price">$100</div>
+      <ul><li>Untagged WAV + MP3</li><li>500,000 streams</li><li>Music video allowed</li><li class="no">No trackouts</li><li class="no">Not exclusive</li></ul>
+      <a class="btn ghost" href="#">Choose</a>
+    </div>
+    <div class="lcard best">
+      <h3>Trackout</h3><div class="price">$250</div>
+      <ul><li>Full stems, every layer</li><li>Unlimited streams</li><li>Radio and video</li><li>Mix and remix freely</li><li class="no">Not exclusive</li></ul>
+      <a class="btn" href="#">Choose</a>
+    </div>
+    <div class="lcard">
+      <h3>Exclusive</h3><div class="price">Enquire</div>
+      <ul><li>Beat comes off the store</li><li>Full stems</li><li>Unlimited everything</li><li>Split sheet provided</li><li>Direct line to Midas</li></ul>
+      <a class="btn ghost" href="#">Enquire</a>
+    </div>
+  </div>
+</section></div>
+
+<!-- ══ LIVE ══ -->
+<div class="wrap"><section id="live">
+  <div class="sec-head"><div>
+    <div class="eyebrow">In the room</div>
+    <h2>Watch the beats get made</h2>
+  </div></div>
+  <div class="streamrow">
+    <div class="panelbox">
+      <span class="livedot"><i></i>Live production streams</span>
+      <h3 style="margin-top:14px">Every Tuesday and Thursday</h3>
+      <p>Beats built from nothing, start to finish, on stream. Requests taken live. Everything made on stream goes up on the channel afterwards.</p>
+      <p style="margin-top:18px"><a class="btn" href="#">Get notified</a></p>
+    </div>
+    <div class="panelbox">
+      <span class="eyebrow">Free download</span>
+      <h3 style="margin-top:14px">Get the starter pack</h3>
+      <p>Ten drums and two loops, free. Drop an email and it lands instantly &mdash; and you hear first when a new kit drops.</p>
+      <form style="margin-top:18px;display:flex;gap:9px;flex-wrap:wrap" onsubmit="return false">
+        <input type="email" placeholder="you@email.com" aria-label="Email address" style="flex:1;min-width:180px;padding:11px 13px;background:var(--ground);border:1px solid var(--rule2);color:var(--bone);font-family:'Public Sans',sans-serif;font-size:14px">
+        <button class="btn" type="submit">Send it</button>
+      </form>
+    </div>
+  </div>
+</section></div>
+
+<div class="wrap"><footer>
+  <span>MIDAS800 &mdash; beats, kits, mixing</span>
+  <span class="mono">Prototype 04 · Daylight</span>
+</footer></div>
+
+<div class="player"><div class="wrap">
+  <button class="play" aria-label="Play">&#9654;</button>
+  <span class="now"><span><b>SO SLIME</b><small>Slimesito × Lil Dude · 145 BPM</small></span></span>
+  <span class="t">1:12</span>
+  <span class="track"><i></i></span>
+  <span class="t">3:07</span>
+  <a class="btn" href="#licence">License $75</a>
+</div></div>
+
+<div class="proto">Prototype · Playground Giants · direction 04 of 6 &mdash; "Daylight"</div>
+
+<script>
+// deterministic pseudo-waveforms — no Math.random so renders are stable
+function rng(seed){let s=seed*9301+49297;return()=>{s=(s*9301+49297)%233280;return s/233280}}
+function drawWave(c){
+  const d=window.devicePixelRatio||1, w=c.clientWidth, h=c.clientHeight;
+  if(!w||!h) return;
+  c.width=w*d; c.height=h*d;
+  const x=c.getContext('2d'); x.scale(d,d);
+  const r=rng(parseInt(c.dataset.seed||'1',10)); const bars=Math.floor(w/3);
+  for(let i=0;i<bars;i++){
+    const t=i/bars, env=Math.sin(t*Math.PI)*0.55+0.45;
+    const v=Math.max(0.08,(r()*0.75+0.25)*env);
+    x.fillStyle= t<0.38 ? '#0B5FFF' : '#C7CDD6';
+    const bh=v*h; x.fillRect(i*3,(h-bh)/2,1.6,bh);
+  }
+}
+function drawArt(c){
+  const d=window.devicePixelRatio||1, w=c.clientWidth, h=c.clientHeight;
+  if(!w||!h) return;
+  c.width=w*d;c.height=h*d;
+  const x=c.getContext('2d');x.scale(d,d);
+  const r=rng(parseInt(c.dataset.seed||'1',10));
+  x.fillStyle='#F6F7F9';x.fillRect(0,0,w,h);
+  const cols=Math.floor(w/7);
+  for(let i=0;i<cols;i++){
+    const v=r();
+    x.fillStyle= v>0.82 ? 'rgba(11,95,255,.85)' : v>0.6 ? 'rgba(11,95,255,.22)' : 'rgba(20,23,28,.08)';
+    const bh=(r()*0.8+0.12)*h;
+    x.fillRect(i*7,h-bh,4,bh);
+  }
+}
+function paint(){document.querySelectorAll('canvas.wave').forEach(drawWave);document.querySelectorAll('canvas.art').forEach(drawArt);}
+window.addEventListener('load',paint);
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(paint,140)});
+</script>
+</body>
+</html>

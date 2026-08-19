@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Signal — MIDAS800</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#070B14; --panel:#0E1421; --panel2:#141C2D; --rule:#1F2A3F; --rule2:#2C3A55;
+  --bone:#E4E9F2; --dim:#7C8AA3; --faint:#586780;
+  --sig:#5EEAD4;            /* accent — the brand signal colour */
+  --sig-dim:#1F6B62;
+  --new:#FB7185; --active:#FBBF24; --good:#4ADE80;   /* semantic, separate from accent */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ground);color:var(--bone);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:0 22px}
+a{color:inherit}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--sig);outline-offset:2px}
+
+/* ── chrome ── */
+.bar{border-bottom:1px solid var(--rule);background:var(--panel)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.mark{font-weight:700;font-size:15px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.mark i{width:9px;height:9px;border-radius:50%;background:var(--sig);display:block;box-shadow:0 0 0 4px rgba(94,234,212,.14)}
+.mark span{color:var(--faint);font-weight:400;font-family:'IBM Plex Mono',monospace;font-size:12px}
+.tabs{display:flex;gap:2px}
+.tabs a{font-size:13px;padding:7px 13px;color:var(--dim);text-decoration:none;border-radius:3px}
+.tabs a.on{background:var(--panel2);color:var(--bone)}
+.tabs a:hover{color:var(--bone)}
+@media(max-width:900px){.tabs{display:none}}
+
+.notice{background:rgba(251,191,36,.09);border-bottom:1px solid rgba(251,191,36,.22);color:var(--active);font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.06em}
+.notice .wrap{padding:9px 22px}
+
+/* ── headline ── */
+.head{padding:34px 0 26px}
+.head h1{font-size:clamp(25px,3.6vw,34px);font-weight:600;letter-spacing:-.015em;text-wrap:balance}
+.head p{color:var(--dim);font-size:15px;margin-top:8px;max-width:62ch}
+
+/* ── tiles ── */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(186px,1fr));gap:12px;margin-bottom:16px}
+.tile{background:var(--panel);border:1px solid var(--rule);padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.tile dt{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.tile dd{font-size:32px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.1}
+.delta{font-family:'IBM Plex Mono',monospace;font-size:11.5px;display:flex;align-items:center;gap:6px}
+.up{color:var(--good)}.flat{color:var(--faint)}
+.spark{height:26px;width:100%;margin-top:2px}
+
+/* ── main grid ── */
+.grid{display:grid;grid-template-columns:1fr 372px;gap:12px;align-items:start}
+@media(max-width:1040px){.grid{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--rule)}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 20px;border-bottom:1px solid var(--rule)}
+.card-h h2{font-size:14px;font-weight:600;letter-spacing:.01em}
+.card-b{padding:20px}
+
+/* ── map ── */
+.mapwrap{position:relative;background:var(--ground)}
+#map{display:block;width:100%;height:auto;aspect-ratio:2/1}
+.legend{display:flex;gap:18px;flex-wrap:wrap;padding:13px 20px;border-top:1px solid var(--rule);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim)}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend i{width:8px;height:8px;border-radius:50%;display:block}
+.tip{position:absolute;pointer-events:none;background:var(--panel2);border:1px solid var(--rule2);padding:9px 12px;font-size:12px;transform:translate(-50%,-135%);white-space:nowrap;opacity:0;transition:opacity .12s;z-index:5}
+.tip b{display:block;font-size:12.5px}
+.tip small{color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:11px}
+
+/* ── inbox ── */
+.fan{display:flex;gap:12px;padding:14px 20px;border-bottom:1px solid var(--rule);align-items:flex-start}
+.fan:last-child{border-bottom:none}
+.av{width:34px;height:34px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;background:var(--panel2);border:1px solid var(--rule2);color:var(--sig)}
+.fan .who{flex:1;min-width:0}
+.fan .who b{font-size:13.5px;font-weight:600;display:block}
+.fan .who small{color:var(--faint);font-family:'IBM Plex Mono',monospace;font-size:11px}
+.fan .who p{font-size:12.5px;color:var(--dim);margin-top:5px}
+.pill{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:3px 7px;border-radius:2px;white-space:nowrap;flex:none}
+.p-new{background:rgba(251,113,133,.14);color:var(--new);border:1px solid rgba(251,113,133,.3)}
+.p-buy{background:rgba(74,222,128,.12);color:var(--good);border:1px solid rgba(74,222,128,.28)}
+.p-sub{background:rgba(94,234,212,.1);color:var(--sig);border:1px solid rgba(94,234,212,.26)}
+
+/* ── composer ── */
+.compose textarea{width:100%;min-height:96px;background:var(--ground);border:1px solid var(--rule2);color:var(--bone);padding:13px;font-family:'IBM Plex Sans',sans-serif;font-size:13.5px;resize:vertical}
+.seg{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:13px}
+.seg button{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:6px 11px;background:transparent;border:1px solid var(--rule2);color:var(--dim);cursor:pointer;border-radius:2px}
+.seg button.on{border-color:var(--sig);color:var(--sig);background:rgba(94,234,212,.08)}
+.btn{display:inline-block;text-align:center;padding:11px 18px;background:var(--sig);color:#06140F;font-weight:600;font-size:13.5px;text-decoration:none;border:1px solid var(--sig);cursor:pointer;font-family:'IBM Plex Sans',sans-serif;border-radius:2px}
+.btn:hover,.btn:focus-visible{background:transparent;color:var(--sig)}
+.btn.ghost{background:transparent;color:var(--bone);border-color:var(--rule2)}
+.btn.ghost:hover{border-color:var(--sig);color:var(--sig)}
+.reach{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--faint);margin-top:11px}
+.reach b{color:var(--sig)}
+
+/* ── sources ── */
+.src{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--rule)}
+.src:last-child{border-bottom:none}
+.src .n{flex:1;font-size:13.5px}
+.src .n small{display:block;color:var(--faint);font-size:11.5px;font-family:'IBM Plex Mono',monospace;margin-top:2px}
+.barr{width:120px;height:5px;background:var(--rule);flex:none}
+.barr i{display:block;height:100%;background:var(--sig)}
+.src .v{font-family:'IBM Plex Mono',monospace;font-size:13px;width:46px;text-align:right;flex:none}
+
+/* ── truth panel ── */
+.truth{background:var(--panel2);border:1px solid var(--rule2);border-left:2px solid var(--active);padding:22px 24px;margin-top:12px}
+.truth h3{font-size:14.5px;font-weight:600;margin-bottom:10px;color:var(--active)}
+.truth p{font-size:13.5px;color:var(--dim);max-width:80ch}
+.truth p+p{margin-top:9px}
+.truth b{color:var(--bone);font-weight:600}
+
+footer{padding:26px 0;border-top:1px solid var(--rule);color:var(--faint);font-size:12px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:16px}
+.proto{background:var(--sig);color:#06140F;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:8px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <div class="mark"><i></i>Signal <span>midas800</span></div>
+  <nav class="tabs">
+    <a href="#" class="on">Listeners</a><a href="#">Messages</a><a href="#">Drops</a><a href="#">Store</a><a href="#">Settings</a>
+  </nav>
+  <a class="btn" href="#compose">New message</a>
+</div></div>
+
+<div class="notice"><div class="wrap">▲ Prototype — sample data. No live accounts are connected.</div></div>
+
+<div class="wrap">
+  <div class="head">
+    <div class="eyebrow">Audience</div>
+    <h1>Everyone who has ever bought, downloaded or subscribed &mdash; on one map.</h1>
+    <p>These are people who opted in through your links. You own this list, you can message it directly, and no platform can switch it off.</p>
+  </div>
+
+  <dl class="tiles">
+    <div class="tile"><dt>Total audience</dt><dd>3,412</dd><span class="delta up">▲ 218 this month</span><canvas class="spark" data-seed="5"></canvas></div>
+    <div class="tile"><dt>Countries</dt><dd>47</dd><span class="delta up">▲ 4 new</span><canvas class="spark" data-seed="9"></canvas></div>
+    <div class="tile"><dt>Buyers</dt><dd>386</dd><span class="delta up">▲ 31 this month</span><canvas class="spark" data-seed="17"></canvas></div>
+    <div class="tile"><dt>Reachable by email</dt><dd>3,180</dd><span class="delta flat">93% of audience</span><canvas class="spark" data-seed="23"></canvas></div>
+  </dl>
+
+  <div class="grid">
+    <!-- MAP -->
+    <div>
+      <div class="card">
+        <div class="card-h">
+          <h2>Where they are</h2>
+          <span class="eyebrow">Last 90 days</span>
+        </div>
+        <div class="mapwrap">
+          <canvas id="map" width="1200" height="600"></canvas>
+          <div class="tip" id="tip"></div>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--sig)"></i>Buyer</span>
+          <span><i style="background:var(--new)"></i>New this week</span>
+          <span><i style="background:var(--dim)"></i>Subscriber</span>
+          <span style="margin-left:auto">Hover a city</span>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <div class="card-h"><h2>Where they came from</h2><span class="eyebrow">All time</span></div>
+        <div class="card-b">
+          <div class="src"><span class="n">YouTube beat descriptions<small>Free download gate</small></span><span class="barr"><i style="width:100%"></i></span><span class="v">1,844</span></div>
+          <div class="src"><span class="n">Kit &amp; loop purchases<small>Checkout email</small></span><span class="barr"><i style="width:41%"></i></span><span class="v">386</span></div>
+          <div class="src"><span class="n">Beat licences<small>Checkout email</small></span><span class="barr"><i style="width:33%"></i></span><span class="v">308</span></div>
+          <div class="src"><span class="n">Live stream sign-ups<small>Notify me</small></span><span class="barr"><i style="width:26%"></i></span><span class="v">241</span></div>
+          <div class="src"><span class="n">Instagram link in bio<small>Landing page</small></span><span class="barr"><i style="width:16%"></i></span><span class="v">147</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDE -->
+    <div>
+      <div class="card" id="compose">
+        <div class="card-h"><h2>Message your audience</h2></div>
+        <div class="card-b compose">
+          <div class="seg">
+            <button class="on" type="button">Everyone</button>
+            <button type="button">Buyers only</button>
+            <button type="button">New this month</button>
+            <button type="button">By country</button>
+          </div>
+          <textarea aria-label="Message">New kit drops Friday. You get it 24 hours before anyone else — same drums from the Shotta Flow sessions.</textarea>
+          <p class="reach">Reaches <b>3,180</b> people across <b>47</b> countries · email + SMS</p>
+          <p style="margin-top:14px;display:flex;gap:9px;flex-wrap:wrap">
+            <button class="btn" type="button">Send now</button>
+            <button class="btn ghost" type="button">Schedule</button>
+          </p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <div class="card-h"><h2>Recent</h2><span class="eyebrow">Live</span></div>
+        <div class="fan"><span class="av">JR</span><span class="who"><b>J. Reyes</b><small>Manila, PH · 04:12</small><p>Bought The Midas Kit</p></span><span class="pill p-buy">Buyer</span></div>
+        <div class="fan"><span class="av">TK</span><span class="who"><b>T. Kowalski</b><small>Warsaw, PL · 03:48</small><p>Downloaded "NO EVIDENCE"</p></span><span class="pill p-new">New</span></div>
+        <div class="fan"><span class="av">AO</span><span class="who"><b>A. Okafor</b><small>Lagos, NG · 02:31</small><p>Licensed "SO SLIME" — Trackout</p></span><span class="pill p-buy">Buyer</span></div>
+        <div class="fan"><span class="av">DS</span><span class="who"><b>D. Silva</b><small>São Paulo, BR · 01:57</small><p>Joined the stream list</p></span><span class="pill p-sub">Sub</span></div>
+        <div class="fan"><span class="av">MB</span><span class="who"><b>M. Brown</b><small>Memphis, US · 00:44</small><p>Downloaded "DEAGLE"</p></span><span class="pill p-new">New</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HONESTY -->
+  <div class="truth">
+    <h3>How this actually works &mdash; read this part</h3>
+    <p><b>Nobody can show you who is streaming your music.</b> Spotify and Apple return aggregate figures only: top cities, countries, age bands. No names, no contact details, no way to send a message. That is a platform rule, not a technical limit, and no product gets around it.</p>
+    <p><b>What this map shows is everyone who opted in through something you own</b> &mdash; a free download, a licence, a kit purchase, a stream sign-up. That list starts smaller than your stream count and it grows every week, and unlike a follower count it belongs to you.</p>
+    <p><b>For a producer this works better than it does for an artist.</b> A rapper's listeners are anonymous streams. Your listeners are buyers, and buyers hand over an email to complete a transaction. You can capture very nearly all of the people who matter commercially.</p>
+  </div>
+
+  <footer>
+    <span>Signal &mdash; audience layer for MIDAS800</span>
+    <span class="mono">Prototype 03 · Signal</span>
+  </footer>
+</div>
+
+<div class="proto">Prototype · Playground Giants · direction 03 of 3 &mdash; "Signal"</div>
+
+<script>
+/* ── coarse equirectangular land mask: [startCol,endCol] ranges per row, 64x32 ── */
+const COLS=64, ROWS=32;
+const LAND={
+ 2:[[9,19],[21,26],[43,59]],
+ 3:[[7,20],[21,26],[32,36],[38,60]],
+ 4:[[3,20],[22,26],[32,36],[37,61]],
+ 5:[[3,21],[23,26],[32,36],[37,61]],
+ 6:[[4,21],[29,31],[32,35],[36,60]],
+ 7:[[6,21],[29,36],[37,59]],
+ 8:[[7,21],[29,38],[39,57]],
+ 9:[[8,21],[30,40],[41,56]],
+ 10:[[9,20],[31,43],[46,55],[56,57]],
+ 11:[[11,19],[31,42],[44,47],[48,55]],
+ 12:[[12,19],[31,41],[44,47],[49,54]],
+ 13:[[14,19],[31,42],[44,48],[50,54]],
+ 14:[[15,19],[31,43],[45,48],[51,55]],
+ 15:[[18,22],[32,44],[51,56]],
+ 16:[[19,24],[33,43],[51,57]],
+ 17:[[19,25],[33,42],[52,58]],
+ 18:[[19,25],[33,41],[53,59]],
+ 19:[[20,25],[34,40],[54,60]],
+ 20:[[20,25],[34,39],[53,60]],
+ 21:[[20,24],[35,38],[53,60]],
+ 22:[[20,23],[35,37],[54,59]],
+ 23:[[20,22],[61,62]],
+ 24:[[20,22],[61,62]],
+ 25:[[20,21]]
+};
+/* ── sample audience, real city coordinates ── */
+const PINS=[
+ {c:'Memphis',k:'US',lat:35.1,lon:-90.0,n:214,t:'buy'},
+ {c:'Atlanta',k:'US',lat:33.7,lon:-84.4,n:186,t:'buy'},
+ {c:'Los Angeles',k:'US',lat:34.1,lon:-118.2,n:171,t:'sub'},
+ {c:'Philadelphia',k:'US',lat:40.0,lon:-75.2,n:148,t:'buy'},
+ {c:'Houston',k:'US',lat:29.8,lon:-95.4,n:132,t:'sub'},
+ {c:'Toronto',k:'CA',lat:43.7,lon:-79.4,n:97,t:'sub'},
+ {c:'London',k:'UK',lat:51.5,lon:-0.1,n:143,t:'buy'},
+ {c:'Paris',k:'FR',lat:48.9,lon:2.4,n:74,t:'sub'},
+ {c:'Warsaw',k:'PL',lat:52.2,lon:21.0,n:38,t:'new'},
+ {c:'Berlin',k:'DE',lat:52.5,lon:13.4,n:66,t:'sub'},
+ {c:'Lagos',k:'NG',lat:6.5,lon:3.4,n:112,t:'buy'},
+ {c:'Johannesburg',k:'ZA',lat:-26.2,lon:28.0,n:54,t:'sub'},
+ {c:'São Paulo',k:'BR',lat:-23.6,lon:-46.6,n:129,t:'sub'},
+ {c:'Mexico City',k:'MX',lat:19.4,lon:-99.1,n:88,t:'sub'},
+ {c:'Manila',k:'PH',lat:14.6,lon:121.0,n:71,t:'buy'},
+ {c:'Jakarta',k:'ID',lat:-6.2,lon:106.8,n:63,t:'new'},
+ {c:'Tokyo',k:'JP',lat:35.7,lon:139.7,n:57,t:'sub'},
+ {c:'Sydney',k:'AU',lat:-33.9,lon:151.2,n:44,t:'sub'},
+ {c:'Mumbai',k:'IN',lat:19.1,lon:72.9,n:81,t:'new'},
+ {c:'Moscow',k:'RU',lat:55.8,lon:37.6,n:49,t:'sub'}
+];
+const COLOR={buy:'#5EEAD4',new:'#FB7185',sub:'#7C8AA3'};
+const map=document.getElementById('map'), tip=document.getElementById('tip');
+let hot=[];
+
+function draw(){
+  const d=window.devicePixelRatio||1;
+  const w=map.clientWidth, h=w/2;
+  map.width=w*d; map.height=h*d; map.style.height=h+'px';
+  const x=map.getContext('2d'); x.scale(d,d);
+  x.clearRect(0,0,w,h);
+  const cw=w/COLS, ch=h/ROWS, r=Math.max(1,Math.min(cw,ch)*0.30);
+
+  // land dots
+  x.fillStyle='#1F2A3F';
+  for(const row in LAND){
+    for(const [a,b] of LAND[row]){
+      for(let c=a;c<=b;c++){
+        x.beginPath();
+        x.arc((c+0.5)*cw,(Number(row)+0.5)*ch,r,0,Math.PI*2);
+        x.fill();
+      }
+    }
+  }
+
+  // pins
+  hot=[];
+  const max=Math.max(...PINS.map(p=>p.n));
+  for(const p of PINS){
+    const px=(p.lon+180)/360*w, py=(90-p.lat)/180*h;
+    const rad=4+Math.sqrt(p.n/max)*11;
+    const col=COLOR[p.t];
+    x.beginPath(); x.arc(px,py,rad,0,Math.PI*2);
+    x.fillStyle=hexA(col,.16);
+    x.fill();
+    x.beginPath(); x.arc(px,py,3,0,Math.PI*2);
+    x.fillStyle=col; x.fill();
+    hot.push({x:px,y:py,r:Math.max(rad,11),p});
+  }
+}
+function hexA(hex,a){
+  const n=parseInt(hex.slice(1),16);
+  return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`;
+}
+map.addEventListener('mousemove',e=>{
+  const b=map.getBoundingClientRect();
+  const mx=e.clientX-b.left, my=e.clientY-b.top;
+  const hit=hot.find(o=>Math.hypot(o.x-mx,o.y-my)<=o.r);
+  if(hit){
+    tip.style.opacity=1; tip.style.left=hit.x+'px'; tip.style.top=hit.y+'px';
+    tip.innerHTML=`<b>${hit.p.c}, ${hit.p.k}</b><small>${hit.p.n} people</small>`;
+  } else tip.style.opacity=0;
+});
+map.addEventListener('mouseleave',()=>tip.style.opacity=0);
+
+/* sparklines */
+function rng(seed){let s=seed*9301+49297;return()=>{s=(s*9301+49297)%233280;return s/233280}}
+function spark(c){
+  const d=window.devicePixelRatio||1, w=c.clientWidth, h=c.clientHeight;
+  if(!w||!h)return;
+  c.width=w*d;c.height=h*d;
+  const x=c.getContext('2d');x.scale(d,d);
+  const r=rng(parseInt(c.dataset.seed||'1',10)); const N=26; const pts=[];
+  let v=0.35;
+  for(let i=0;i<N;i++){ v=Math.min(0.95,Math.max(0.1,v+(r()-0.38)*0.16)); pts.push(v); }
+  x.beginPath(); x.moveTo(0,h);
+  pts.forEach((p,i)=>x.lineTo(i/(N-1)*w,h-p*h));
+  x.lineTo(w,h); x.closePath();
+  x.fillStyle='rgba(94,234,212,.10)'; x.fill();
+  x.beginPath();
+  pts.forEach((p,i)=>{const px=i/(N-1)*w,py=h-p*h;i?x.lineTo(px,py):x.moveTo(px,py)});
+  x.strokeStyle='#5EEAD4'; x.lineWidth=1.4; x.stroke();
+  x.beginPath(); x.arc(w,h-pts[N-1]*h,2.4,0,Math.PI*2); x.fillStyle='#5EEAD4'; x.fill();
+}
+function paint(){draw();document.querySelectorAll('canvas.spark').forEach(spark);}
+window.addEventListener('load',paint);
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(paint,140)});
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.seg button').forEach(o=>o.classList.remove('on'));
+  b.classList.add('on');
+}));
+</script>
+</body>
+</html>
