@@ -1,0 +1,51 @@
+---
+title: "why an audit trail matters more than accuracy"
+date: "2026-08-20"
+summary: "a 99% accurate model that can't show its work is a bigger liability than a slower system you can audit line by line. here's the actual split."
+---
+
+everyone building with AI right now focuses on accuracy. they test models, tweak prompts, and chase a higher score on some benchmark that has nothing to do with their actual work. for regulated work, this is a distraction.
+
+not because accuracy doesn't matter. it does. but accuracy is not the thing a bar association, a state insurance regulator, or a malpractice carrier is going to ask you about when something goes wrong. they're going to ask you to show how a decision was made. and if the honest answer is "the model said so," you don't have a compliance program. you have a black box with a nice UI.
+
+## accuracy is a red herring for compliance
+
+say a model is right 98% of the time on a given task. intake triage, document classification, whatever. that sounds good in a sales deck. it is nearly useless as a compliance answer, for two reasons.
+
+first, 98% accurate still means one in fifty is wrong, and you have no idea which one until it surfaces, usually because a client complained or a deadline was missed. second, and this is the part people skip past: accuracy tells you nothing about *why* the model got something right or wrong. a model can hit the correct answer for the wrong reason. it can also be wrong in a way that looks completely plausible, which is worse than being wrong in an obvious way, because nobody catches it.
+
+regulators and malpractice carriers don't grade on a curve. they don't ask "was the output usually correct." they ask "what was the process, and can you reconstruct it." a firm that can answer the second question with an accuracy rate of 90% is in a stronger position than one that can't answer it at all with a rate of 99%.
+
+## the illusion of a black box decision
+
+here's where a lot of firms get into trouble without meaning to. they adopt a tool that reads a document, summarizes it, and produces a recommendation, and somewhere along the way that recommendation quietly becomes the decision. nobody voted on this. it just happened, because the tool was fast and the recommendation was usually right, so eventually someone stopped checking it.
+
+this is a real exposure, not a theoretical one. if a system is functionally deciding whether to accept a case, how to route a claim, or what a client's exposure looks like, and there's no deterministic, inspectable rule behind that decision, you've delegated judgment to a model with no license, no malpractice coverage, and no way to explain itself under oath. depending on the jurisdiction and the task, that can brush up against unauthorized practice rules or create a confidentiality gap if the model's reasoning was never logged and can't be reproduced. what those rules actually require varies by state and by bar, and none of this is legal advice, but the shape of the risk is the same everywhere: you cannot audit a decision that was never actually written down as a decision.
+
+## the model reads, it does not decide
+
+the fix isn't a smarter model. it's a different architecture.
+
+the way I build these systems, the model does exactly one job: read and extract. it pulls structured information out of unstructured input, an intake form, a claims narrative, a scanned PDF, and it routes that information somewhere. it does not get to make the call.
+
+the actual decision, accept or decline, escalate or hold, route to attorney A or attorney B, is made by a separate deterministic function. plain code, if-this-then-that logic, written and reviewed like any other piece of software, with no model in the loop at decision time. the model's output feeds the function. the function makes the call.
+
+this split sounds almost too simple to matter, but it's the entire product. it means a decision is never "the model decided." it's always "the model extracted X, and rule Y, which someone wrote and can read, produced this outcome from X." that sentence can be said out loud in a deposition. "the model decided" cannot.
+
+## every step leaves a mark
+
+once you separate reading from deciding, auditability stops being a feature you bolt on and becomes a natural side effect of how the system works.
+
+every step logs itself: what came in, what the model extracted from it, which rule fired, what the output was, and whether a human reviewed or overrode it. none of this lives in the model's head, because the model doesn't have a head that persists between calls. it lives in infrastructure that sits in the client's own accounts, not mine, which matters for a reason beyond audit trails: if the engagement ends, the client walks away with the whole system and its history intact. it's a handover, not a hostage negotiation.
+
+that log is what makes the difference between "we use AI responsibly" as a marketing line and something you can actually put in front of a partner, an insurer, or a bar investigator. you're not asking anyone to trust the model. you're handing them a record and asking them to check your work, because you can.
+
+## when the model fails, the human takes over
+
+the last piece is what happens when the model can't do its job. down, rate-limited, returns garbage, whatever.
+
+a system built around accuracy alone tends to guess in this situation, because guessing keeps the pipeline moving and the dashboard green. a system built around auditability does the opposite. when the model is unavailable or its confidence falls below a threshold set by the deterministic function, the work routes to a person. it doesn't drop. it doesn't get force-fit through a broken extraction step and quietly produce a wrong decision that looks fine downstream. it stops, and a human picks it up, and that handoff is logged too.
+
+this is a boring design choice on purpose. boring is what you want when the alternative is a system that confidently mishandles a claim intake because an API call timed out.
+
+if you're looking at where AI touches your intake, triage, or document review right now and you're not sure whether you could reconstruct a given decision six months from now, that's the actual question to answer before adding more automation. a workflow audit is two weeks, costs $2,500, and is built for exactly this: mapping where your current process makes decisions, where those decisions are or aren't auditable today, and where a deterministic split would hold up under scrutiny. it's credited toward a build if you move forward. details are at /workflow-audit.
