@@ -1,0 +1,53 @@
+---
+title: "what to ask an ai vendor before you sign anything"
+date: "2026-08-27"
+summary: "the questions that actually matter when an AI vendor pitches your firm: auditability, fallback, data residency, and exit terms."
+---
+
+your managing partner wants to use AI. you are the one who has to make it safe. so when the vendors show up with decks and roadmap slides and a demo that never fails, what do you actually ask them?
+
+not "what can it do." every vendor's demo can do everything. ask what happens when it's wrong, who can see the reasoning, where your data lives, and what your options are the day you want out. those four questions tell you more than the whole deck.
+
+## they will tell you it's a black box. it doesn't have to be.
+
+someone in the room will say, gently, that you can't really audit a model. that's true of the model. it is not true of the system built around it.
+
+a model can read a document, extract facts from it, and route it somewhere. what a model should never do in regulated work is make the actual decision. that call belongs to a deterministic function, code that behaves the same way every time given the same inputs, that a person can read line by line. the model does the reading. the function does the deciding. that separation is the whole trick, and it's the difference between "the AI decided" and "here is exactly why this happened, in order."
+
+ask the vendor to show you the decision point. not the pitch about explainability. the actual line where the model's output stops and a rule takes over. if they can't point to it, there isn't one.
+
+## if the model guesses, you lose the work. if it degrades, you keep it.
+
+ask what happens when the model is unavailable, or unsure, or fed something it's never seen. a lot of vendors haven't thought past the happy path, because the happy path is what sells.
+
+there are two failure modes. one: the system guesses anyway and moves forward on a confidence score nobody asked for. two: the system recognizes it's out of its depth and hands the item to a person, with the context attached, and nothing gets dropped. the first one is a liability sitting quietly in your file. the second one is just how the work gets done on a bad day.
+
+ask specifically: what triggers a handoff to a human, and what does that handoff look like. if the answer is vague, that's the answer.
+
+![a document routed between an automated check and a human reviewer, with a visible audit trail connecting each step](/images/ai-vendor-handoff.jpg)
+
+## your data, your cloud, your control, always
+
+ask where the infrastructure runs. not where the company is headquartered, where the compute and storage actually sit.
+
+if the answer is the vendor's own multi-tenant environment, you are trusting their security posture, their retention policy, and their business continuity plan, permanently, for regulated client data. the alternative is infrastructure that runs inside your own cloud accounts, your own tenancy, under your own controls. same capability, different owner. you can point to it in an audit. you can restrict it the way you restrict everything else.
+
+this isn't a preference question. ask it plainly: whose account does this run in. if the vendor hesitates or reframes it as a technicality, it isn't one.
+
+## what if you need to leave? can you take your work with you?
+
+ask this before you need the answer, because by the time you need it, you've usually lost the leverage to ask.
+
+if the system lives in the vendor's infrastructure, walking away means migrating data out of a format they control, on a timeline they set. if it lives in your own accounts, leaving is a handover: you keep the configuration, the logs, the audit trail, and the running system, and the vendor's involvement ends. one of those is a negotiation. the other is a phone call.
+
+ask directly: on the day this ends, what do I have, and where is it. get the answer in writing before you get the invoice.
+
+## the workflow audit: a fixed price for clarity, not a blank check
+
+most of these questions are hard to answer in the abstract, because the honest answer is "it depends on your workflow," and neither of you knows your workflow well enough yet to say.
+
+that's what a workflow audit is for. it's a fixed-price, two-week engagement to map one specific process end to end: where the decision points actually are, where a deterministic rule can take the call instead of a model, where the fallback to a human needs to sit, and what the audit trail would need to capture to satisfy the way your practice actually gets reviewed. it produces a concrete plan, not a sales deck. the cost is credited toward a build if you move forward, and if you don't, you keep the map.
+
+it's a smaller ask than a signature on a multi-year platform contract, and it answers the four questions above with specifics instead of promises.
+
+before you sign anything, ask for the audit instead. [start with a workflow audit](/workflow-audit).
