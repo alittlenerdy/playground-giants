@@ -1,0 +1,29 @@
+# Fails a PR when a post references an asset that does not exist in the repo.
+#
+# There was no CI here before this: the only PR check was Vercel's build, which
+# happily ships a post pointing at a missing image. That is how
+# /images/blog/auditable-ai-split-architecture.png stayed 404 on the live site
+# from 2026-08-06 until it was caught by hand.
+#
+# Deliberately a separate check rather than wired into `npm run build`: a
+# missing decorative image should turn a PR red, not block the site from
+# deploying at all.
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  post-assets:
+    name: post asset references resolve
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # No install step: the check uses only Node builtins, so it cannot start
+      # failing because a dependency moved.
+      - run: node scripts/check-post-assets.mjs
