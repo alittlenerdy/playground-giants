@@ -30,8 +30,6 @@ the model reads. it extracts dates, dollar amounts, party names, document types,
 
 the actual decision, whether a matter gets accepted, whether a document gets escalated, whether a claim proceeds, is made by deterministic code. plain conditional logic, written by a human, that a court or a regulator could read line by line without needing to understand machine learning at all. the model prepares the facts. the code applies the rule to the facts. those are two different jobs, done by two different kinds of system, and conflating them is the actual failure mode behind most "ai went rogue" stories.
 
-![a flowchart showing a model extracting structured data on one side and a deterministic rules engine making the decision on the other, connected by an audit log](/images/blog/auditable-ai-split-architecture.png)
-
 ## decision trails are lines of code, not probabilities
 
 once the decision lives in code, the audit trail changes shape. instead of a transcript of model reasoning, you get a trace: which rule fired, on what extracted values, producing what outcome. "filing date extracted as march 3. statute deadline calculated as march 1 plus two years. rule 14 triggered: date exceeds window. route to declined-review queue." every step in that chain is checkable independently of the model. you can re-run rule 14 by hand with the same inputs and get the same output, every time, because it isn't probabilistic. that's the whole point of keeping it out of the model in the first place.
