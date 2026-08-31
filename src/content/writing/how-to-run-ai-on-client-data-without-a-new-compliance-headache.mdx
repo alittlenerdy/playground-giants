@@ -1,0 +1,61 @@
+---
+title: "how to run AI on client data without a compliance headache"
+date: "2026-08-24"
+summary: "a practical way to put AI on client data without handing it decision power: split reading from deciding, keep infrastructure yours, keep a human in the loop."
+---
+
+most firms think "AI on client data" means pointing a model at a file share and letting it work things out. they picture a compliance nightmare because that is exactly what that setup produces. the model hallucinates a fact, nobody can say why, and now it's in a client file.
+
+that fear is correct. it's just aimed at the wrong architecture. the problem was never AI touching client data. the problem is AI making the call on client data with nothing checking its work. those are different problems with different fixes, and the fix doesn't require keeping AI out of regulated work. it requires taking the decision away from the model and giving it back to code you can read.
+
+here's how to actually build that.
+
+## the model reads, it does not decide
+
+start by separating two jobs that get bundled together by default: extraction and decision.
+
+extraction is: read this intake form, this email, this medical record excerpt, and pull out the structured facts. dates, names, amounts, categories, flags. this is what language models are good at. it's pattern matching over messy text, and it's the part of the work that used to eat someone's Tuesday afternoon.
+
+decision is: given those facts, what happens next. does this matter get routed to intake or declined. does this filing meet the threshold for review. does this client get the automated reminder or a call from a paralegal. this is the part that has to be defensible six months later when someone asks why.
+
+the fix is to never let the model make that second call. the model's output becomes input to a deterministic function, plain code, if/then, no weights, no sampling, that makes the actual decision. you can read that function top to bottom. you can test it with fixed inputs and get the same output every time. you can hand it to opposing counsel or an auditor and walk them through every line.
+
+this is the whole trick. it's not a safety feature bolted on afterward. it's the architecture. the model reads. the code decides. if you can't draw that line in your own workflow diagram, you don't have an auditable system yet, you have a model with a UI in front of it.
+
+## your accounts, your data, your infrastructure
+
+the second decision is where this all runs. the default pitch from most AI vendors is: send us your data, we process it in our environment, we send back results. that's a hostage arrangement dressed up as a SaaS subscription. if you want to leave, you're negotiating for your own data on someone else's terms.
+
+the alternative is to build inside infrastructure the client already controls: their AWS, Azure, or GCP account. the client data never leaves an environment they own the keys to. access logs, encryption, retention policies, all of it sits under controls the firm already has, not a new vendor's controls that someone has to go read and trust.
+
+this matters for two separate reasons. one is data residency and security, which is the reason a compliance officer cares. the other is leverage, which is the reason a managing partner cares. if the infrastructure is yours, leaving a vendor is a handover: export the code, rotate the keys, done. if the infrastructure is theirs, leaving is a negotiation, and you're negotiating from the position of someone who needs something back.
+
+ask any AI vendor a blunt question before you sign anything: if we walked away tomorrow, what do we have, and where does it live. if the honest answer is "nothing, it's all in our system," that's the answer that should worry you.
+
+## build a human into the loop, always
+
+even with the model boxed into reading rather than deciding, there's a next question: who confirms the decision before it becomes real.
+
+the answer should be a person, every time, for anything that touches a client outcome. the deterministic function can route a matter, flag a document, or draft a response, but a human approves before it goes out or gets acted on. this isn't a lack of trust in the code. it's an acknowledgment that the code is only as good as the categories it was built against, and edge cases exist in every practice area.
+
+practically, this means the system's job is to make the human's decision faster, not to replace it. a routing recommendation with the extracted facts attached, ready for a one-click confirm, is a different product than an autonomous action. the first speeds up a person who is still accountable. the second removes the person who was accountable and calls it efficiency.
+
+the test for whether you've built this correctly: can you point to the exact click, by the exact person, at the exact time, that finalized any given action. if the answer is "the system did it," go back and find where the human step should have been.
+
+## design for graceful degradation, not failure
+
+models go down. APIs rate-limit. a document comes in that doesn't match any pattern the system has seen. the question that matters is what happens next, and most systems answer it badly: they either drop the work silently or they guess and move on.
+
+neither is acceptable in regulated work. the system should be built so that when the model is unavailable, or its confidence is below a threshold you set, the item routes to a human instead of stalling or getting a best-effort answer nobody asked for. the work doesn't disappear into a queue that nobody's watching. it lands on a desk, with a note explaining why it needed a person.
+
+this is a design decision that has to be made up front, not patched in after the first outage. it means every point where the model could fail needs an explicit fallback path, not a try/catch that logs an error and moves on. degrade to a human. never guess.
+
+## the workflow audit: map the risk, build the guardrails
+
+none of the above is generic advice you can apply the same way to every practice. where the decision boundary sits, what counts as a low-confidence case, which actions need a human sign-off versus which can run on a confirmed rule, all of that depends on the specific workflow, the specific state's rules, and the specific way your firm already works.
+
+the workflow audit is built to answer those questions before any code gets written. it's two weeks, it costs $2,500, and it's credited toward a build if you move forward. the output is a map of where AI can safely read and extract in your current workflow, where the deterministic decision layer needs to sit, and where a human has to stay in the loop by design rather than by accident.
+
+if you're looking at AI and client data and trying to figure out where the risk actually lives before you commit to anything, that's the place to start.
+
+[start with a workflow audit](/workflow-audit)
