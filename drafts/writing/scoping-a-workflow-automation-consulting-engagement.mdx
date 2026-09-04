@@ -1,0 +1,68 @@
+---
+title: "how to scope and price a workflow automation consulting engagement"
+date: "2026-09-03"
+summary: "written for the person hiring, not the person becoming. what to ask for, what it should cost, what to require in writing, and the order the work has to happen in."
+primaryKeyword: "workflow automation consulting"
+keywordSource: "Semrush US, read 2026-09-03. 260/mo, KD 8, AI Overview present. Note: SERP carries practitioner-intent results, so this is written explicitly for buyers."
+status: "DRAFT. Not for publication until the Search Console manual actions check clears."
+---
+
+this is for the person doing the hiring. if you landed here wondering whether workflow automation consulting is a good business to be in, this is not that post.
+
+you have manual work you think a machine should be doing. you do not know how to scope it, what it should cost, or how to tell a competent firm from a confident one. here is how i would buy it.
+
+## buy the plan before you buy the build
+
+the single most useful thing you can do is separate the two purchases. pay a fixed fee for an assessment that produces a written plan, then decide about the build with that plan in hand.
+
+this protects you in a way that a free discovery call does not. a free assessment is paid for out of a build that has not been agreed yet, which quietly means the assessment has to find enough work to justify itself. paying for it detaches the finding from the selling.
+
+it also gives you an exit that costs you almost nothing. if the plan is bad, you have spent a small fixed amount and learned something. if it is good and you dislike the firm, you own a document you can hand to someone else.
+
+## what to require in writing, before anything is built
+
+**you own every account.** hosting, database, analytics, any ad accounts, all in your company's name with your billing on them. this sounds administrative and it is actually the whole relationship. if the vendor holds the accounts, every future decision has an implicit hostage in it. if you own them, replacing the vendor is changing passwords.
+
+**there is a fallback and it goes to a person.** name who. when the system is unsure or unavailable, work must route to a human rather than being guessed at. get that written down as behavior, not as a promise about reliability.
+
+**decisions are logged.** what came in, what the system pulled out of it, which rule fired, who acted, when. written once, never edited. this costs very little on day one and is close to impossible to add later, because retrofitting means reconstructing history nobody recorded.
+
+**you can see where the machine stops.** ask them to point at the exact line where a model's output ends and a rule you control takes over. in anything consequential, the model should read and extract, and a deterministic rule should decide. if nobody can point at that line, it does not exist.
+
+## the order the work has to happen in
+
+fix the leaks before you turn on the tap.
+
+this is the most common way these projects waste money. a business spends on the impressive automation while the thing feeding it is broken: an enquiry form nobody tested on a phone, two systems holding different versions of the same customer, an intake step that depends on who happened to pick up.
+
+the unglamorous fixes come first, and they are usually the highest return work in the entire project. they are also the least fun to sell, which is why you should be pleased rather than disappointed when a firm leads with them.
+
+## pricing shapes, and what each one does to the incentives
+
+**fixed fee for the assessment.** small, defined, credited against a build if you proceed. this is the right shape and it is what you should insist on.
+
+**phased fixed price for the build.** each phase priced and sequenced so early work returns something before later work starts. you get real decision points instead of one long commitment.
+
+**monthly retainer for operating it.** appropriate once something is live and needs watching, tuning and extending. not appropriate as the way you pay for the initial build.
+
+**hourly.** avoid on both sides. it prices the thing you do not want, which is time spent, and it makes every efficiency the vendor finds a pay cut. the firm ends up billing you for its own learning curve.
+
+## the questions to ask on the first call
+
+what parts of this would you tell me not to automate, and why.
+
+what happens when the system is not sure.
+
+if we stopped working together after phase one, what do we have.
+
+what did you not manage to find out about our process.
+
+how will we know in ninety days whether this worked, and what specifically will we measure.
+
+that last one is worth more than the rest combined, and it is the one most likely to produce a vague answer. a firm that cannot tell you in advance what number will move, and how it will be read, is not planning to be judged.
+
+## the size of thing worth starting with
+
+start smaller than feels satisfying. one workflow, end to end, with the fallback and the logging built in from the first day. get it running, watch it for a month, then extend.
+
+the failure mode of these projects is almost never that the technology could not do it. it is that a large plan was agreed in one piece, the first part took longer than expected, and by the time anything was working nobody could remember what it was supposed to improve.

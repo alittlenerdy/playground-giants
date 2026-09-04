@@ -1,0 +1,67 @@
+---
+title: "how law firms use automation to scale pi cases"
+date: "2026-09-03"
+summary: "more inbound than people to answer it is a staffing problem before it is a technology one. here is the shape that scales intake without letting a model near the merit of a claim."
+primaryKeyword: "how law firms use automation to scale pi cases"
+keywordSource: "Semrush US, read 2026-09-03. 50/mo, KD 0, no AI Overview present. Control post for the AI Overview CTR comparison."
+sourceConstraint: "DRAWN ONLY FROM THE PUBLISHED, ALREADY ANONYMIZED CASE STUDY AT /case-studies/personal-injury-intake. No client name, no attorney names, no commercial terms, no unpublished metric, nothing from the engagement that is not already public on this site. That case study deliberately publishes no performance figures, and neither does this post."
+status: "DRAFT. Not for publication until the Search Console manual actions check clears."
+---
+
+scaling a personal injury practice means, in practice, more inbound than there are people to answer it. that is a staffing problem before it is a technology one, and it is why the automation question comes up.
+
+the trap is that the obvious thing to automate is the thing you must not. deciding which cases are worth taking is legal judgment. a model should never be near it.
+
+here is the shape that works instead.
+
+## the model reads. rules decide. a person makes the call.
+
+an inbound message arrives. a model reads it and extracts facts: what happened, when, where, whether anyone was treated, whether a vehicle was involved. then it stops.
+
+rules the firm owns take those facts and decide what they mean. a person makes the actual call on the case.
+
+that separation is the entire design, and it is worth being pedantic about why. a grade that describes facts is an operational sorting tool. a grade that describes the merit or the value of a claim is a legal opinion produced by software. the first is fine. the second is a problem with your bar, and no policy document fixes it, because a policy is a promise and an architecture is a guarantee. build the system so the model physically cannot reach the decision and the question stops being about trust.
+
+## response clocks, visible, that escalate rather than expire
+
+intake fails quietly. someone means to call back, the day gets away, and a week later nobody remembers there was anything to call back about.
+
+so put a clock on it. urgent matters get thirty minutes, standard matters get a day. the important part is not the number, it is that the clock is visible to everyone and that an unmet one escalates to a named person instead of quietly expiring. a deadline nobody sees is a hope.
+
+alongside that, some matters route immediately to a human regardless of what any grade says. certain fact patterns should never sit in a queue waiting their turn, and the rules should say so explicitly rather than relying on someone noticing.
+
+## when the machine is unsure, it hands over. it never guesses.
+
+if the model is unavailable, or the extraction is not clean, the enquiry goes to a person. it does not get a best guess.
+
+this is the difference between a system that degrades safely and one that fails silently. a system that fills in something plausible when it cannot read the input is not being helpful, it is manufacturing a fact that will be relied on later, and you will not find out for months. an outage should never be able to drop work on the floor.
+
+## write the audit trail on day one
+
+what arrived, what was extracted, which rule applied, who acted, when. written once, never edited, kept for as long as your obligations run.
+
+this costs very little at the start and is close to impossible to add afterwards, because retrofitting one means reconstructing a history nobody recorded. usually that means it cannot be done at all.
+
+it also turns the hardest question anyone can ask you into a lookup. when a client, a regulator or opposing counsel wants to know why something happened, you want the answer to be a record rather than a recollection.
+
+## fix the leaks before you turn on the tap
+
+the least interesting finding is usually the most expensive one.
+
+a firm can have a website with a single phone link near the bottom of the page and no enquiry form at all. send paid traffic to that and the budget converts into nothing. the visitors arrive, find no way to make contact that suits them, and leave.
+
+the same audit is worth running over your advertising claims and your practice area pages. figures about past recoveries that cannot be substantiated on request are a live risk in a strict advertising jurisdiction rather than a copywriting quibble. so is a page describing a legal threshold using language that is no longer accurate, because a prospective client could rely on it.
+
+none of that is automation work. all of it comes first, because automation applied to a leaking funnel just fills the bucket faster.
+
+## own the accounts
+
+hosting, database, analytics, ad accounts, all in the firm's name. if you replace the vendor tomorrow you change the passwords and keep operating.
+
+this removes the question of what happens if this does not work out, which in turn makes every other decision easier to agree, because none of them are load bearing on the relationship lasting.
+
+## what carries over to a practice that is not a law firm, and what does not
+
+the shape carries: extract facts with a model, decide with rules the client owns, fail toward a person, log everything.
+
+the rule set does not. it is specific to how a given firm actually decides, and no vendor arrives holding it. working out what those rules are, in writing, before anything is built, is the real work. that is what an audit is for.
