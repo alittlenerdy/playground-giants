@@ -5,7 +5,25 @@ import Image from 'next/image'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { GradientText, GlassCard, ScrollReveal } from '@/components/ui'
+import { trackEvent } from '@/lib/analytics'
 
+// GA4 conversion tracking. Added 2026-09-03.
+//
+// This is the ONLY conversion the site can currently record. /workflow-audit is
+// the primary CTA, linked seven times sitewide, and has no form or booking
+// link; /contact is a mailto, whose click leaves no event and whose reply lands
+// in an inbox GA4 cannot see. So this one call is the entire conversion signal
+// until that changes.
+//
+// `generate_lead` is the GA4 RECOMMENDED event name rather than something
+// custom, on purpose: recommended events get first-class handling in GA4
+// reporting and in an Ads conversion import, and a custom name would have to be
+// re-mapped later.
+//
+// ⚠️ FIRING IT IS NECESSARY AND NOT SUFFICIENT. GA4 only counts an event as a
+// conversion once a human marks it as a KEY EVENT in Admin -> Key events. Until
+// somebody does, the property keeps reporting `keyEvents: 0` while the event
+// arrives perfectly — which reads exactly like this code not working.
 export default function AgencyPartnerPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -37,6 +55,15 @@ export default function AgencyPartnerPage() {
       }
 
       setStatus('success')
+
+      // Fired only after a 200, so this counts leads the API ACCEPTED rather
+      // than submit attempts — a rejected submission is not a lead.
+      //
+      // Optional-chained because `gtag` is simply absent when the GA4 script did
+      // not load (blocker, or a failed CDN fetch). A missing analytics global
+      // must never cost us the lead itself.
+      trackEvent('generate_lead', { method: 'form', form: 'agency-partner' })
+
       setFormData({ name: '', email: '', agencyUrl: '', revenue: '' })
     } catch (error) {
       console.error('Form submission error:', error)

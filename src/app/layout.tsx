@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import BookingClickTracker from '@/components/BookingClickTracker'
 import './globals.css'
 
 // GA4. Added 2026-07-31.
@@ -212,6 +213,9 @@ export default function RootLayout({
       </head>
       <body className="font-sans">
         {children}
+        {/* Records a generate_lead event on every click through to Cal.com.
+            Renders nothing. See the component for why it is delegated. */}
+        <BookingClickTracker />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
           strategy="afterInteractive"
