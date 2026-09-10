@@ -20,10 +20,23 @@ import Faq, { type FaqItem } from '@/components/Faq'
 // Anonymization: no practice name, no physician name, no city, and the EHR
 // vendor is deliberately not named. Specialty plus vendor plus region would
 // narrow this to a handful of practices. "Their EHR" is enough for the point.
+// Keyword retarget, 2026-09-10. Primary target: "patient intake automation"
+// (70/mo, KD 15). Secondary: "medical practice automation" (90, KD 19).
+//
+// The keyword is honest here even though the page never used the word before:
+// what the audit actually documents IS the practice's patient intake path -
+// referrals logged and chased by hand, email as the coordination layer, the
+// same fact retyped into three systems. That is the manual process patient
+// intake automation replaces.
+//
+// ⚠️ What must NOT be added: this page documents a DIAGNOSIS. Nothing has been
+// built and there are no outcomes. Do not add language implying an automation
+// is running here, and do not touch the status-honesty section below.
 export const metadata: Metadata = {
-  title: 'Case study: a workflow audit in a medical practice',
+  // 52 chars, used verbatim (no title template in layout.tsx). Keyword first.
+  title: 'Patient intake automation: what the audit found first',
   description:
-    'A worked example of the diagnosis phase: what the audit found inside a specialist practice, what was safe to automate, and what had to stay human.'
+    'A worked example of the diagnosis phase before any patient intake automation is built: what the audit found in a specialist practice\'s referral and intake path, what was safe to automate, and what had to stay human.'
 }
 
 // FAQ added 2026-07-26. This page documents a diagnosis, not a finished build,
@@ -33,6 +46,10 @@ const FAQS: FaqItem[] = [
   {
     q: 'Is this a finished project?',
     a: 'No. This is the diagnosis. The audit was delivered and the phased plan is with the practice, but the build is gated on their go-ahead and has not begun. It is published because the diagnosis is the part most people have never seen, and it is exactly what the Workflow Audit produces.'
+  },
+  {
+    q: 'Is this patient intake automation?',
+    a: 'It is the audit that comes before it. What the practice had was a patient intake path running on manual effort: referrals entered one at a time and chased when somebody remembered, email as the coordination layer between departments, and status living in people\'s heads plus a spreadsheet retyped from what the EHR already knew. That is the process patient intake automation is meant to replace, and mapping it properly is what tells you which parts of it should be automated at all. Nothing has been built yet.'
   },
   {
     q: 'Why are there no outcome numbers?',
@@ -60,7 +77,7 @@ export default function MedicalPracticeAudit() {
       <section className="pt-36 pb-14 md:pt-44 border-b border-line-soft">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-semibold tracking-[0.15em] uppercase text-blue-deep mb-6">
-            Case study · Medical · Diagnosis phase
+            Case study · Patient intake automation · Diagnosis phase
           </p>
           <h1 className="font-display text-4xl md:text-5xl font-medium leading-[1.05] tracking-tight text-ink mb-6">
             The systems were fine. Everything between them was being done by hand.
@@ -68,7 +85,8 @@ export default function MedicalPracticeAudit() {
           <p className="font-display text-lg text-ink-2 leading-relaxed">
             A specialist physician practice with eighteen years of accumulated case records,
             a capable EHR, and a team that was still retyping the same information into three
-            places. The practice is not named here.
+            places. Patient intake ran on memory, email and a spreadsheet. The practice is not
+            named here.
           </p>
         </div>
       </section>

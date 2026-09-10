@@ -19,10 +19,24 @@ import Faq, { type FaqItem } from '@/components/Faq'
 //
 // If the client later grants permission to be named and there are real numbers
 // to publish, this page gets upgraded rather than replaced.
+// Keyword retarget, 2026-09-10. Primary target: "personal injury lead
+// generation" (390/mo, KD 13). Secondary: "legal intake automation" (70, KD 21).
+//
+// ⚠️ READ THIS BEFORE STRENGTHENING THE TARGETING. The page covers the
+// QUALIFICATION half of lead generation, not the acquisition half: paid
+// acquisition has not gone live, and the honesty note below says so. That is a
+// deliberately partial match. Do not add acquisition language, cost-per-lead
+// framing, or anything implying this page proves a volume result, because the
+// page cannot support it and the honesty note directly contradicts it.
+// The keyword goes in the metadata, the eyebrow, the standfirst and one FAQ.
+// It does not go in the H1, which is better copy than any keyword-bearing
+// rewrite of it, and it is not repeated into the body.
 export const metadata: Metadata = {
-  title: 'Case study: graded intake for a NY personal injury firm',
+  // 53 chars. There is no title template in layout.tsx, so this is used
+  // verbatim and has to survive SERP truncation on its own. Keyword first.
+  title: 'Personal injury lead generation: a New York case study',
   description:
-    'Graded intake, response clocks and a regulator-ready audit trail for a NYC personal injury firm. The AI extracts facts. It never decides merit.'
+    'Personal injury lead generation for a New York firm: inbound leads graded on extracted facts, answered against a response clock, and recorded in a regulator-ready audit trail. The AI extracts facts. It never decides merit.'
 }
 
 // FAQ added 2026-07-26. Answers are held to the same three rules as the page
@@ -32,6 +46,10 @@ const FAQS: FaqItem[] = [
   {
     q: 'Which firm is this?',
     a: 'A New York personal injury firm, and that is as specific as this page gets. The agreed level of disclosure does not include the firm name, the attorneys, or the commercial terms. Those are the client\'s to disclose, not mine.'
+  },
+  {
+    q: 'Is this personal injury lead generation, or is it intake?',
+    a: 'It is the qualification half of lead generation, and being precise about that matters. Most personal injury lead generation is sold as volume: someone sends you leads and you find out afterward how many were worth answering. This work is the other half. A lead arrives, facts are extracted from it, the firm\'s own rules grade it, a response clock starts, and everything is recorded. Paid acquisition for this firm has not gone live yet, so nothing on this page demonstrates a volume result and no figure here should be read as one.'
   },
   {
     q: 'Why are there no results numbers?',
@@ -59,15 +77,15 @@ export default function PersonalInjuryIntake() {
       <section className="pt-36 pb-14 md:pt-44 border-b border-line-soft">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-semibold tracking-[0.15em] uppercase text-blue-deep mb-6">
-            Case study · Legal · New York
+            Case study · Personal injury lead generation · New York
           </p>
           <h1 className="font-display text-4xl md:text-5xl font-medium leading-[1.05] tracking-tight text-ink mb-6">
             Intake that grades itself, without the AI deciding whether a case has merit.
           </h1>
           <p className="font-display text-lg text-ink-2 leading-relaxed">
-            A personal injury firm in New York City, practising across the five boroughs and
-            Long Island. The firm is not named here at their preference. Everything described
-            below was built and is running.
+            Personal injury lead generation for a firm in New York City, practicing across the
+            five boroughs and Long Island. The firm is not named here at their preference.
+            Everything described below was built and is running.
           </p>
         </div>
       </section>
