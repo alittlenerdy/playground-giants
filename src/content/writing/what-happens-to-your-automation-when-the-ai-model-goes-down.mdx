@@ -1,0 +1,41 @@
+---
+title: "what happens to your automation when the model goes down"
+date: "2026-09-10"
+summary: "most automations don't plan for the model going down, they just assume it won't. here's what a real fallback path looks like."
+---
+
+ask someone what happens to their automation when the model goes down, and the most common answer is also the most dangerous: "it just won't." that isn't a plan. it's magical thinking dressed up as engineering. every external dependency fails eventually, and a model call is an external dependency like any other, except the people building on top of it seem to forget that the moment the demo works.
+
+## the 'it just won't' problem
+
+systems get designed around the happy path because the happy path is what gets demoed. someone builds a workflow: document comes in, model reads it, model extracts the fields, model decides what happens next. it works in testing. it works in the pilot. nobody asks the question that matters, which is what the workflow does on the day the model call times out, or returns garbage, or simply isn't there.
+
+the honest answer, in most of these systems, is nothing good. the workflow either throws an error nobody sees until a client calls asking where their document went, or worse, it doesn't throw an error at all. it just keeps running with a null value where an extraction should be, or it silently skips a step because a conditional never got triggered. that second failure mode is the one that should worry you more, because it doesn't look like a failure. it looks like the automation working, right up until someone finds the gap three weeks later.
+
+## why models go down, or get too expensive to run
+
+none of this is hypothetical, and it isn't rare. api rate limits get hit during exactly the volume spike that made you want automation in the first place. providers have outages, sometimes for minutes, sometimes for hours, and they don't call you first. pricing changes, sometimes overnight, and the cost of the call that made sense in january doesn't make sense in june. models get deprecated and replaced with a version that behaves slightly differently on the exact edge case your workflow depends on.
+
+any one of these is survivable if you built for it. all of them are inevitable if you run automation for long enough. the question was never whether the model would be unavailable. it was always when, and what your system does in that moment.
+
+## the wrong answer: fix it after it breaks
+
+the common response is reactive. something breaks, someone notices, usually late, and a person manually reconstructs what should have happened. they dig through logs, figure out which records got half-processed, redo the extraction by hand, and push the workflow forward manually. this gets treated as an incident, handled once, and then everyone moves on until it happens again.
+
+the problem with this isn't just that it's slow. it's that it's a plan that only exists after the damage is done. there's no routing path defined in advance, so the person handling the incident is improvising under time pressure, on work that's often regulated, often client-facing, and often has a deadline attached to it that doesn't care whether your model provider had a bad day. improvised fixes made under pressure are exactly the conditions where mistakes happen and don't get caught.
+
+## the right answer: degrade to a human, on purpose
+
+the alternative is to design the drop before it happens, not after. if the model can't be reached, or returns a response that fails a confidence check, the work doesn't vanish and it doesn't get guessed at. it routes to a person, automatically, with everything the model would have needed to do the job: the document, the extracted context so far, and a clear flag saying why this landed on a human's desk instead of finishing automatically.
+
+this only works if the handoff is visible. a queue that a human checks when they remember to is not a fallback path, it's a hope. the routing has to be automatic, the person has to be notified, and the record has to show exactly where the work sat, for how long, and who picked it up. that record matters as much as the fallback itself, because in regulated work the audit trail is the thing that gets asked for later, not the explanation of why the outage happened.
+
+the reason this is possible at all comes back to how the system was split in the first place. if the model is only ever reading, extracting and routing, and a separate deterministic function is what actually makes the decision, then the human stepping in during an outage is stepping into the same decision point the model would have used. they're not inventing a new process under pressure. they're doing the same job, through the same audit trail, with a different pair of hands.
+
+## how to build for continuity, not just uptime
+
+four things make this real instead of theoretical. first, monitoring on the model call itself, not just on whether the overall job finished. a workflow that "completed" with a null extraction looks fine on a dashboard that only checks completion status. second, a confidence or validation check on every model output before it's allowed to trigger the next step, so a bad response gets caught at the point of failure instead of three steps downstream. third, a pre-defined human routing path that exists before you need it: a named queue, a named person or role, and a clear rule for what triggers the handoff. fourth, alerting that goes to a person, not just a log file, the moment a fallback triggers, so degraded mode doesn't quietly become the new normal for a week before anyone notices.
+
+none of this is exotic engineering. it's the same discipline you'd apply to any system where a dependency can fail and the cost of silent failure is high. the only thing unusual about applying it to ai automation is how rarely it gets done, because the systems get sold on what they do when everything works, not on what they do when something doesn't.
+
+if you're running, or about to run, automation on regulated work, ask the specific question before you need the answer: what happens to this exact workflow the next time the model is unavailable for an hour. if nobody can answer that in detail, that's the gap to close first, before adding anything else to the system.
