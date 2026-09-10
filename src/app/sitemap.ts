@@ -34,6 +34,12 @@ const STATIC_ROUTES: { path: string; priority: number }[] = [
   { path: '/writing', priority: 0.7 },
   { path: '/agency-partner', priority: 0.6 },
   { path: '/case-studies/fenced-up', priority: 0.5 },
+  // Own-product case studies, added 2026-09-10. Priority 0.6: they are real
+  // credibility pages that support /workflow-audit, but they are not the
+  // client-facing proof the 0.9 pages are, and inflating that would be the
+  // same overclaiming the pages themselves refuse to do.
+  { path: '/case-studies/replysequence', priority: 0.6 },
+  { path: '/case-studies/enkily', priority: 0.6 },
   { path: '/calculator', priority: 0.6 }
 ]
 
