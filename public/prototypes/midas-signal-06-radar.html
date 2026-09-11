@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Signal S06 · Radar · MIDAS800</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#060A12; --panel:#0A111E; --panel2:#0E1828; --rule:#172338; --rule2:#22324D;
+  --text:#DCE6F2; --dim:#93A3B8; --faint:#73859D;
+  --green:#3DFFA8; --green-ink:#03140C; --amber:#FFC24B;
+  --head:'Chakra Petch','Arial Narrow',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ground)}
+body{background:var(--ground);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:inherit}
+:is(a,button,input):focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 24px}
+@media(max-width:600px){.wrap{padding:0 16px}}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+.sr{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ── bar ── */
+.bar{border-bottom:1px solid var(--rule);background:var(--panel)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.mark{font-family:var(--head);font-weight:700;font-size:17px;letter-spacing:.06em;display:flex;align-items:center;gap:10px;text-decoration:none}
+.mark i{width:9px;height:9px;border-radius:50%;background:var(--green);display:block;box-shadow:0 0 0 4px rgba(61,255,168,.16)}
+.mark span{font-family:var(--mono);font-weight:400;font-size:11.5px;color:var(--faint);letter-spacing:.04em}
+.tabs{display:flex;gap:2px}
+.tabs a{font-family:var(--head);font-weight:500;font-size:14px;letter-spacing:.04em;padding:6px 13px;color:var(--dim);text-decoration:none;border-radius:2px}
+.tabs a.on{background:var(--panel2);color:var(--text);box-shadow:inset 0 -2px 0 var(--green)}
+.tabs a:hover{color:var(--text)}
+@media(max-width:900px){.tabs{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 17px;background:var(--green);color:var(--green-ink);font-family:var(--head);font-weight:700;font-size:14.5px;letter-spacing:.04em;text-decoration:none;border:1px solid var(--green);cursor:pointer;border-radius:2px;white-space:nowrap}
+.btn:hover{background:transparent;color:var(--green)}
+.btn.ghost{background:transparent;color:var(--text);border-color:var(--rule2)}
+.btn.ghost:hover{border-color:var(--green);color:var(--green)}
+.notice{background:rgba(255,194,75,.07);border-bottom:1px solid rgba(255,194,75,.2);color:var(--amber);font-size:12px;letter-spacing:.04em}
+.notice .wrap{padding-block:8px}
+
+/* ── radar hero ── */
+.radar{position:relative;height:clamp(330px,42vw,640px);background:radial-gradient(80% 90% at 27% 32%,#0A1626 0%,var(--ground) 70%);border-bottom:1px solid var(--rule);overflow:hidden}
+#scope{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hud{position:absolute;pointer-events:none;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.hud b{color:var(--green);font-weight:500}
+.hud-tl{top:18px;left:24px;display:grid;gap:3px}
+.hud-tr{top:16px;right:24px;text-align:right;background:rgba(6,10,18,.72);border:1px solid rgba(255,194,75,.35);color:var(--amber);padding:7px 11px;letter-spacing:.06em;text-transform:none;font-size:12px;max-width:min(360px,60vw)}
+.hud-bl{bottom:14px;left:24px;display:flex;gap:18px;flex-wrap:wrap;letter-spacing:.08em}
+.hud-bl span{display:flex;align-items:center;gap:7px}
+.hud-bl i{width:8px;height:8px;border-radius:50%;display:block}
+.tip{position:absolute;pointer-events:none;background:var(--panel2);border:1px solid var(--green);padding:5px 10px;font-size:12px;transform:translate(-50%,-160%);white-space:nowrap;opacity:0;transition:opacity .12s;z-index:5;font-family:var(--head);font-weight:600;letter-spacing:.06em}
+@media(max-width:700px){
+  .hud-tl{top:12px;left:16px;font-size:10.5px}
+  .hud-tr{top:auto;bottom:12px;right:16px;left:16px;text-align:left;max-width:none;font-size:11.5px}
+  .hud-bl{display:none}
+}
+
+/* ── headline band ── */
+.band{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:28px;align-items:end;padding:30px 0 22px}
+.band h1{font-family:var(--head);font-weight:700;font-size:clamp(32px,4.4vw,56px);line-height:1;letter-spacing:-.005em;text-transform:uppercase;text-wrap:balance;margin-top:10px}
+.band p{color:var(--dim);font-size:14.5px;margin-top:14px;max-width:56ch}
+@media(max-width:1040px){.band{grid-template-columns:1fr}}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.tile{background:var(--panel);padding:15px 18px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.tile dt{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.tile dd{font-family:var(--head);font-weight:600;font-size:30px;line-height:1.1;letter-spacing:.01em}
+.tile .src{font-size:11.5px;color:var(--dim)}
+.tile .src a{text-underline-offset:3px}
+.tile .src a:hover{color:var(--green)}
+@media(max-width:420px){.tile dd{font-size:24px}.tile{padding:13px 14px}}
+
+/* ── grid + cards ── */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 376px;gap:12px;align-items:start}
+@media(max-width:1040px){.grid{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--rule)}
+.card+.card{margin-top:12px}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.card-h h2{font-family:var(--head);font-weight:600;font-size:17px;letter-spacing:.04em;text-transform:uppercase}
+.card-b{padding:18px}
+.side{position:sticky;top:14px}
+@media(max-width:1040px){.side{position:static}}
+.picked{font-size:12px;color:var(--dim)}
+.picked a{color:var(--green)}
+
+/* ── catalog ── */
+.beats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule)}
+@media(max-width:700px){.beats{grid-template-columns:1fr}}
+.beat{position:relative;background:var(--panel);display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:2px 12px;padding:15px 16px 14px;cursor:pointer;align-items:start}
+.beat:hover{background:var(--panel2)}
+.beat input{position:absolute;opacity:0;width:1px;height:1px}
+.blip{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--rule2);margin-top:5px;position:relative}
+.beat:has(input:checked){background:rgba(61,255,168,.07);box-shadow:inset 0 0 0 1px rgba(61,255,168,.45)}
+.beat:has(input:checked) .blip{border-color:var(--green);background:var(--green);box-shadow:0 0 0 4px rgba(61,255,168,.18)}
+.beat:has(input:focus-visible){outline:2px solid var(--green);outline-offset:-2px}
+.beat h3{font-family:var(--head);font-weight:600;font-size:18px;letter-spacing:.03em;text-transform:uppercase;line-height:1.25}
+.beat .d{grid-column:2/4;font-size:12px;color:var(--dim);line-height:1.45}
+.beat .len{font-size:13px;color:var(--text);padding-top:3px}
+.beat .meter{grid-column:2/4;height:3px;background:var(--rule);margin-top:9px;position:relative}
+.beat .meter i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,rgba(61,255,168,.25),var(--green))}
+.beat .ln{grid-column:2/4;display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:11.5px;color:var(--faint)}
+.beat .ln a{color:var(--dim);text-decoration:none;border-bottom:1px solid var(--rule2);position:relative;z-index:2}
+.beat .ln a:hover{color:var(--green);border-color:var(--green)}
+.kit{background:linear-gradient(100deg,rgba(255,194,75,.06),transparent 55%),var(--panel);border-top:1px solid var(--rule)}
+.kit .beat{background:transparent;grid-template-columns:auto minmax(0,1fr)}
+.kit .beat:hover{background:rgba(255,255,255,.02)}
+.kit .contents{grid-column:2;display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.kit .contents span{flex:1 1 92px;background:var(--panel);border:1px solid var(--rule);padding:8px 10px;font-size:11.5px;color:var(--dim)}
+.kit .contents b{display:block;font-family:var(--head);font-size:20px;font-weight:600;color:var(--text);line-height:1.1}
+.kit .fine{grid-column:2;font-size:11.5px;color:var(--faint);margin-top:8px}
+.cat-foot{padding:11px 18px;border-top:1px solid var(--rule);font-size:11.5px;color:var(--faint)}
+.photo{grid-column:1;aspect-ratio:16/5;border:1px dashed var(--rule2);margin:0;display:flex;flex-direction:column;justify-content:flex-end;gap:3px;padding:18px 20px;background:repeating-linear-gradient(135deg,transparent 0 12px,rgba(61,255,168,.025) 12px 13px),var(--panel)}
+.photo b{font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.08em}
+.photo span{font-size:12px;color:var(--dim)}
+@media(max-width:600px){.photo{aspect-ratio:auto;min-height:120px}}
+
+/* ── checkout ── */
+.sel{border:1px dashed var(--rule2);padding:12px 14px;margin-bottom:16px;min-height:64px;display:flex;flex-direction:column;justify-content:center}
+.sel.has{border-style:solid;border-color:rgba(61,255,168,.5);background:rgba(61,255,168,.06)}
+.sel small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.sel b{font-family:var(--head);font-size:19px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;line-height:1.2}
+.sel .empty{color:var(--dim);font-size:13px}
+.lab{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:7px}
+.lab label{font-family:var(--head);font-weight:600;font-size:15px;letter-spacing:.04em;text-transform:uppercase}
+.lab small{font-size:11px;color:var(--faint)}
+.inp{display:flex;align-items:center;background:var(--ground);border:1px solid var(--rule2);padding:0 12px}
+.inp:focus-within{border-color:var(--green);box-shadow:0 0 0 3px rgba(61,255,168,.16)}
+.inp span{color:var(--dim);font-size:15px}
+.inp input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--text);font-family:var(--mono);font-size:15px;padding:11px 6px}
+.inp input.big{font-family:var(--head);font-size:24px;font-weight:600;padding:8px 6px}
+.inp input::placeholder{color:#56677F}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;align-items:center}
+.chips button{font-family:var(--mono);font-size:12.5px;padding:5px 11px;background:transparent;border:1px solid var(--rule2);color:var(--text);cursor:pointer;border-radius:2px}
+.chips button:hover{border-color:var(--green)}
+.chips button.on{border-color:var(--green);background:rgba(61,255,168,.1);color:var(--green)}
+.chips small{font-size:11px;color:var(--faint)}
+.hint{font-size:11.5px;color:var(--dim);margin-top:8px}
+.fld{margin-bottom:16px}
+.err{color:var(--amber);font-size:12.5px;min-height:1.1em;margin:-6px 0 8px}
+.go{width:100%;padding:13px;font-size:16px}
+.small{margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);display:grid;gap:5px}
+.small p{font-size:11.5px;color:var(--dim);line-height:1.5}
+.done{display:none}
+.co.ok form{display:none}
+.co.ok .done{display:block}
+.done .ping{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--green);display:grid;place-items:center;margin-bottom:12px;position:relative}
+.done .ping::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--green)}
+.done .ping::after{content:"";position:absolute;inset:-1.5px;border-radius:50%;border:1.5px solid var(--green);animation:ping 1.8s ease-out infinite}
+@keyframes ping{to{transform:scale(1.9);opacity:0}}
+.done h3{font-family:var(--head);font-weight:700;font-size:22px;letter-spacing:.03em;text-transform:uppercase;outline:none}
+.done p{color:var(--dim);font-size:13px;margin-top:7px}
+.done p b{color:var(--text);font-weight:500}
+.dl{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding:12px 14px;border:1px solid var(--green);text-decoration:none;background:rgba(61,255,168,.07)}
+.dl b{font-size:13px;font-weight:500;color:var(--green)}
+.dl small{font-size:10.5px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+.dl:hover{background:rgba(61,255,168,.14)}
+.feed{padding:16px 18px;color:var(--dim);font-size:13px;display:flex;gap:12px;align-items:center}
+.feed .ring{width:28px;height:28px;border-radius:50%;border:1.5px dashed var(--rule2);flex:none}
+.feed.mine .ring{border:1.5px solid var(--green);background:radial-gradient(circle,var(--green) 0 4px,transparent 5px)}
+.feed b{color:var(--text);font-weight:500;display:block}
+
+/* ── honesty ── */
+.truth{background:var(--panel2);border:1px solid var(--rule2);border-left:3px solid var(--amber);padding:22px 26px;margin-top:12px}
+.truth h3{font-family:var(--head);font-weight:600;font-size:18px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px;color:var(--amber)}
+.truth p{font-size:13.5px;color:var(--dim);max-width:80ch}
+.truth p+p{margin-top:10px}
+.truth b{color:var(--text);font-weight:600}
+
+footer{padding:24px 0;border-top:1px solid var(--rule);color:var(--faint);font-size:12px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:16px}
+footer a{color:var(--dim);text-underline-offset:3px}
+.proto{background:var(--green);color:var(--green-ink);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:8px 16px;font-weight:600}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="bar"><div class="wrap">
+  <a class="mark" href="#top"><i></i>MIDAS800 <span>Philadelphia</span></a>
+  <nav class="tabs" aria-label="Sections"><a href="#top" class="on">Map</a><a href="#beats">Beats</a><a href="#kit">Drum kit</a><a href="#how">How it works</a></nav>
+  <a class="btn" href="#checkout">Get a beat</a>
+</div></header>
+
+<div class="notice" role="note"><div class="wrap">Prototype · no payments connected · sample data is marked</div></div>
+
+<section class="radar" id="top" aria-label="Map of the list">
+  <canvas id="scope" role="img" aria-label="Dark world map with a radar sweep turning around Philadelphia, Midas800's home base. Sample pins in Atlanta, Memphis, Houston, Los Angeles, Toronto, Mexico City, São Paulo, London, Paris, Lagos, Johannesburg, Mumbai, Manila, Tokyo and Sydney. Sample pins only."></canvas>
+  <div class="tip" id="tip"></div>
+  <div class="hud hud-tl" aria-hidden="true"><span>Signal · <b>home</b></span><span>Philadelphia 39.95°N 75.17°W</span></div>
+  <p class="hud hud-tr">Sample pins. Real ones appear as people download.</p>
+  <div class="hud hud-bl" aria-hidden="true">
+    <span><i style="background:var(--amber)"></i>Philadelphia, home base</span>
+    <span><i style="background:var(--green)"></i>Sample pin</span>
+    <span>City names only, no counts</span>
+  </div>
+</section>
+
+<main class="wrap">
+  <section class="band" aria-labelledby="h1">
+    <div>
+      <div class="eyebrow">Pay what you want · instant download</div>
+      <h1 id="h1">Every download puts a pin on his map.</h1>
+      <p>Beats and the drum kit from Midas800, the Philadelphia producer behind NLE Choppa's "Shotta Flow". Name your price, get the files now. Your email goes on his own list, not a platform's.</p>
+    </div>
+    <dl class="tiles">
+      <div class="tile"><dt>Billboard Hot 100</dt><dd>#36</dd><span class="src">"Shotta Flow" peak</span></div>
+      <div class="tile"><dt>RIAA</dt><dd>2x Platinum</dd><span class="src">"Shotta Flow" · 2019</span></div>
+      <div class="tile"><dt>YouTube</dt><dd>14,600</dd><span class="src"><a href="https://www.youtube.com/channel/UCk1XxZ--lg_jRJn7RqX4urw">subscribers</a> · 141 videos · read 11 Sep 2026</span></div>
+      <div class="tile"><dt>Genius Deconstructed</dt><dd>1,035,627</dd><span class="src"><a href="https://www.youtube.com/watch?v=arsD5Y1VzEg">views · The Making Of "Shotta Flow"</a></span></div>
+    </dl>
+  </section>
+
+  <div class="grid">
+    <div>
+      <section class="card" id="beats" aria-labelledby="beats-h">
+        <div class="card-h"><h2 id="beats-h">Beats</h2><span class="picked" id="picked" aria-live="polite">Pick one, then name your price</span></div>
+        <fieldset style="border:0"><legend class="sr">Choose a beat or the drum kit</legend>
+          <div class="beats" id="list"></div>
+          <div class="kit" id="kit">
+            <label class="beat">
+              <input type="radio" name="item" value="kit" aria-label="midas800 drumkit">
+              <span class="blip" aria-hidden="true"></span>
+              <span><span class="eyebrow" style="color:var(--amber)">Drum kit</span><h3>midas800 drumkit</h3></span>
+              <span class="contents"><span><b>21</b>808s</span><span><b>13</b>snares</span><span><b>12</b>percs</span><span><b>10</b>hats</span><span><b>3</b>kicks</span><span><b>35</b>loops</span><span><b>63</b>Serum presets</span></span>
+              <span class="fine">Contents as received; final contents are Midas's call.</span>
+            </label>
+          </div>
+        </fieldset>
+        <div class="cat-foot">Titles and lengths from his YouTube channel, read 11 Sep 2026. The bar is length.</div>
+      </section>
+    </div>
+
+    <div class="side">
+      <section class="card co" id="checkout" aria-labelledby="co-h">
+        <div class="card-h"><h2 id="co-h">Checkout</h2><span class="eyebrow">Pay what you want</span></div>
+        <div class="card-b">
+          <form id="buy" novalidate>
+            <div class="sel" id="sel" aria-live="polite"><span class="empty">Pick a beat or the drum kit from the list.</span></div>
+            <div class="fld">
+              <div class="lab"><label for="price">Your price</label><small>USD</small></div>
+              <div class="inp"><span aria-hidden="true">$</span><input class="big" id="price" type="number" inputmode="decimal" min="0" step="1" placeholder="name it" aria-describedby="min-note"></div>
+              <div class="chips" role="group" aria-label="Example amounts">
+                <button type="button" data-p="5">$5</button><button type="button" data-p="10">$10</button><button type="button" data-p="20">$20</button><button type="button" data-p="40">$40</button><small>examples</small>
+              </div>
+              <p class="hint" id="min-note">Minimum price: Midas's call, not decided yet.</p>
+            </div>
+            <div class="fld">
+              <div class="lab"><label for="email">Email</label><small>where the download goes</small></div>
+              <div class="inp"><input id="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+            </div>
+            <p class="err" id="err" role="alert"></p>
+            <button class="btn go" id="dl-btn" type="submit">Get instant download</button>
+            <div class="small">
+              <p>Payments not connected. Prototype.</p>
+              <p>License terms: to be set with Midas.</p>
+              <p>Whatever you pay, your email joins Midas's own list and becomes a pin on the map. Unsubscribe any time.</p>
+            </div>
+          </form>
+          <div class="done" id="done">
+            <div class="ping" aria-hidden="true"></div>
+            <h3 id="done-h" tabindex="-1">Download ready</h3>
+            <a class="dl" id="dl-link" href="#checkout"><b id="dl-name">file.zip</b><small>mock link</small></a>
+            <p>A copy is in your inbox at <b id="done-mail"></b>.</p>
+            <p>You paid <b id="done-price"></b> (mock, nothing charged). License terms: to be set with Midas.</p>
+            <p>When this is live, your download becomes a real pin on the map up top, at city level.</p>
+            <p style="margin-top:16px"><button class="btn ghost" type="button" id="again">Get another</button></p>
+          </div>
+        </div>
+      </section>
+      <section class="card" aria-labelledby="yp-h">
+        <div class="card-h"><h2 id="yp-h">Your pin</h2><span class="eyebrow">This browser</span></div>
+        <div class="feed" id="feed" aria-live="polite"><span class="ring" aria-hidden="true"></span><span>Your download will show up here.</span></div>
+      </section>
+    </div>
+
+    <div class="photo" role="img" aria-label="Photo placeholder: photo from the shoot, studio, landscape 16:9, not taken yet.">
+      <b>PHOTO FROM THE SHOOT</b><span>studio, landscape 16:9 · not taken yet</span>
+    </div>
+  </div>
+
+  <section class="truth" id="how" aria-labelledby="how-h">
+    <h3 id="how-h">How this works · read this part</h3>
+    <p><b>The map is the point.</b> Every download, whatever you pay, adds your email, with your OK, to Midas's own list. Each person on that list is one pin, placed by city. It belongs to him, not to a platform, and nobody can switch it off.</p>
+    <p><b>The pins you see are samples.</b> Real ones appear as people download. Tooltips show city names only. There are no counts on this page because a prototype has no real downloads to count.</p>
+    <p><b>Payments are not connected.</b> This is a prototype: nothing is charged and nothing is emailed. The price is yours to name. Whether there is a minimum is Midas's call and not decided. License terms: to be set with Midas.</p>
+    <p><b>No photos yet.</b> The shoot isn't booked, so the page runs on type and color. The one photo slot says what it's waiting for.</p>
+  </section>
+
+  <footer>
+    <span>MIDAS800 · Philadelphia · <a href="https://www.youtube.com/channel/UCk1XxZ--lg_jRJn7RqX4urw">YouTube</a></span>
+    <span>Signal S06 · Radar</span>
+  </footer>
+</main>
+
+<div class="proto">Prototype · Playground Giants · Signal variation S06 of 12 · "Radar"</div>
+
+<script>
+/* ── catalog: titles, ids, lengths from the channel (read 11 Sep 2026) ── */
+const BEATS=[
+ {id:'shotta7',n:'Shotta Flow 7',d:'NLE Choppa x Midas800 Shotta Flow type beat',yt:'QiiHaWXfTGA',s:81},
+ {id:'smokewitus',n:'Smoke Wit Us',d:'Big Yavo x SleazyWorld Go x NLE Choppa type beat',yt:'fWW1WDX4rd0',s:162},
+ {id:'capo3',n:'CAPO 3',d:'NLE Choppa type beat',yt:'CumOxJIzb3M',s:151},
+ {id:'nato',n:'NATO',d:'Da Baby x NLE Choppa type beat',yt:'BR_lei_F-YQ',s:146},
+ {id:'shakin',n:'SHAKIN THE GROUND',d:'Yung Maaly x DMV type beat',yt:'qN2l9u4AJnA',s:132},
+ {id:'digitalscale',n:'Digital Scale',d:'Yung Maaly x Lil Dude type beat',yt:'CbiS18w3978',s:165},
+ {id:'retaliate',n:'Retaliate',d:'Punchmadedev x Tezmoney30 type beat',yt:'TCGG7a5KrPc',s:181},
+ {id:'burntup',n:'Burnt Up',d:'Yung Maaly type beat',yt:'rUIyO9mC_M8',s:148}
+];
+const KIT={id:'kit',n:'midas800 drumkit',kit:1};
+const mmss=s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
+const esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=id=>document.getElementById(id);
+const maxS=Math.max(...BEATS.map(b=>b.s));
+$('list').innerHTML=BEATS.map(b=>`<label class="beat">
+  <input type="radio" name="item" value="${b.id}" aria-label="${esc(b.n)}, ${mmss(b.s)}">
+  <span class="blip" aria-hidden="true"></span>
+  <h3>${esc(b.n)}</h3><span class="len">${mmss(b.s)}</span>
+  <span class="d">${esc(b.d)}</span>
+  <span class="meter" aria-hidden="true"><i style="width:${(b.s/maxS*100).toFixed(1)}%"></i></span>
+  <span class="ln"><span>Beat</span><a href="https://www.youtube.com/watch?v=${b.yt}" aria-label="Listen to ${esc(b.n)} on YouTube">Listen on YouTube</a></span>
+</label>`).join('');
+
+/* ── checkout ── */
+const co=$('checkout'), price=$('price'), email=$('email'), err=$('err');
+let picked=null;
+document.addEventListener('change',e=>{
+  if(e.target.name!=='item')return;
+  picked=e.target.value==='kit'?KIT:BEATS.find(b=>b.id===e.target.value);
+  const sel=$('sel'); sel.classList.add('has');
+  sel.innerHTML=picked.kit?`<small>Drum kit</small><b>${esc(picked.n)}</b>`:`<small>Beat · ${mmss(picked.s)}</small><b>${esc(picked.n)}</b>`;
+  $('picked').innerHTML=`Picked <b style="color:var(--text)">${esc(picked.n)}</b> · <a href="#checkout">name your price</a>`;
+  co.classList.remove('ok'); err.textContent='';
+});
+document.querySelectorAll('.beat a').forEach(a=>a.addEventListener('click',e=>e.stopPropagation()));
+const chips=[...document.querySelectorAll('.chips button')];
+chips.forEach(b=>b.addEventListener('click',()=>{price.value=b.dataset.p;chips.forEach(o=>o.classList.toggle('on',o===b))}));
+price.addEventListener('input',()=>chips.forEach(o=>o.classList.toggle('on',o.dataset.p===price.value)));
+$('buy').addEventListener('submit',e=>{
+  e.preventDefault();
+  const v=price.value.trim(), m=email.value.trim();
+  if(!picked){err.textContent='Pick a beat or the drum kit from the list first.';return}
+  if(v===''||isNaN(+v)||+v<0){err.textContent='Enter a price in dollars.';price.focus();return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){err.textContent='Enter an email address. That is where the download goes.';email.focus();return}
+  err.textContent='';
+  const file=(picked.kit?'midas800-drumkit':picked.n.toLowerCase().replace(/[^a-z0-9]+/g,'-'))+'.zip';
+  $('dl-name').textContent=file; $('done-mail').textContent=m; $('done-price').textContent='$'+(+v).toFixed(2);
+  co.classList.add('ok'); $('done-h').focus();
+  const f=$('feed'); f.classList.add('mine');
+  f.innerHTML=`<span class="ring" aria-hidden="true"></span><span><b>${esc(picked.n)}</b>$${(+v).toFixed(2)} · just now · pin not placed (prototype)</span>`;
+});
+$('dl-link').addEventListener('click',e=>e.preventDefault());
+$('again').addEventListener('click',()=>{co.classList.remove('ok');price.value='';chips.forEach(o=>o.classList.remove('on'));$('beats').scrollIntoView({block:'start'})});
+
+/* ── radar: coarse equirectangular land mask 64x32 (from Signal), drawn at 2x2 dots per cell ── */
+const COLS=64, R0=1, R1=26;
+const LAND={
+ 2:[[9,19],[21,26],[43,59]],3:[[7,20],[21,26],[32,36],[38,60]],4:[[3,20],[22,26],[32,36],[37,61]],
+ 5:[[3,21],[23,26],[32,36],[37,61]],6:[[4,21],[29,31],[32,35],[36,60]],7:[[6,21],[29,36],[37,59]],
+ 8:[[7,21],[29,38],[39,57]],9:[[8,21],[30,40],[41,56]],10:[[9,20],[31,43],[46,55],[56,57]],
+ 11:[[11,19],[31,42],[44,47],[48,55]],12:[[12,19],[31,41],[44,47],[49,54]],13:[[14,19],[31,42],[44,48],[50,54]],
+ 14:[[15,19],[31,43],[45,48],[51,55]],15:[[18,22],[32,44],[51,56]],16:[[19,24],[33,43],[51,57]],
+ 17:[[19,25],[33,42],[52,58]],18:[[19,25],[33,41],[53,59]],19:[[20,25],[34,40],[54,60]],
+ 20:[[20,25],[34,39],[53,60]],21:[[20,24],[35,38],[53,60]],22:[[20,23],[35,37],[54,59]],
+ 23:[[20,22],[61,62]],24:[[20,22],[61,62]],25:[[20,21]]
+};
+/* illustrative pins: real cities, names only, no counts */
+const HOME={c:'Philadelphia',lat:39.95,lon:-75.17};
+const PINS=[
+ {c:'Atlanta',lat:33.7,lon:-84.4,dy:6},{c:'Memphis',lat:35.1,lon:-90.0,L:'l',dy:-5},{c:'Houston',lat:29.8,lon:-95.4,L:'l',dy:4},
+ {c:'Los Angeles',lat:34.1,lon:-118.2,L:'l'},{c:'Toronto',lat:43.7,lon:-79.4,L:'l',dy:-6},{c:'Mexico City',lat:19.4,lon:-99.1,L:'l'},
+ {c:'São Paulo',lat:-23.6,lon:-46.6},{c:'London',lat:51.5,lon:-0.1,L:'l',dy:-4},{c:'Paris',lat:48.9,lon:2.4,dy:5},
+ {c:'Lagos',lat:6.5,lon:3.4},{c:'Johannesburg',lat:-26.2,lon:28.0},{c:'Mumbai',lat:19.1,lon:72.9},
+ {c:'Manila',lat:14.6,lon:121.0},{c:'Tokyo',lat:35.7,lon:139.7},{c:'Sydney',lat:-33.9,lon:151.2}
+];
+const cv=$('scope'), tip=$('tip'), box=cv.parentElement;
+const RM=matchMedia('(prefers-reduced-motion: reduce)');
+let W=0,H=0,DPR=1,base=null,geo=null,hot=[],angle=-0.9,last=0,raf=0,visible=true;
+const TAU=Math.PI*2;
+
+function layout(){
+  DPR=Math.min(2,window.devicePixelRatio||1);
+  W=box.clientWidth; H=box.clientHeight;
+  cv.width=W*DPR; cv.height=H*DPR;
+  const s=Math.max(W/COLS, H/(R1-R0+1));            /* cover */
+  const mapW=COLS*s, mapH=(R1-R0+1)*s;
+  const focal=((-35+180)/360)*mapW;                  /* keep the Atlantic in frame when cropped */
+  const ox=Math.min(0,Math.max(W-mapW, W/2-focal));
+  const oy=(H-mapH)/2 - R0*s;
+  const P=(lat,lon)=>({x:ox+(lon+180)/360*mapW, y:oy+(90-lat)/180*(32*s)});
+  geo={s,ox,oy,P,home:P(HOME.lat,HOME.lon)};
+  /* static layer: land dots + range rings */
+  base=document.createElement('canvas'); base.width=W*DPR; base.height=H*DPR;
+  const x=base.getContext('2d'); x.scale(DPR,DPR);
+  const h=s/2, r=Math.max(.9,s*.12);
+  x.fillStyle='rgba(61,255,168,.16)';
+  for(const row in LAND)for(const [a,b] of LAND[row])for(let c=a;c<=b;c++)for(let i=0;i<2;i++)for(let j=0;j<2;j++){
+    x.beginPath(); x.arc(ox+c*s+h*(i+.5), oy+(+row)*s+h*(j+.5), r, 0, TAU); x.fill();
+  }
+  const {x:hx,y:hy}=geo.home, step=Math.max(60,s*4.2);
+  x.strokeStyle='rgba(61,255,168,.10)'; x.lineWidth=1;
+  for(let k=1;k*step<Math.hypot(W,H);k++){x.beginPath();x.arc(hx,hy,k*step,0,TAU);x.stroke()}
+  x.setLineDash([2,6]); x.strokeStyle='rgba(61,255,168,.08)';
+  x.beginPath(); x.moveTo(0,hy); x.lineTo(W,hy); x.moveTo(hx,0); x.lineTo(hx,H); x.stroke(); x.setLineDash([]);
+  hot=PINS.map(p=>{const q=P(p.lat,p.lon);return {...q,p,a:(Math.atan2(q.y-hy,q.x-hx)+TAU)%TAU}});
+}
+
+function frame(){
+  const x=cv.getContext('2d');
+  x.setTransform(DPR,0,0,DPR,0,0);
+  x.clearRect(0,0,W,H);
+  x.drawImage(base,0,0,W,H);
+  const {x:hx,y:hy}=geo.home, R=Math.hypot(W,H), still=RM.matches;
+  /* sweep wedge */
+  const tail=1.1;
+  if(x.createConicGradient){
+    const g=x.createConicGradient(angle-tail,hx,hy), t=tail/TAU;
+    g.addColorStop(0,'rgba(61,255,168,0)'); g.addColorStop(t*.7,'rgba(61,255,168,.06)');
+    g.addColorStop(t,'rgba(61,255,168,.24)'); g.addColorStop(Math.min(1,t+.0005),'rgba(61,255,168,0)'); g.addColorStop(1,'rgba(61,255,168,0)');
+    x.fillStyle=g; x.beginPath(); x.moveTo(hx,hy); x.arc(hx,hy,R,0,TAU); x.fill();
+  }
+  x.strokeStyle='rgba(61,255,168,.75)'; x.lineWidth=1.2;
+  x.beginPath(); x.moveTo(hx,hy); x.lineTo(hx+Math.cos(angle)*R, hy+Math.sin(angle)*R); x.stroke();
+  /* pins: glow right after the beam passes, then settle */
+  const labels=W>760;
+  x.font='600 11px "Chakra Petch", "Arial Narrow", sans-serif'; x.textBaseline='middle';
+  for(const o of hot){
+    const since=((angle-o.a)%TAU+TAU)%TAU;
+    const glow=still?0.55:Math.exp(-since/1.4);
+    const a=0.45+0.55*glow;
+    x.beginPath(); x.arc(o.x,o.y,5+glow*9,0,TAU); x.fillStyle=`rgba(61,255,168,${(0.08+0.22*glow).toFixed(3)})`; x.fill();
+    x.beginPath(); x.arc(o.x,o.y,2.8,0,TAU); x.fillStyle=`rgba(61,255,168,${a.toFixed(3)})`; x.fill();
+    if(labels){x.fillStyle=`rgba(220,230,242,${(0.35+0.55*glow).toFixed(3)})`; const L=o.p.L==='l'; x.textAlign=L?'right':'left'; x.fillText(o.p.c.toUpperCase(),o.x+(L?-9:9),o.y+(o.p.dy||0)); x.textAlign='left'}
+  }
+  /* home */
+  x.beginPath(); x.arc(hx,hy,12,0,TAU); x.strokeStyle='rgba(255,194,75,.55)'; x.lineWidth=1.2; x.stroke();
+  x.beginPath(); x.arc(hx,hy,4,0,TAU); x.fillStyle='#FFC24B'; x.fill();
+  if(labels){x.fillStyle='#FFC24B'; x.fillText('PHILADELPHIA · HOME',hx+17,hy+1)}
+}
+
+function loop(t){
+  if(!last)last=t;
+  const dt=Math.min(64,t-last); last=t;
+  angle=(angle+dt*0.00052)%TAU;           /* one turn every ~12s */
+  frame();
+  raf=(visible&&!RM.matches)?requestAnimationFrame(loop):0;
+}
+function start(){ if(!raf&&visible&&!RM.matches){last=0;raf=requestAnimationFrame(loop)} else frame(); }
+function init(){ layout(); frame(); start(); }
+new IntersectionObserver(es=>{visible=es[0].isIntersecting; if(visible)start()}).observe(box);
+RM.addEventListener?.('change',()=>{ if(RM.matches){cancelAnimationFrame(raf);raf=0;frame()} else start() });
+cv.addEventListener('mousemove',e=>{
+  const b=cv.getBoundingClientRect(), mx=e.clientX-b.left, my=e.clientY-b.top;
+  const all=[...hot,{...geo.home,p:{c:'Philadelphia, home base'}}];
+  const hit=all.find(o=>Math.hypot(o.x-mx,o.y-my)<=12);
+  if(hit){tip.style.opacity=1;tip.style.left=hit.x+'px';tip.style.top=hit.y+'px';tip.textContent=hit.p.c}
+  else tip.style.opacity=0;
+});
+cv.addEventListener('mouseleave',()=>tip.style.opacity=0);
+init();
+document.fonts&&document.fonts.ready.then(()=>frame());
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{layout();frame()},120)});
+</script>
+</body>
+</html>

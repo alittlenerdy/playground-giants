@@ -3,7 +3,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Prototypes — Playground Giants',
+  title: 'Prototypes | Playground Giants',
   description:
     'Design directions built for client engagements. Clickable, unbuilt, and made to be reacted to.',
   robots: { index: false, follow: false }
@@ -62,6 +62,27 @@ const MIDAS: Proto[] = [
   }
 ]
 
+// Added 2026-09-11. Midas picked #3 Signal by text ("im leaning towards #3
+// 'signal' for the layout of the site") and asked for pay-what-you-want
+// instant downloads. These are Signal's layout explored in type, color and
+// layout, each carrying a working PWYW checkout mock and built for NO
+// photography, since none exists yet. Only S04 and S08 drift from Signal, and
+// their banners say so.
+const SIGNAL: Proto[] = [
+  { slug: 'midas-signal-01-storefront', n: 'S01', name: 'Storefront', note: 'The faithful one. Signal’s palette and type, turned into his store.', swatch: ['#070B14', '#5EEAD4', '#FB7185'] },
+  { slug: 'midas-signal-02-gold', n: 'S02', name: 'Gold', note: 'Same layout, warm black and restrained gold.', swatch: ['#0B0A08', '#D4A640', '#EDE6D6'] },
+  { slug: 'midas-signal-03-paper', n: 'S03', name: 'Paper', note: 'Signal in daylight. The checkout follows you down the page.', swatch: ['#F3F0E8', '#0F766E', '#14161A'] },
+  { slug: 'midas-signal-04-terminal', n: 'S04', name: 'Terminal', note: 'Signal as a command line. Drifts furthest in voice.', swatch: ['#050805', '#7CFFB2', '#FFB547'] },
+  { slug: 'midas-signal-05-rail', n: 'S05', name: 'Rail', note: 'An app shell with a left rail and a sortable catalog.', swatch: ['#0F1012', '#4F7CFF', '#FF7AB6'] },
+  { slug: 'midas-signal-06-radar', n: 'S06', name: 'Radar', note: 'Map first. Every download puts a pin on it.', swatch: ['#060A12', '#3DFFA8', '#FFC24B'] },
+  { slug: 'midas-signal-07-tracklist', n: 'S07', name: 'Tracklist', note: 'The catalog as a DAW tracklist, checkout in a drawer.', swatch: ['#121214', '#FF6A3D', '#F2F0EC'] },
+  { slug: 'midas-signal-08-editorial', n: 'S08', name: 'Editorial', note: 'A magazine voice on Signal’s grid. Drifts toward a new direction.', swatch: ['#0D0C10', '#B4474F', '#ECE7DF'] },
+  { slug: 'midas-signal-09-bento', n: 'S09', name: 'Bento', note: 'Signal’s tile row, taken to the whole page.', swatch: ['#0C0A14', '#8B5CF6', '#C6F432'] },
+  { slug: 'midas-signal-10-broadcast', n: 'S10', name: 'Broadcast', note: 'A control room: ticker, rundown, condensed type.', swatch: ['#0B0B0D', '#FF3B30', '#F5F5F7'] },
+  { slug: 'midas-signal-11-pocket', n: 'S11', name: 'Pocket', note: 'Phone first, for buyers arriving from a YouTube link.', swatch: ['#0A0F1C', '#22D3EE', '#F472B6'] },
+  { slug: 'midas-signal-12-split', n: 'S12', name: 'Split', note: 'The checkout never scrolls away.', swatch: ['#06110F', '#6EE7B7', '#E9D8A6'] }
+]
+
 const LOVEPARK: Proto[] = [
   { slug: 'lovepark-07-orange-x-green', n: '07', name: 'Orange × Green', note: 'The direction the room chose, 17 July 2026.', swatch: ['#0B0B0C', '#EF5A24', '#5FB44A'] },
   { slug: 'lovepark-01-philadelphia-sound', n: '01', name: 'Philadelphia Sound', note: '', swatch: ['#0B0B0C', '#EF5A24', '#ECE6DA'] },
@@ -74,7 +95,7 @@ const LOVEPARK: Proto[] = [
   { slug: 'lovepark-09-cream-and-green', n: '09', name: 'Cream & Green', note: '', swatch: ['#ECE6DA', '#5FB44A', '#26241F'] },
   { slug: 'lovepark-10-chrome', n: '10', name: 'Chrome', note: '', swatch: ['#0B0B0C', '#C9CDD4', '#8C877D'] },
   { slug: 'lovepark-merch-directions', n: 'M1', name: 'Merch Directions', note: 'Garment and print directions.', swatch: ['#0B0B0C', '#EF5A24', '#5FB44A'] },
-  { slug: 'lovepark-merch-philadelphia', n: 'M2', name: 'Merch — Philadelphia', note: 'City-led merch treatment.', swatch: ['#0B0B0C', '#EF5A24', '#ECE6DA'] }
+  { slug: 'lovepark-merch-philadelphia', n: 'M2', name: 'Merch · Philadelphia', note: 'City-led merch treatment.', swatch: ['#0B0B0C', '#EF5A24', '#ECE6DA'] }
 ]
 
 function Card({ p }: { p: Proto }) {
@@ -124,9 +145,23 @@ export default function PrototypesPage() {
 
         <section className="mt-16">
           <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-4">
+            <h2 className="font-display text-2xl font-semibold text-ink">Midas800 · Signal, explored</h2>
+            <p className="font-mono text-xs tracking-wide text-ink-3">
+              12 variations of the chosen direction · September 2026
+            </p>
+          </div>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {SIGNAL.map((p) => (
+              <Card key={p.slug} p={p} />
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-20">
+          <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-4">
             <h2 className="font-display text-2xl font-semibold text-ink">Midas800</h2>
             <p className="font-mono text-xs tracking-wide text-ink-3">
-              Producer · catalog, storefront, audience — August 2026
+              Producer · catalog, storefront, audience · August 2026
             </p>
           </div>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -140,7 +175,7 @@ export default function PrototypesPage() {
           <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-4">
             <h2 className="font-display text-2xl font-semibold text-ink">Love Park</h2>
             <p className="font-mono text-xs tracking-wide text-ink-3">
-              Label, film and merch umbrella — July 2026
+              Label, film and merch umbrella · July 2026
             </p>
           </div>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

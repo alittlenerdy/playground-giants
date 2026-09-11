@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Signal S05 · Rail · MIDAS800</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#0F1012; --panel:#17181B; --panel2:#1D1F23; --rule:#26282D; --rule2:#34373E;
+  --text:#ECEDEF; --dim:#A3A6AE; --faint:#8A8E98;
+  --blue:#4F7CFF; --blue-ink:#070B1A; --pink:#FF7AB6;
+  --sans:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --railw:236px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ground);scroll-padding-top:16px}
+body{background:var(--ground);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font-family:inherit}
+:is(a,button,input):focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.sr{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+svg.i{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── rail ── */
+.rail{position:fixed;inset:0 auto 0 0;width:var(--railw);background:var(--panel);border-right:1px solid var(--rule);display:flex;flex-direction:column;padding:18px 14px 16px;z-index:10}
+.mark{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;letter-spacing:.02em;text-decoration:none;padding:4px 8px 18px;border-bottom:1px solid var(--rule)}
+.mark i{width:9px;height:9px;border-radius:50%;background:var(--blue);display:block;box-shadow:0 0 0 4px rgba(79,124,255,.18);flex:none}
+.mark small{display:block;font-family:var(--mono);font-weight:400;font-size:11px;color:var(--faint);letter-spacing:.04em}
+.nav{display:flex;flex-direction:column;gap:2px;margin-top:14px}
+.nav a{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:6px;color:var(--dim);text-decoration:none;font-size:13.5px;font-weight:500}
+.nav a:hover{color:var(--text);background:var(--panel2)}
+.nav a.on{color:var(--text);background:var(--panel2);box-shadow:inset 2px 0 0 var(--blue)}
+.nav a.on svg{color:var(--blue)}
+.nav .ext{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--faint)}
+.rail-foot{margin-top:auto;display:flex;flex-direction:column;gap:10px}
+.rail-foot p{font-family:var(--mono);font-size:11px;color:var(--faint);line-height:1.45;padding:0 4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;background:var(--blue);color:var(--blue-ink);font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--blue);border-radius:6px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:#6B91FF;border-color:#6B91FF}
+.btn.ghost{background:transparent;color:var(--text);border-color:var(--rule2)}
+.btn.ghost:hover{border-color:var(--blue);color:var(--blue)}
+.main{margin-left:var(--railw);min-width:0}
+
+@media(max-width:900px){
+  .rail{position:sticky;top:0;inset:auto;width:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:10px 16px 0;border-right:0;border-bottom:1px solid var(--rule);gap:10px}
+  .mark{border-bottom:0;padding:4px 0}
+  .mark small{display:none}
+  .rail-foot{margin:0 0 0 auto;flex-direction:row;align-items:center}
+  .rail-foot p{display:none}
+  .rail-foot .btn{padding:8px 13px;font-size:13px}
+  .nav{order:3;flex-basis:100%;flex-direction:row;margin:0 -16px;padding:4px 10px 6px;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--rule)}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{padding:7px 10px;white-space:nowrap;flex:none}
+  .nav a.on{box-shadow:inset 0 -2px 0 var(--blue);border-radius:0;background:none}
+  .nav .ext{display:none}
+  .main{margin-left:0}
+}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+@media(max-width:600px){.wrap{padding:0 16px}}
+.notice{border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:12px;color:var(--dim)}
+.notice .wrap{padding-block:9px;display:flex;align-items:center;gap:10px}
+.notice i{width:6px;height:6px;border-radius:50%;background:var(--pink);flex:none}
+
+/* ── head ── */
+.head{padding:30px 0 22px;display:grid;grid-template-columns:minmax(0,1fr) 168px;gap:28px;align-items:end}
+.head h1{font-size:clamp(28px,3.6vw,40px);font-weight:600;letter-spacing:-.025em;line-height:1.12;text-wrap:balance;max-width:22ch;margin-top:10px}
+.head p{color:var(--dim);font-size:15.5px;margin-top:12px;max-width:60ch}
+
+/* ── tiles ── */
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.tile{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.tile dd{font-size:30px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.03em;line-height:1.15}
+.tile .src{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+.tile .src a{color:var(--dim);text-underline-offset:3px}
+.tile .src a:hover{color:var(--blue)}
+@media(max-width:1180px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.tile dd{font-size:25px}.tile{padding:14px}}
+
+/* ── grid + cards ── */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 372px;gap:12px;align-items:start}
+@media(max-width:1180px){.grid{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.col>.card+.card{margin-top:12px}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.card-h h2{font-size:14px;font-weight:600;display:flex;align-items:center;gap:9px}
+.card-h .eyebrow{font-size:10.5px}
+.card-b{padding:18px}
+.side{position:sticky;top:16px}
+@media(max-width:1180px){.side{position:static}}
+
+/* ── kit row ── */
+.kit{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 14px;padding:16px 18px;border-bottom:1px solid var(--rule);background:linear-gradient(90deg,rgba(79,124,255,.06),transparent 60%);cursor:pointer}
+.kit h3{font-size:15px;font-weight:600}
+.kit .contents{grid-column:2/4;display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.kit .contents span{font-family:var(--mono);font-size:11.5px;color:var(--dim);border:1px solid var(--rule2);border-radius:4px;padding:2px 7px}
+.kit .contents b{color:var(--text);font-weight:500}
+.kit .fine{grid-column:2/4;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:4px}
+.kit .tag{font-family:var(--mono);font-size:11px;color:var(--dim);align-self:center}
+
+/* radio dot */
+.dot{appearance:none;-webkit-appearance:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--rule2);background:var(--ground);display:grid;place-items:center;cursor:pointer;margin-top:2px;flex:none}
+.dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--blue);transform:scale(0);transition:transform .12s}
+.dot:checked{border-color:var(--blue)}
+.dot:checked::after{transform:scale(1)}
+.kit:has(.dot:checked){background:rgba(79,124,255,.12)}
+
+/* ── table ── */
+.tbl{width:100%;border-collapse:collapse;table-layout:fixed}
+.tbl th{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:left;padding:0;border-bottom:1px solid var(--rule);background:var(--panel)}
+.tbl th>span,.tbl th>button{display:flex;align-items:center;gap:6px;padding:10px 12px;width:100%;background:none;border:0;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;text-align:left;cursor:default}
+.tbl th>button{cursor:pointer}
+.tbl th>button:hover{color:var(--text)}
+.tbl th[aria-sort] > button{color:var(--text)}
+.tbl th svg{width:10px;height:10px;opacity:.35;stroke:currentColor;fill:none;stroke-width:1.8}
+.tbl th[aria-sort] svg{opacity:1;color:var(--blue)}
+.tbl th[aria-sort=descending] svg{transform:rotate(180deg)}
+.c-pick{width:44px}.c-n{width:48px}.c-len{width:84px}.c-l{width:92px}
+.tbl td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tbody tr{cursor:pointer}
+.tbl tbody tr:hover{background:var(--panel2)}
+.tbl tbody tr:has(.dot:checked){background:rgba(79,124,255,.10);box-shadow:inset 2px 0 0 var(--blue)}
+.tbl td.num{font-family:var(--mono);font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.tbl td.len{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}
+.t-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-weight:600;font-size:14px;cursor:pointer}
+.t-desc{display:block;color:var(--dim);font-size:12.5px;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pill{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:3px;white-space:nowrap;font-weight:500}
+.p-new{background:rgba(255,122,182,.13);color:var(--pink);border:1px solid rgba(255,122,182,.32)}
+.listen{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--dim);text-decoration:none;padding:5px 9px;border:1px solid var(--rule2);border-radius:5px}
+.listen:hover{color:var(--text);border-color:var(--blue)}
+.listen svg{width:12px;height:12px;fill:currentColor;stroke:none}
+.tbl-foot{padding:11px 18px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:11.5px;color:var(--faint);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.picked{font-family:var(--mono);font-size:12px;color:var(--dim)}
+.picked a{color:var(--blue)}
+@media(max-width:600px){
+  .c-n,.tbl td.num,.tbl th.c-n{display:none}
+  .c-pick{width:36px}.c-len{width:62px}.c-l{width:48px}
+  .tbl td,.tbl th>span,.tbl th>button{padding-left:8px;padding-right:8px}
+  .listen span{display:none}
+  .listen{padding:7px 9px}
+  .t-desc{white-space:normal}
+}
+
+/* ── map ── */
+.mapwrap{position:relative;background:var(--ground)}
+#mapc{display:block;width:100%;aspect-ratio:2/1}
+.legend{display:flex;gap:8px 18px;flex-wrap:wrap;padding:12px 18px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend i{width:8px;height:8px;border-radius:50%;display:block}
+.legend .note{margin-left:auto;color:var(--text)}
+@media(max-width:700px){.legend .note{margin-left:0}}
+.tip{position:absolute;pointer-events:none;background:var(--panel2);border:1px solid var(--rule2);border-radius:5px;padding:6px 10px;font-size:12.5px;font-weight:500;transform:translate(-50%,-150%);white-space:nowrap;opacity:0;transition:opacity .12s;z-index:5}
+
+/* ── video facade ── */
+.vid{position:relative;aspect-ratio:16/9;background:
+  radial-gradient(120% 90% at 20% 110%,rgba(79,124,255,.22),transparent 60%),
+  repeating-linear-gradient(90deg,transparent 0 23px,rgba(255,255,255,.025) 23px 24px),var(--ground)}
+.vid button{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:10px;padding:22px;background:none;border:0;color:var(--text);cursor:pointer;text-align:left}
+.vid .play{width:54px;height:54px;border-radius:50%;background:var(--blue);display:grid;place-items:center;margin-bottom:auto}
+.vid .play svg{width:20px;height:20px;fill:var(--blue-ink);margin-left:3px}
+.vid b{font-size:clamp(17px,2.2vw,22px);font-weight:600;letter-spacing:-.015em;max-width:28ch;line-height:1.25}
+.vid small{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+/* ── checkout ── */
+.sel{border:1px dashed var(--rule2);border-radius:6px;padding:12px 14px;margin-bottom:16px;min-height:62px;display:flex;flex-direction:column;justify-content:center}
+.sel.has{border-style:solid;border-color:rgba(79,124,255,.45);background:rgba(79,124,255,.07)}
+.sel b{font-size:15px;font-weight:600}
+.sel small{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+.sel .empty{color:var(--dim);font-size:13px}
+.lab{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13px;font-weight:500;margin-bottom:7px}
+.lab small{font-family:var(--mono);font-weight:400;font-size:11px;color:var(--faint)}
+.inp{display:flex;align-items:center;background:var(--ground);border:1px solid var(--rule2);border-radius:6px;padding:0 12px}
+.inp:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,124,255,.22)}
+.inp span{font-family:var(--mono);color:var(--dim);font-size:15px}
+.inp input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--text);font-family:var(--sans);font-size:15px;padding:11px 6px}
+.inp input.big{font-family:var(--mono);font-size:22px;font-weight:500;padding:9px 6px}
+.inp input::placeholder{color:#62666F}
+.inp .cur{font-size:11px;color:var(--faint)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;align-items:center}
+.chips button{font-family:var(--mono);font-size:12.5px;padding:6px 11px;background:transparent;border:1px solid var(--rule2);color:var(--text);border-radius:5px;cursor:pointer}
+.chips button:hover{border-color:var(--blue)}
+.chips button.on{border-color:var(--blue);background:rgba(79,124,255,.14);color:#AFC3FF}
+.chips small{font-family:var(--mono);font-size:11px;color:var(--faint);margin-left:2px}
+.hint{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-top:8px}
+.fld{margin-bottom:16px}
+.err{color:var(--pink);font-size:12.5px;min-height:1.1em;margin:-6px 0 8px}
+.go{width:100%;padding:13px}
+.small{margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);display:grid;gap:5px}
+.small p{font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.5}
+.done{display:none}
+.co.ok form{display:none}
+.co.ok .done{display:block}
+.done .check{width:40px;height:40px;border-radius:50%;background:rgba(79,124,255,.16);display:grid;place-items:center;color:var(--blue);margin-bottom:12px}
+.done h3{font-size:17px;font-weight:600;letter-spacing:-.01em;outline:none}
+.done p{color:var(--dim);font-size:13.5px;margin-top:6px}
+.done p b{color:var(--text);font-weight:500}
+.dl{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding:12px 14px;border:1px solid var(--blue);border-radius:6px;text-decoration:none;background:rgba(79,124,255,.08)}
+.dl b{font-family:var(--mono);font-size:13px;font-weight:500}
+.dl small{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.dl:hover{background:rgba(79,124,255,.16)}
+.feed{padding:16px 18px;color:var(--dim);font-size:13px;display:flex;gap:12px;align-items:center}
+.feed .ring{width:30px;height:30px;border-radius:50%;border:1.5px dashed var(--rule2);flex:none}
+.feed.mine .ring{border:0;background:rgba(255,122,182,.16);display:grid;place-items:center;color:var(--pink);font-family:var(--mono);font-size:11px}
+.feed b{color:var(--text);font-weight:500;display:block}
+.photo{aspect-ratio:4/5;border:1px dashed var(--rule2);border-radius:8px;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;gap:4px;background:repeating-linear-gradient(135deg,transparent 0 11px,rgba(255,255,255,.022) 11px 12px)}
+.photo b{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;font-weight:500;line-height:1.35}
+.photo span{font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+@media(max-width:700px){.head{grid-template-columns:1fr;gap:18px}.photo{aspect-ratio:auto;min-height:0;padding:14px 16px;flex-direction:row;flex-wrap:wrap;align-items:baseline;justify-content:flex-start;gap:4px 12px}}
+
+/* ── honesty ── */
+.truth{background:var(--panel2);border:1px solid var(--rule2);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:22px 26px;margin-top:12px}
+.truth h3{font-size:15px;font-weight:600;margin-bottom:12px;color:#AFC3FF}
+.truth p{font-size:14px;color:var(--dim);max-width:78ch}
+.truth p+p{margin-top:10px}
+.truth b{color:var(--text);font-weight:600}
+
+footer{padding:24px 0;border-top:1px solid var(--rule);color:var(--faint);font-size:12.5px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:18px}
+footer a{color:var(--dim);text-underline-offset:3px}
+.proto{background:var(--blue);color:var(--blue-ink);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:8px 16px;font-weight:600}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<aside class="rail" aria-label="Site">
+  <a class="mark" href="#top"><i></i><span>MIDAS800<small>Philadelphia</small></span></a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#beats" class="on" aria-current="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2M21 12h0"/></svg>Beats</a>
+    <a href="#kit"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="8" rx="8" ry="3"/><path d="M4 8v8c0 1.7 3.6 3 8 3s8-1.3 8-3V8M8 10.6v8M16 10.6v8"/></svg>Drum kit</a>
+    <a href="#map"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>The map</a>
+    <a href="#watch"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/></svg>Making of Shotta Flow</a>
+    <a href="#how"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h0"/></svg>How it works</a>
+    <a href="https://www.youtube.com/channel/UCk1XxZ--lg_jRJn7RqX4urw"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>YouTube<span class="ext">14,600</span></a>
+  </nav>
+  <div class="rail-foot">
+    <p>Payments not connected. Prototype.</p>
+    <a class="btn" href="#checkout"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Get a beat</a>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="notice" role="note"><div class="wrap"><i aria-hidden="true"></i>Prototype · no payments connected · sample data is marked</div></div>
+
+  <main class="wrap" id="top">
+    <section class="head">
+      <div>
+        <div class="eyebrow">Beat store · pay what you want</div>
+        <h1>Beats from the producer of "Shotta Flow". You name the price.</h1>
+        <p>Midas800 makes beats in Philadelphia. Pick one, or the drum kit, type what it's worth to you, and the files go straight to your inbox.</p>
+      </div>
+      <div class="photo" role="img" aria-label="Photo placeholder: photo from the shoot, portrait 4:5, not taken yet.">
+        <b>PHOTO FROM THE SHOOT</b><span>portrait, 4:5 · not taken yet</span>
+      </div>
+    </section>
+
+    <dl class="tiles">
+      <div class="tile"><dt>Hot 100 peak</dt><dd>#36</dd><span class="src">Billboard · "Shotta Flow"</span></div>
+      <div class="tile"><dt>RIAA</dt><dd>2x Platinum</dd><span class="src">NLE Choppa · "Shotta Flow" · 2019</span></div>
+      <div class="tile"><dt>YouTube subscribers</dt><dd>14,600</dd><span class="src"><a href="https://www.youtube.com/channel/UCk1XxZ--lg_jRJn7RqX4urw">141 videos</a> · read 11 Sep 2026</span></div>
+      <div class="tile"><dt>Making-of views</dt><dd>1,035,627</dd><span class="src"><a href="#watch">Genius Deconstructed</a></span></div>
+    </dl>
+
+    <div class="grid">
+      <div class="col">
+        <section class="card" id="beats" aria-labelledby="beats-h">
+          <div class="card-h"><h2 id="beats-h">Catalog</h2><span class="picked" id="picked" aria-live="polite">9 beats · 1 drum kit</span></div>
+
+          <label class="kit" id="kit" for="r-kit">
+            <input class="dot" type="radio" name="item" id="r-kit" value="kit">
+            <span><span class="eyebrow">Drum kit</span><h3>midas800 drumkit</h3></span>
+            <span class="tag">kit</span>
+            <span class="contents"><span><b>21</b> 808s</span><span><b>13</b> snares</span><span><b>12</b> percs</span><span><b>10</b> hats</span><span><b>3</b> kicks</span><span><b>35</b> loops</span><span><b>63</b> Serum presets</span></span>
+            <span class="fine">Contents as received; final contents are Midas's call.</span>
+          </label>
+
+          <table class="tbl" aria-label="Beats">
+            <colgroup><col class="c-pick"><col class="c-n"><col><col class="c-len"><col class="c-l"></colgroup>
+            <thead><tr>
+              <th scope="col"><span><span class="sr">Pick</span></span></th>
+              <th scope="col" class="c-n" data-k="order" aria-sort="ascending"><button type="button">#<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 4l3-3 3 3M5 1v8"/></svg></button></th>
+              <th scope="col" data-k="name"><button type="button">Title<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 4l3-3 3 3M5 1v8"/></svg></button></th>
+              <th scope="col" data-k="len"><button type="button">Length<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 4l3-3 3 3M5 1v8"/></svg></button></th>
+              <th scope="col"><span><span class="sr">Listen on YouTube</span></span></th>
+            </tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+          <div class="tbl-foot"><span># is upload order among his named beats, newest first (read 11 Sep 2026)</span><span>Titles and lengths from YouTube</span></div>
+        </section>
+
+        <section class="card" id="map" aria-labelledby="map-h">
+          <div class="card-h"><h2 id="map-h">Where the downloads go</h2><span class="eyebrow">Sample pins</span></div>
+          <div class="mapwrap">
+            <canvas id="mapc" role="img" aria-label="Dotted world map with sample pins in Philadelphia (home base), Atlanta, Memphis, Houston, Los Angeles, Toronto, Mexico City, São Paulo, London, Paris, Lagos, Johannesburg, Mumbai, Manila, Tokyo and Sydney. Sample pins only."></canvas>
+            <div class="tip" id="tip"></div>
+          </div>
+          <div class="legend">
+            <span><i style="background:#fff"></i>Philadelphia, home base</span>
+            <span><i style="background:var(--blue)"></i>Sample pin</span>
+            <span class="note">Sample pins. Real ones appear as people download.</span>
+          </div>
+        </section>
+
+        <section class="card" id="watch" aria-labelledby="watch-h">
+          <div class="card-h"><h2 id="watch-h">The Making Of "Shotta Flow"</h2><span class="eyebrow">1,035,627 views · Genius</span></div>
+          <div class="vid" id="vid">
+            <button type="button" id="play">
+              <span class="play" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4 2.5v15L17 10z"/></svg></span>
+              <b>Genius Deconstructed: The Making Of NLE Choppa's "Shotta Flow" With Midas800</b>
+              <small>Plays here. Loads YouTube only when you press play.</small>
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <div class="side">
+        <section class="card co" id="checkout" aria-labelledby="co-h">
+          <div class="card-h"><h2 id="co-h">Checkout</h2><span class="eyebrow">Pay what you want</span></div>
+          <div class="card-b">
+            <form id="buy" novalidate>
+              <div class="sel" id="sel" aria-live="polite"><span class="empty">Pick a beat or the drum kit from the catalog.</span></div>
+              <div class="fld">
+                <div class="lab"><label for="price">Name your price</label><small>USD</small></div>
+                <div class="inp"><span aria-hidden="true">$</span><input class="big" id="price" type="number" inputmode="decimal" min="0" step="1" placeholder="your price" aria-describedby="min-note"></div>
+                <div class="chips" role="group" aria-label="Example amounts">
+                  <button type="button" data-p="5">$5</button><button type="button" data-p="10">$10</button><button type="button" data-p="25">$25</button><button type="button" data-p="50">$50</button><small>examples</small>
+                </div>
+                <p class="hint" id="min-note">Minimum price: Midas's call, not decided yet.</p>
+              </div>
+              <div class="fld">
+                <div class="lab"><label for="email">Email</label><small>where the download goes</small></div>
+                <div class="inp"><input id="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+              </div>
+              <p class="err" id="err" role="alert"></p>
+              <button class="btn go" id="dl-btn" type="submit">Get instant download</button>
+              <div class="small">
+                <p>Payments not connected. Prototype.</p>
+                <p>License terms: to be set with Midas.</p>
+                <p>Whatever you pay, your email joins Midas's own list. Unsubscribe any time.</p>
+              </div>
+            </form>
+            <div class="done" id="done">
+              <div class="check" aria-hidden="true"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+              <h3 id="done-h" tabindex="-1">Your download is ready</h3>
+              <a class="dl" id="dl-link" href="#checkout"><b id="dl-name">file.zip</b><small>mock link</small></a>
+              <p>A copy is in your inbox at <b id="done-mail"></b>.</p>
+              <p>You paid <b id="done-price"></b> (mock, nothing charged). License terms: to be set with Midas.</p>
+              <p style="margin-top:16px"><button class="btn ghost" type="button" id="again">Get another</button></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:12px" aria-labelledby="yd-h">
+          <div class="card-h"><h2 id="yd-h">Your downloads</h2><span class="eyebrow">This browser</span></div>
+          <div class="feed" id="feed" aria-live="polite"><span class="ring" aria-hidden="true"></span><span>Your download will show up here.</span></div>
+        </section>
+      </div>
+    </div>
+
+    <section class="truth" id="how" aria-labelledby="how-h">
+      <h3 id="how-h">How this works · read this part</h3>
+      <p><b>Payments are not connected.</b> This is a prototype. Nothing is charged, nothing is emailed, and the download link is a mock.</p>
+      <p><b>You pick the price.</b> The amounts under the price box are examples. Whether there is a minimum is Midas's call and has not been decided. License terms: to be set with Midas.</p>
+      <p><b>Every download is a pin, and the list is his.</b> Whatever you pay, getting a file adds your email, with your OK, to Midas's own list rather than a platform's. Each one shows up on the map at city level. The pins on this page are samples. Real ones appear as people download.</p>
+      <p><b>No photos yet.</b> There are no recent photos and the shoot isn't booked, so the page is built from type and color. The one photo slot says what it's waiting for.</p>
+    </section>
+
+    <footer>
+      <span>MIDAS800 · Philadelphia · <a href="https://www.youtube.com/channel/UCk1XxZ--lg_jRJn7RqX4urw">YouTube</a></span>
+      <span class="mono">Signal S05 · Rail</span>
+    </footer>
+  </main>
+
+  <div class="proto">Prototype · Playground Giants · Signal variation S05 of 12 · "Rail"</div>
+</div>
+
+<script>
+/* ── catalog: o = upload order among the named beats in this list, newest first (channel read 11 Sep 2026) ── */
+const BEATS=[
+ {o:1,id:'noevidence',n:'NO EVIDENCE',d:'NLE Choppa x Da Baby type beat',yt:'IV6YZIxU7CU',s:104,latest:0},
+ {o:2,id:'layup',n:'LAYUP',d:'BigXThaPlug x Big Yavo x Midas800 type beat',yt:'gi2CI1eGnJ8',s:193},
+ {o:3,id:'watchyaself',n:'WATCH YA SELF',d:'Big Yavo x BigXThaPlug club sample type beat',yt:'L1nJdE0Z92w',s:170},
+ {o:4,id:'slippin',n:'SLIPPIN INTO DARKNESS',d:'BigXThaPlug x SleazyWorld x NLE Choppa sample type beat',yt:'wtFiyUCBb9c',s:166},
+ {o:5,id:'dondada',n:'DON DADA',d:'DaBaby x SleazyWorld x NLE Choppa type beat',yt:'T9jYw7FY8Bs',s:114},
+ {o:6,id:'coupe',n:'COUPE',d:'BigXThaPlug x Big Yavo x SleazyWorld type beat',yt:'eaPdzNcCnIg',s:132},
+ {o:7,id:'revenge',n:'REVENGE',d:'NLE Choppa x BigXThaPlug x Big Yavo type beat',yt:'h4EgahtgQL0',s:164},
+ {o:8,id:'choppachoir',n:'CHOPPA CHOIR',d:'BigXThaPlug x That Mexican OT x NLE Choppa type beat',yt:'x_fmoWjY73g',s:158},
+ {o:9,id:'nomercy',n:'NO MERCY',d:'Da Baby x NLE Choppa x SleazyWorld Go type beat',yt:'4pqW6dzTTGM',s:155}
+];
+const KIT={id:'kit',n:'midas800 drumkit',kit:1};
+const mmss=s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
+const esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=id=>document.getElementById(id);
+let sort={k:'order',dir:1}, picked=null;
+
+function render(){
+  const list=[...BEATS].sort((a,b)=>{
+    const v=sort.k==='name'?a.n.localeCompare(b.n):sort.k==='len'?a.s-b.s:a.o-b.o;
+    return v*sort.dir;
+  });
+  $('rows').innerHTML=list.map(b=>`<tr data-id="${b.id}">
+    <td><input class="dot" type="radio" name="item" id="r-${b.id}" value="${b.id}"${picked&&picked.id===b.id?' checked':''}></td>
+    <td class="num">${String(b.o).padStart(2,'0')}</td>
+    <td><label class="t-title" for="r-${b.id}">${esc(b.n)}${b.latest?'<span class="pill p-new">Newest</span>':''}</label><span class="t-desc">${esc(b.d)}</span></td>
+    <td class="len">${mmss(b.s)}</td>
+    <td><a class="listen" href="https://www.youtube.com/watch?v=${b.yt}" aria-label="Listen to ${esc(b.n)} on YouTube"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7.5-4.5z"/></svg><span>Listen</span></a></td>
+  </tr>`).join('');
+  document.querySelectorAll('.tbl th[data-k]').forEach(th=>{
+    if(th.dataset.k===sort.k)th.setAttribute('aria-sort',sort.dir>0?'ascending':'descending');
+    else th.removeAttribute('aria-sort');
+  });
+}
+render();
+document.querySelectorAll('.tbl th[data-k] button').forEach(btn=>btn.addEventListener('click',()=>{
+  const k=btn.parentElement.dataset.k;
+  sort=sort.k===k?{k,dir:-sort.dir}:{k,dir:1};
+  render();
+}));
+$('rows').addEventListener('click',e=>{
+  if(e.target.closest('a,input,label'))return;
+  const tr=e.target.closest('tr'); if(!tr)return;
+  const r=tr.querySelector('input'); r.checked=true; r.dispatchEvent(new Event('change',{bubbles:true}));
+});
+
+/* ── checkout ── */
+const co=$('checkout'), price=$('price'), email=$('email'), err=$('err');
+document.addEventListener('change',e=>{
+  if(e.target.name!=='item')return;
+  picked=e.target.value==='kit'?KIT:BEATS.find(b=>b.id===e.target.value);
+  const sel=$('sel'); sel.classList.add('has');
+  sel.innerHTML=picked.kit
+    ?`<small>Drum kit</small><b>${esc(picked.n)}</b><small>808s, snares, percs, hats, kicks, loops, Serum presets</small>`
+    :`<small>Beat · ${mmss(picked.s)}</small><b>${esc(picked.n)}</b><small>${esc(picked.d)}</small>`;
+  $('picked').innerHTML=`Picked <b style="color:var(--text)">${esc(picked.n)}</b> · <a href="#checkout">name your price</a>`;
+  co.classList.remove('ok'); err.textContent='';
+});
+const chips=[...document.querySelectorAll('.chips button')];
+chips.forEach(b=>b.addEventListener('click',()=>{price.value=b.dataset.p;chips.forEach(o=>o.classList.toggle('on',o===b))}));
+price.addEventListener('input',()=>chips.forEach(o=>o.classList.toggle('on',o.dataset.p===price.value)));
+$('buy').addEventListener('submit',e=>{
+  e.preventDefault();
+  const v=price.value.trim(), m=email.value.trim();
+  if(!picked){err.textContent='Pick a beat or the drum kit from the catalog first.';return}
+  if(v===''||isNaN(+v)||+v<0){err.textContent='Enter a price in dollars.';price.focus();return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){err.textContent='Enter an email address. That is where the download goes.';email.focus();return}
+  err.textContent='';
+  const file=(picked.kit?'midas800-drumkit':picked.n.toLowerCase().replace(/[^a-z0-9]+/g,'-'))+'.zip';
+  $('dl-name').textContent=file; $('done-mail').textContent=m; $('done-price').textContent='$'+(+v).toFixed(2);
+  co.classList.add('ok'); $('done-h').focus();
+  const f=$('feed'); f.classList.add('mine');
+  f.innerHTML=`<span class="ring" aria-hidden="true">you</span><span><b>${esc(picked.n)}</b>$${(+v).toFixed(2)} · just now · <span class="pill p-new">New on the list</span></span>`;
+});
+$('dl-link').addEventListener('click',e=>e.preventDefault());
+$('again').addEventListener('click',()=>{co.classList.remove('ok');price.value='';chips.forEach(o=>o.classList.remove('on'));$('beats').scrollIntoView({block:'start'})});
+
+/* ── rail: highlight the section in view ── */
+const navLinks=[...document.querySelectorAll('.nav a[href^="#"]')];
+const io=new IntersectionObserver(es=>es.forEach(en=>{
+  if(!en.isIntersecting)return;
+  navLinks.forEach(a=>{const on=a.getAttribute('href')==='#'+en.target.id;a.classList.toggle('on',on);on?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current')});
+}),{rootMargin:'-30% 0px -60% 0px'});
+['beats','kit','map','watch','how'].forEach(id=>io.observe($(id)));
+
+/* ── video: click to load (no YouTube request until pressed) ── */
+$('play').addEventListener('click',()=>{
+  $('vid').innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/arsD5Y1VzEg?autoplay=1" title="Genius Deconstructed: The Making Of NLE Choppa\'s Shotta Flow With Midas800" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+});
+
+/* ── map: coarse equirectangular land mask, 64x32 (from Signal) ── */
+const COLS=64,ROWS=32;
+const LAND={
+ 2:[[9,19],[21,26],[43,59]],3:[[7,20],[21,26],[32,36],[38,60]],4:[[3,20],[22,26],[32,36],[37,61]],
+ 5:[[3,21],[23,26],[32,36],[37,61]],6:[[4,21],[29,31],[32,35],[36,60]],7:[[6,21],[29,36],[37,59]],
+ 8:[[7,21],[29,38],[39,57]],9:[[8,21],[30,40],[41,56]],10:[[9,20],[31,43],[46,55],[56,57]],
+ 11:[[11,19],[31,42],[44,47],[48,55]],12:[[12,19],[31,41],[44,47],[49,54]],13:[[14,19],[31,42],[44,48],[50,54]],
+ 14:[[15,19],[31,43],[45,48],[51,55]],15:[[18,22],[32,44],[51,56]],16:[[19,24],[33,43],[51,57]],
+ 17:[[19,25],[33,42],[52,58]],18:[[19,25],[33,41],[53,59]],19:[[20,25],[34,40],[54,60]],
+ 20:[[20,25],[34,39],[53,60]],21:[[20,24],[35,38],[53,60]],22:[[20,23],[35,37],[54,59]],
+ 23:[[20,22],[61,62]],24:[[20,22],[61,62]],25:[[20,21]]
+};
+/* illustrative pins: city names only, no counts */
+const PINS=[
+ {c:'Philadelphia',lat:40.0,lon:-75.2,home:1},
+ {c:'Atlanta',lat:33.7,lon:-84.4},{c:'Memphis',lat:35.1,lon:-90.0},{c:'Houston',lat:29.8,lon:-95.4},
+ {c:'Los Angeles',lat:34.1,lon:-118.2},{c:'Toronto',lat:43.7,lon:-79.4},{c:'Mexico City',lat:19.4,lon:-99.1},
+ {c:'São Paulo',lat:-23.6,lon:-46.6},{c:'London',lat:51.5,lon:-0.1},{c:'Paris',lat:48.9,lon:2.4},
+ {c:'Lagos',lat:6.5,lon:3.4},{c:'Johannesburg',lat:-26.2,lon:28.0},{c:'Mumbai',lat:19.1,lon:72.9},
+ {c:'Manila',lat:14.6,lon:121.0},{c:'Tokyo',lat:35.7,lon:139.7},{c:'Sydney',lat:-33.9,lon:151.2}
+];
+const map=$('mapc'), tip=$('tip'); let hot=[];
+function draw(){
+  const d=window.devicePixelRatio||1, w=map.clientWidth, h=w/2;
+  if(!w)return;
+  map.width=w*d; map.height=h*d;
+  const x=map.getContext('2d'); x.scale(d,d); x.clearRect(0,0,w,h);
+  const cw=w/COLS, ch=h/ROWS, r=Math.max(1,Math.min(cw,ch)*.28);
+  x.fillStyle='#2E3138';
+  for(const row in LAND)for(const [a,b] of LAND[row])for(let c=a;c<=b;c++){x.beginPath();x.arc((c+.5)*cw,(+row+.5)*ch,r,0,7);x.fill()}
+  hot=[];
+  for(const p of PINS){
+    const px=(p.lon+180)/360*w, py=(90-p.lat)/180*h, col=p.home?'#FFFFFF':'#4F7CFF';
+    x.beginPath();x.arc(px,py,p.home?10:8,0,7);x.fillStyle=p.home?'rgba(255,255,255,.12)':'rgba(79,124,255,.18)';x.fill();
+    x.beginPath();x.arc(px,py,p.home?3.5:3,0,7);x.fillStyle=col;x.fill();
+    hot.push({x:px,y:py,p});
+  }
+}
+map.addEventListener('mousemove',e=>{
+  const b=map.getBoundingClientRect(), mx=e.clientX-b.left, my=e.clientY-b.top;
+  const hit=hot.find(o=>Math.hypot(o.x-mx,o.y-my)<=11);
+  if(hit){tip.style.opacity=1;tip.style.left=hit.x+'px';tip.style.top=hit.y+'px';tip.textContent=hit.p.home?'Philadelphia · home base':hit.p.c+' · sample'}
+  else tip.style.opacity=0;
+});
+map.addEventListener('mouseleave',()=>tip.style.opacity=0);
+draw();
+window.addEventListener('load',draw);
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(draw,120)});
+</script>
+</body>
+</html>
