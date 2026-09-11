@@ -14,7 +14,11 @@ export default function Footer() {
     { href: '/packages', label: 'Pricing' },
     { href: '/case-studies/personal-injury-intake', label: 'Case Study' },
     { href: '/agency-partner', label: 'Agency Partner' },
-    { href: `mailto:${CONTACT.EMAIL}`, label: 'Email', external: true }
+    { href: `mailto:${CONTACT.EMAIL}`, label: 'Email', external: true },
+    // 2026-09-11. Google's OAuth brand verification requires the privacy
+    // policy to be reachable from the homepage. This footer is on every page,
+    // so it is linked sitewide. Do not remove it without replacing the link.
+    { href: '/privacy', label: 'Privacy' }
   ]
 
   return (
