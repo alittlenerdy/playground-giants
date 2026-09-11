@@ -40,7 +40,9 @@ const STATIC_ROUTES: { path: string; priority: number }[] = [
   // same overclaiming the pages themselves refuse to do.
   { path: '/case-studies/replysequence', priority: 0.6 },
   { path: '/case-studies/enkily', priority: 0.6 },
-  { path: '/calculator', priority: 0.6 }
+  { path: '/calculator', priority: 0.6 },
+  // Added 2026-09-11. A required page, not a ranking one, hence the floor.
+  { path: '/privacy', priority: 0.3 }
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
