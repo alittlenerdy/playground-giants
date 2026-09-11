@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Signal S08 · Editorial · MIDAS800</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ink:#0D0C10; --panel:#16151B; --panel2:#1C1B22; --rule:#27252E; --rule2:#36333F;
+  --bone:#ECE7DF; --dim:#ADA79E; --faint:#8D877F;
+  --ox:#B4474F; --ox-soft:rgba(180,71,79,.14);
+  --serif:'Instrument Serif','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--bone);font-family:var(--mono);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1320px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--faint)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,iframe:focus-visible{outline:2px solid var(--bone);outline-offset:3px}
+
+/* bar */
+.bar{border-bottom:1px solid var(--rule);background:var(--panel)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:16px}
+.mark{display:flex;align-items:center;gap:11px;text-decoration:none;font-family:var(--serif);font-size:24px;letter-spacing:.01em;line-height:1}
+.mark i{width:9px;height:9px;border-radius:50%;background:var(--ox);display:block;box-shadow:0 0 0 4px var(--ox-soft)}
+.mark span{font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.02em}
+.tabs{display:flex;gap:2px}
+.tabs a{font-size:12.5px;padding:7px 13px;color:var(--dim);text-decoration:none;border-radius:2px}
+.tabs a.on{background:var(--panel2);color:var(--bone)}
+.tabs a:hover{color:var(--bone)}
+@media(max-width:900px){.tabs{display:none}}
+
+.notice{background:var(--ox-soft);border-bottom:1px solid rgba(180,71,79,.35);color:#E7B9BC;font-size:11.5px;letter-spacing:.03em}
+.notice .wrap{padding:9px 24px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;background:var(--bone);color:var(--ink);font-family:var(--mono);font-weight:600;font-size:12.5px;text-decoration:none;border:1px solid var(--bone);cursor:pointer;border-radius:2px;white-space:nowrap}
+.btn:hover{background:transparent;color:var(--bone)}
+.btn.line{background:transparent;color:var(--bone);border-color:var(--rule2)}
+.btn.line:hover{border-color:var(--bone)}
+
+/* opener */
+.opener{padding:44px 0 34px;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);column-gap:48px;align-items:end}
+.opener .kicker{grid-column:1 / -1}
+@media(max-width:960px){.opener{grid-template-columns:minmax(0,1fr)}}
+.kicker{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--rule2);font-size:12px;color:var(--dim)}
+.kicker b{font-weight:500;color:var(--bone);display:inline-flex;align-items:center;gap:10px}
+.kicker b::before{content:"";width:22px;height:2px;background:var(--ox);display:block}
+.opener h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,7.4vw,104px);line-height:.96;letter-spacing:-.018em;margin-top:26px;max-width:19ch;text-wrap:balance}
+.opener .dek{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2vw,25px);line-height:1.38;color:#D9D3C9;max-width:34ch;margin-top:22px;text-wrap:pretty;padding-top:14px;border-top:2px solid var(--ox);width:max-content;max-width:min(34ch,100%)}
+.byline{margin-top:22px;font-size:11.5px;color:var(--faint);display:flex;gap:6px 22px;flex-wrap:wrap}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:16px}
+.tile{background:var(--panel);border:1px solid var(--rule);padding:16px 20px 18px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile dt{font-size:11.5px;color:var(--faint);letter-spacing:.02em}
+.tile dd{font-family:var(--serif);font-size:44px;line-height:1.05;font-variant-numeric:lining-nums tabular-nums;letter-spacing:-.01em}
+.tile dd.src{font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--dim);letter-spacing:0}
+.tile dd.src a{text-decoration-color:var(--ox);text-underline-offset:3px}
+
+/* grid */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;grid-template-areas:"art buy" "low buy";gap:12px;align-items:start}
+.art{grid-area:art;min-width:0}
+.low{grid-area:low;min-width:0}
+.buy{grid-area:buy;position:sticky;top:14px;min-width:0}
+@media(max-width:1060px){.grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"art" "buy" "low"}.buy{position:static}}
+.stack>*+*{margin-top:12px}
+.card{background:var(--panel);border:1px solid var(--rule)}
+.card-h{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:15px 22px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.card-h h2{font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.1;letter-spacing:-.005em}
+.card-b{padding:22px}
+
+/* feature: video + story */
+.video{position:relative;aspect-ratio:16/9;background:#000;border-bottom:1px solid var(--rule)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.cap{display:flex;justify-content:space-between;gap:10px 20px;flex-wrap:wrap;padding:11px 22px;border-bottom:1px solid var(--rule);font-size:11.5px;color:var(--faint)}
+.cap a{color:var(--dim);text-decoration-color:var(--ox);text-underline-offset:3px}
+.story{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:30px;padding:28px 26px 30px}
+@media(max-width:760px){.story{grid-template-columns:minmax(0,1fr);padding:22px 20px 24px}}
+.story p{font-family:var(--serif);font-size:21px;line-height:1.5;color:#DCD6CC;max-width:36em}
+.story p+p{margin-top:14px}
+.story p:first-child::first-letter{font-size:3.1em;line-height:.8;float:left;padding:6px 8px 0 0;color:var(--bone)}
+.story q{quotes:"\201C" "\201D"}
+.photo{aspect-ratio:4/5;border:1px dashed var(--rule2);background:repeating-linear-gradient(135deg,transparent 0 11px,rgba(236,231,223,.025) 11px 12px),var(--ink);display:flex;flex-direction:column;justify-content:flex-end;padding:16px;font-size:11px;color:var(--dim);line-height:1.55}
+.photo b{color:var(--bone);font-weight:500;display:block;margin-bottom:4px}
+@media(max-width:760px){.photo{max-width:260px;aspect-ratio:4/5}}
+
+/* catalog */
+.beats{list-style:none}
+.beat{display:grid;grid-template-columns:48px minmax(0,1fr) 64px auto;gap:6px 18px;align-items:center;padding:16px 22px;border-bottom:1px solid var(--rule);position:relative}
+.beat:last-child{border-bottom:none}
+.beat .no{font-family:var(--serif);font-size:30px;line-height:1;color:var(--ox);font-variant-numeric:lining-nums}
+.beat h3{font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.1;letter-spacing:-.005em;overflow-wrap:anywhere}
+.beat .d{font-size:12px;color:var(--dim);margin-top:3px;overflow-wrap:anywhere}
+.beat .len{font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+.beat .acts{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+.beat .listen{white-space:nowrap;font-size:12px;color:var(--dim);text-decoration:underline;text-decoration-color:var(--rule2);text-underline-offset:4px;padding:8px 4px}
+.beat .listen:hover{color:var(--bone);text-decoration-color:var(--ox)}
+.beat.sel{background:linear-gradient(90deg,var(--ox-soft),transparent 70%)}
+.beat.sel::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--ox)}
+@media(max-width:640px){
+  .beat{grid-template-columns:34px minmax(0,1fr) auto;grid-template-areas:"no t len" ". acts acts";padding:16px 16px}
+  .beat .no{grid-area:no;font-size:24px}
+  .beat .t{grid-area:t}
+  .beat .len{grid-area:len;align-self:start;padding-top:4px}
+  .beat .acts{grid-area:acts;justify-content:space-between}
+  .beat h3{font-size:25px}
+}
+
+/* kit */
+.kit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px}
+@media(max-width:700px){.kit{grid-template-columns:minmax(0,1fr)}}
+.kit h3{font-family:var(--serif);font-weight:400;font-size:40px;line-height:1;letter-spacing:-.01em}
+.kit p{font-size:12.5px;color:var(--dim);margin-top:10px;max-width:40ch}
+.kit .btn{margin-top:18px}
+.spec{list-style:none;font-size:13px}
+.spec li{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-bottom:1px solid var(--rule)}
+.spec li:last-child{border-bottom:none}
+.spec li span{flex:none}
+.spec li i{flex:1;border-bottom:1px dotted var(--rule2);transform:translateY(-4px)}
+.spec li b{font-weight:500;font-variant-numeric:tabular-nums;min-width:2ch;text-align:right}
+.small{font-size:11px;color:var(--faint);margin-top:12px}
+
+/* map */
+.mapwrap{position:relative;background:var(--ink)}
+#map{display:block;width:100%;height:auto;aspect-ratio:2/1}
+.legend{display:flex;gap:18px;flex-wrap:wrap;padding:13px 22px;border-top:1px solid var(--rule);font-size:11.5px;color:var(--dim)}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend i{width:9px;height:9px;border-radius:50%;display:block}
+.legend .home{background:var(--bone)}
+.legend .ring{border:1.5px solid var(--ox)}
+.legend .say{color:var(--faint);margin-left:auto}
+@media(max-width:600px){.legend .say{margin-left:0}}
+.tip{position:absolute;pointer-events:none;background:var(--panel2);border:1px solid var(--rule2);padding:6px 11px;font-family:var(--serif);font-size:18px;line-height:1.2;transform:translate(-50%,-140%);white-space:nowrap;opacity:0;transition:opacity .12s;z-index:5}
+.tip small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+
+/* checkout */
+.buy .card-h{border-bottom-color:var(--rule2)}
+.chosen{padding:18px 22px;border-bottom:1px solid var(--rule);background:var(--ink)}
+.chosen .label{display:block;margin-bottom:4px}
+.chosen h3{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.05;overflow-wrap:anywhere}
+.chosen p{font-size:11.5px;color:var(--dim);margin-top:5px}
+.chosen p a{text-decoration-color:var(--ox);text-underline-offset:3px}
+.field{margin-bottom:18px}
+.field>label{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:500;margin-bottom:8px;color:var(--bone)}
+.field>label span{font-weight:400;color:var(--faint)}
+select{width:100%;appearance:none;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23ADA79E' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 13px center;border:1px solid var(--rule2);color:var(--bone);font-family:var(--mono);font-size:13px;padding:10px 36px 10px 12px;border-radius:2px}
+.money{display:flex;align-items:baseline;border-bottom:1px solid var(--rule2);padding-bottom:2px}
+.money:focus-within{border-bottom-color:var(--ox);box-shadow:0 1px 0 var(--ox)}
+.money span{font-family:var(--serif);font-size:44px;color:var(--dim);line-height:1;padding-right:6px}
+.money input{flex:1;min-width:0;background:transparent;border:0;color:var(--bone);font-family:var(--serif);font-size:56px;line-height:1.1;padding:0}
+.money input:focus{outline:none}
+input::placeholder{color:#5F5A63}
+input[type=email]{width:100%;background:var(--ink);border:1px solid var(--rule2);color:var(--bone);font-family:var(--mono);font-size:13.5px;padding:11px 12px;border-radius:2px}
+input[type=email]:focus{outline:none;border-color:var(--bone)}
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:12px}
+.chips .l{font-size:11px;color:var(--faint);margin-right:2px}
+.chips button{font-family:var(--mono);font-size:12px;padding:6px 11px;background:transparent;border:1px solid var(--rule2);color:var(--dim);cursor:pointer;border-radius:2px}
+.chips button:hover{color:var(--bone);border-color:var(--bone)}
+.chips button.on{border-color:var(--ox);color:var(--bone);background:var(--ox-soft)}
+.note{font-size:11px;color:var(--faint);margin-top:10px}
+.fine{font-size:12px;color:var(--dim);margin-bottom:10px;line-height:1.55}
+.fine b{color:var(--bone);font-weight:500}
+.err{font-size:12px;color:#E7B9BC;margin:4px 0 10px}
+.err:empty{display:none}
+.go{width:100%;padding:12px 18px 13px;background:var(--ox);border:1px solid var(--ox);color:var(--bone);font-family:var(--serif);font-size:26px;line-height:1.1;cursor:pointer;border-radius:2px}
+.go:hover{background:transparent;color:var(--bone)}
+.payoff{margin-top:11px;font-size:11px;color:#E7B9BC;text-align:center}
+.success{padding:4px 0 0}
+.success:focus{outline:none}
+.success h3{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.05;margin:4px 0 14px}
+.dl{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 13px;border:1px solid var(--ox);background:var(--ox-soft);font-size:12.5px;text-decoration:none;overflow-wrap:anywhere}
+.dl small{color:var(--dim);font-size:10.5px;flex:none}
+.success p{font-size:12.5px;color:var(--dim);margin-top:12px}
+.success p b{color:var(--bone);font-weight:500}
+.success .btn{margin-top:16px}
+.empty{padding:22px;color:var(--dim);font-family:var(--serif);font-size:20px;font-style:italic;line-height:1.35}
+.empty small{display:block;font-family:var(--mono);font-style:normal;font-size:11px;color:var(--faint);margin-top:6px}
+.mine{display:flex;gap:12px;padding:13px 22px;border-bottom:1px solid var(--rule);align-items:baseline}
+.mine:last-child{border-bottom:none}
+.mine b{font-family:var(--serif);font-weight:400;font-size:21px;flex:1;min-width:0}
+.mine small{font-size:11px;color:var(--faint)}
+
+/* honesty */
+.truth{background:var(--panel2);border:1px solid var(--rule2);border-left:3px solid var(--ox);padding:24px 26px;margin-top:12px}
+.truth h3{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.1;margin-bottom:14px}
+.truth .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 28px}
+.truth p{font-size:12.5px;color:var(--dim);line-height:1.65}
+.truth b{color:var(--bone);font-weight:500;display:block;margin-bottom:2px}
+
+footer{padding:24px 0;border-top:1px solid var(--rule);color:var(--faint);font-size:11.5px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:16px}
+footer .serif{font-family:var(--serif);font-size:18px;color:var(--dim)}
+.proto{background:var(--ox);color:var(--bone);font-size:11px;letter-spacing:.06em;text-align:center;padding:9px 16px}
+@media(max-width:600px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile{padding:14px 14px 15px}.tile dd{font-size:34px}.tile:first-child{grid-column:1 / -1}.wrap{padding:0 16px}.notice .wrap{padding:9px 16px}.card-h,.chosen,.card-b,.cap,.legend{padding-left:16px;padding-right:16px}.truth{padding:20px 18px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body id="top">
+
+<header class="bar"><div class="wrap">
+  <a class="mark" href="#top"><i></i>Midas800 <span>Philadelphia</span></a>
+  <nav class="tabs" aria-label="Sections">
+    <a href="#story" class="on">Story</a><a href="#catalog">Beats</a><a href="#kit">Drumkit</a><a href="#map-card">Map</a>
+  </nav>
+  <a class="btn" href="#checkout">Name your price</a>
+</div></header>
+
+<div class="notice"><div class="wrap">Prototype · no payments connected · sample data is marked</div></div>
+
+<main class="wrap">
+  <header class="opener">
+    <div class="kicker"><b>The making of Shotta Flow</b><span>Midas800 · producer · Philadelphia</span></div>
+    <h1>He made Shotta Flow. The rest of the catalog is pay what you want.</h1>
+    <div class="opener-side">
+    <p class="dek">NLE Choppa&rsquo;s &ldquo;Shotta Flow&rdquo; went 2x Platinum. The producer is Midas800. His beats and his drum kit now download here, at a price you choose.</p>
+    <div class="byline"><span>Chart and certification: Billboard, RIAA</span><span>YouTube figures read Sep 11, 2026</span></div>
+    </div>
+  </header>
+
+  <dl class="tiles">
+    <div class="tile"><dt>Billboard Hot 100</dt><dd>#36</dd><dd class="src">"Shotta Flow," NLE Choppa</dd></div>
+    <div class="tile"><dt>RIAA certification</dt><dd>2x Platinum</dd><dd class="src">"Shotta Flow"</dd></div>
+    <div class="tile"><dt>Released</dt><dd>2019</dd><dd class="src">produced by Midas800</dd></div>
+    <div class="tile"><dt>YouTube subscribers</dt><dd>14,600</dd><dd class="src"><a href="https://www.youtube.com/channel/UCk1XxZ--lg_jRJn7RqX4urw" target="_blank" rel="noopener">141 videos on Midas800</a></dd></div>
+    <div class="tile"><dt>Genius Deconstructed</dt><dd>1,035,627</dd><dd class="src"><a href="https://www.youtube.com/watch?v=arsD5Y1VzEg" target="_blank" rel="noopener">views on YouTube</a></dd></div>
+  </dl>
+
+  <div class="grid">
+    <div class="art stack">
+      <!-- FEATURE -->
+      <article class="card" id="story" aria-labelledby="story-h">
+        <div class="card-h"><h2 id="story-h">Taking the beat apart</h2><span class="label">Genius Deconstructed</span></div>
+        <div class="video">
+          <iframe src="https://www.youtube-nocookie.com/embed/arsD5Y1VzEg" title="Genius Deconstructed: The Making Of NLE Choppa's Shotta Flow With Midas800" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="cap"><span>"The Making Of NLE Choppa's 'Shotta Flow' With Midas800"</span><a href="https://www.youtube.com/watch?v=arsD5Y1VzEg" target="_blank" rel="noopener">1,035,627 views, read Sep 11, 2026</a></div>
+        <div class="story">
+          <div>
+            <p>NLE Choppa&rsquo;s &ldquo;Shotta Flow&rdquo; came out in 2019. Midas800 produced it. The record reached #36 on the Billboard Hot 100 and is certified 2x Platinum by the RIAA.</p>
+            <p>Genius sat down with him for its Deconstructed series and took the record apart piece by piece. That film is above. It has been watched 1,035,627 times.</p>
+            <p>The beats themselves live on his YouTube channel, Midas800: 141 videos, 14,600 subscribers, playlists called &ldquo;Best of 800&rdquo; and &ldquo;FL Tutorials.&rdquo; Some of the beats carry the name. One, &ldquo;Shotta Flow 8,&rdquo; went up with the caption <q>If I dropped w/ NLE Choppa again.</q></p>
+            <p>Seven of them are below, with his drum kit. Pick one, name a price, and it goes to your inbox.</p>
+          </div>
+          <figure class="photo" aria-label="Photo placeholder">
+            <b>PHOTO FROM THE SHOOT</b>
+            portrait, 4:5 · not taken yet<br>
+            No recent photos of Midas exist. This slot waits for the shoot.
+          </figure>
+        </div>
+      </article>
+
+      <!-- CATALOG -->
+      <section class="card" id="catalog" aria-labelledby="cat-h">
+        <div class="card-h"><h2 id="cat-h">The catalog</h2><span class="label">7 beats · lengths from YouTube</span></div>
+        <ol class="beats" id="beats"></ol>
+      </section>
+
+      <!-- KIT -->
+      <section class="card" id="kit" aria-labelledby="kit-h">
+        <div class="card-h"><h2 id="kit-h">The drum kit</h2><span class="label">one product</span></div>
+        <div class="card-b kit">
+          <div>
+            <h3>midas800 drumkit</h3>
+            <p>Drums, loops and Serum presets from Midas800, in one download at a price you choose.</p>
+            <button class="btn" type="button" data-pick="kit">Name your price for the kit</button>
+          </div>
+          <div>
+            <ul class="spec" id="spec" aria-label="Kit contents as received"></ul>
+            <p class="small">Contents as received; final contents are Midas's call.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CHECKOUT -->
+    <aside class="buy stack" id="checkout" aria-labelledby="buy-h">
+      <section class="card">
+        <div class="card-h"><h2 id="buy-h">Pay what you want</h2><span class="label">instant download</span></div>
+        <div class="chosen" aria-live="polite">
+          <span class="label">You're getting</span>
+          <h3 id="c-name">GORILLA</h3>
+          <p id="c-meta"></p>
+        </div>
+        <div class="card-b">
+          <form id="pwyw" novalidate>
+            <div class="field">
+              <label for="item">Item <span>or pick from the catalog</span></label>
+              <select id="item" name="item"></select>
+            </div>
+            <div class="field">
+              <label for="price">Name your price <span>USD</span></label>
+              <div class="money"><span aria-hidden="true">$</span><input id="price" name="price" type="text" inputmode="decimal" autocomplete="off" placeholder="" aria-describedby="min-note"></div>
+              <div class="chips" role="group" aria-label="Example amounts">
+                <span class="l">Examples:</span>
+                <button type="button" data-amt="5">$5</button>
+                <button type="button" data-amt="15">$15</button>
+                <button type="button" data-amt="30">$30</button>
+              </div>
+              <p class="note" id="min-note">Minimum price: Midas's call, not decided yet.</p>
+            </div>
+            <div class="field">
+              <label for="email">Email <span>where the download goes</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+            </div>
+            <p class="fine"><b>Every download adds this email to Midas's own list,</b> whatever you pay. One click to leave.</p>
+            <p class="fine">License terms: to be set with Midas.</p>
+            <p class="err" id="err" role="alert"></p>
+            <button class="go" id="getdl" type="submit">Get instant download</button>
+            <p class="payoff">Payments not connected. Prototype.</p>
+          </form>
+          <div class="success" id="success" hidden tabindex="-1">
+            <span class="label">Download ready</span>
+            <h3 id="ok-title">It's yours.</h3>
+            <a class="dl" href="#" id="dl-link"><span id="dl-name">file.zip</span><small>mock link</small></a>
+            <p>A copy is in your inbox at <b id="ok-email"></b>.</p>
+            <p id="ok-meta"></p>
+            <p>Prototype: no file exists and no email was sent.</p>
+            <button class="btn line" type="button" id="again">Get something else</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="mine-h">
+        <div class="card-h"><h2 id="mine-h">Your downloads</h2><span class="label">this browser only</span></div>
+        <div id="mine" aria-live="polite"><p class="empty">Your download will show up here.<small>Nothing yet.</small></p></div>
+      </section>
+    </aside>
+
+    <!-- MAP -->
+    <div class="low">
+      <section class="card" id="map-card" aria-labelledby="map-h">
+        <div class="card-h"><h2 id="map-h">Where the downloads go</h2><span class="label">sample pins</span></div>
+        <div class="mapwrap">
+          <canvas id="map" width="1200" height="600" role="img" aria-label="Dotted world map. Philadelphia is marked as home base. Every other pin is a sample, not a real download."></canvas>
+          <div class="tip" id="tip" aria-hidden="true"></div>
+        </div>
+        <div class="legend">
+          <span><i class="home"></i>Philadelphia, home base</span>
+          <span><i class="ring"></i>Sample pin</span>
+          <span class="say">Sample pins. Real ones appear as people download.</span>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- HONESTY -->
+  <section class="truth" id="how" aria-labelledby="how-h">
+    <h3 id="how-h">How this works. Read this part.</h3>
+    <div class="cols">
+      <p><b>Nothing is charged.</b> Payments are not connected. The checkout runs in your browser only; the download link is a mock and no email is sent.</p>
+      <p><b>Two calls are Midas's to make.</b> The minimum price has not been decided, including whether $0 is allowed. License terms will be set with Midas. The chip amounts are examples.</p>
+      <p><b>The list is the idea.</b> Every download adds an opted-in email to Midas's own list. Streaming services do not tell a producer who is listening; a download that asks for an email does. The map fills from that list. Today its pins are samples.</p>
+      <p><b>Every number has a source.</b> Chart and certification from Billboard and the RIAA. Subscribers, videos, views, beat titles and lengths from YouTube, read Sep 11, 2026. There is one photo slot and it is empty on purpose.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span class="serif">Midas800, producer, Philadelphia</span>
+    <span>Signal S08 · Editorial</span>
+  </footer>
+</main>
+
+<div class="proto">Prototype · Playground Giants · Signal variation S08 of 12 · "Editorial" · drifts from Signal: magazine voice on Signal's layout</div>
+
+<script>
+/* real titles, ids and lengths from the Midas800 YouTube channel */
+const BEATS=[
+ {id:'gorilla',name:'GORILLA',desc:'NLE Choppa × BigXThaPlug × Midas800 Shotta Flow type beat',yt:'-QrymgKzC3s',s:131},
+ {id:'shotta-flow-8',name:'Shotta Flow 8',desc:'"If I dropped w/ NLE Choppa again."',yt:'RYXUP22X5I4',s:84},
+ {id:'shotta-flow-7',name:'Shotta Flow 7',desc:'NLE Choppa × Midas800 Shotta Flow type beat',yt:'QiiHaWXfTGA',s:81},
+ {id:'x-files',name:'X Files',desc:'NLE Choppa × Midas800 dark soulful type beat',yt:'rkKxdsuHIVI',s:121},
+ {id:'jazz',name:'Jazz',desc:'Big Yavo × BigXThaPlug sample type beat',yt:'sh_aa650nmg',s:351},
+ {id:'deagle',name:'DEAGLE',desc:'Yuno Miles detroit type beat',yt:'tLSV_oC79B8',s:154},
+ {id:'revenge',name:'REVENGE',desc:'NLE Choppa × BigXThaPlug × Big Yavo type beat',yt:'h4EgahtgQL0',s:164}
+];
+const KIT={id:'kit',name:'midas800 drumkit',kit:true,parts:[['808s',21],['snares',13],['percs',12],['hats',10],['kicks',3],['loops',35],['Serum presets',63]]};
+const fmt=s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
+const esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+const list=document.getElementById('beats');
+BEATS.forEach((b,i)=>{
+  const li=document.createElement('li');li.className='beat';li.dataset.id=b.id;
+  li.innerHTML=`<span class="no" aria-hidden="true">${i+1}</span>
+   <div class="t"><h3>${esc(b.name)}</h3><div class="d">${esc(b.desc)}</div></div>
+   <span class="len" aria-label="Length ${fmt(b.s)}">${fmt(b.s)}</span>
+   <div class="acts"><a class="listen" href="https://www.youtube.com/watch?v=${b.yt}" target="_blank" rel="noopener" aria-label="Listen to ${esc(b.name)} on YouTube, opens in a new tab">Listen on YouTube</a>
+   <button class="btn line" type="button" data-pick="${b.id}" aria-label="Name your price for ${esc(b.name)}">Name your price</button></div>`;
+  list.appendChild(li);
+});
+document.getElementById('spec').innerHTML=KIT.parts.map(p=>`<li><span>${p[0]}</span><i aria-hidden="true"></i><b>${p[1]}</b></li>`).join('');
+
+/* checkout */
+const sel=document.getElementById('item');
+sel.innerHTML=BEATS.map(b=>`<option value="${b.id}">${esc(b.name)} · ${fmt(b.s)}</option>`).join('')+`<option value="kit">midas800 drumkit</option>`;
+const form=document.getElementById('pwyw'),ok=document.getElementById('success');
+const price=document.getElementById('price'),email=document.getElementById('email'),err=document.getElementById('err');
+let current=BEATS[0];
+function find(id){return id==='kit'?KIT:BEATS.find(b=>b.id===id)}
+function choose(id){
+  const it=find(id);if(!it)return;current=it;sel.value=id;
+  document.getElementById('c-name').textContent=it.name;
+  document.getElementById('c-meta').innerHTML=it.kit
+    ?'Drum kit · '+it.parts.map(p=>p[1]+' '+p[0]).join(', ')
+    :`${esc(it.desc)} · ${fmt(it.s)} · <a href="https://www.youtube.com/watch?v=${it.yt}" target="_blank" rel="noopener">listen first</a>`;
+  document.querySelectorAll('.beat').forEach(r=>r.classList.toggle('sel',r.dataset.id===id));
+  form.hidden=false;ok.hidden=true;err.textContent='';
+}
+choose(BEATS[0].id);
+sel.addEventListener('change',()=>choose(sel.value));
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-pick]');if(!b)return;
+  choose(b.dataset.pick);
+  const box=document.getElementById('checkout');
+  const r=box.getBoundingClientRect();
+  if(r.top<0||r.top>innerHeight*.6){box.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}
+  setTimeout(()=>price.focus({preventScroll:true}),r.top<0||r.top>innerHeight*.6?420:0);
+});
+document.querySelectorAll('.chips button').forEach(c=>c.addEventListener('click',()=>{price.value=c.dataset.amt;markChip();price.focus()}));
+function markChip(){document.querySelectorAll('.chips button').forEach(c=>c.classList.toggle('on',c.dataset.amt===price.value.trim()))}
+price.addEventListener('input',markChip);
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const raw=price.value.trim().replace(/^\$/,'');
+  if(!/^\d{1,5}(\.\d{1,2})?$/.test(raw)){err.textContent='Enter an amount in dollars, like 15 or 7.50.';price.focus();return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())){err.textContent='Enter an email address so the download has somewhere to go.';email.focus();return}
+  const amt=Number(raw).toFixed(2),addr=email.value.trim();
+  const file=current.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+(current.kit?'.zip':'_midas800.zip');
+  document.getElementById('dl-name').textContent=file;
+  document.getElementById('ok-email').textContent=addr;
+  document.getElementById('ok-title').textContent=current.name+' is yours.';
+  document.getElementById('ok-meta').textContent='You named $'+amt+'. License terms: to be set with Midas.';
+  form.hidden=true;ok.hidden=false;ok.focus();
+  addMine(current,amt);
+});
+document.getElementById('dl-link').addEventListener('click',e=>e.preventDefault());
+document.getElementById('again').addEventListener('click',()=>{
+  price.value='';markChip();form.hidden=false;ok.hidden=true;
+  document.getElementById('catalog').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+});
+const mine=document.getElementById('mine');let has=false;
+function addMine(it,amt){
+  if(!has){mine.innerHTML='';has=true}
+  const d=document.createElement('div');d.className='mine';
+  d.innerHTML=`<b>${esc(it.name)}</b><small>$${amt} · just now</small>`;mine.prepend(d);
+}
+
+/* map: coarse equirectangular land mask, 64x32 */
+const COLS=64,ROWS=32;
+const LAND={2:[[9,19],[21,26],[43,59]],3:[[7,20],[21,26],[32,36],[38,60]],4:[[3,20],[22,26],[32,36],[37,61]],5:[[3,21],[23,26],[32,36],[37,61]],6:[[4,21],[29,31],[32,35],[36,60]],7:[[6,21],[29,36],[37,59]],8:[[7,21],[29,38],[39,57]],9:[[8,21],[30,40],[41,56]],10:[[9,20],[31,43],[46,55],[56,57]],11:[[11,19],[31,42],[44,47],[48,55]],12:[[12,19],[31,41],[44,47],[49,54]],13:[[14,19],[31,42],[44,48],[50,54]],14:[[15,19],[31,43],[45,48],[51,55]],15:[[18,22],[32,44],[51,56]],16:[[19,24],[33,43],[51,57]],17:[[19,25],[33,42],[52,58]],18:[[19,25],[33,41],[53,59]],19:[[20,25],[34,40],[54,60]],20:[[20,25],[34,39],[53,60]],21:[[20,24],[35,38],[53,60]],22:[[20,23],[35,37],[54,59]],23:[[20,22],[61,62]],24:[[20,22],[61,62]],25:[[20,21]]};
+/* Philadelphia is real (home base). Every other pin is a sample: city names only, no counts. */
+const PINS=[
+ {c:'Philadelphia',lat:40.0,lon:-75.2,home:1},
+ {c:'Memphis',lat:35.1,lon:-90.0},{c:'Chicago',lat:41.9,lon:-87.6},{c:'Atlanta',lat:33.7,lon:-84.4},
+ {c:'Dallas',lat:32.8,lon:-96.8},{c:'Los Angeles',lat:34.1,lon:-118.2},{c:'London',lat:51.5,lon:-0.1},
+ {c:'Amsterdam',lat:52.4,lon:4.9},{c:'Lagos',lat:6.5,lon:3.4},{c:'Nairobi',lat:-1.3,lon:36.8},
+ {c:'São Paulo',lat:-23.6,lon:-46.6},{c:'Kingston',lat:18.0,lon:-76.8},{c:'Seoul',lat:37.6,lon:127.0},
+ {c:'Melbourne',lat:-37.8,lon:145.0}
+];
+const map=document.getElementById('map'),tip=document.getElementById('tip');let hot=[];
+function drawMap(){
+  const d=window.devicePixelRatio||1,w=map.clientWidth,h=w/2;if(!w)return;
+  map.width=w*d;map.height=h*d;map.style.height=h+'px';
+  const x=map.getContext('2d');x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,w,h);
+  const cw=w/COLS,ch=h/ROWS,r=Math.max(1,Math.min(cw,ch)*.3);
+  x.fillStyle='#2A2831';
+  for(const row in LAND)for(const [a,b] of LAND[row])for(let c=a;c<=b;c++){x.beginPath();x.arc((c+.5)*cw,(+row+.5)*ch,r,0,Math.PI*2);x.fill()}
+  hot=[];
+  for(const p of PINS){
+    const px=(p.lon+180)/360*w,py=(90-p.lat)/180*h;
+    if(p.home){x.beginPath();x.arc(px,py,11,0,Math.PI*2);x.fillStyle='rgba(236,231,223,.12)';x.fill();x.beginPath();x.arc(px,py,4,0,Math.PI*2);x.fillStyle='#ECE7DF';x.fill()}
+    else{x.beginPath();x.arc(px,py,Math.max(3.5,w/210),0,Math.PI*2);x.strokeStyle='#C4545C';x.lineWidth=1.5;x.stroke()}
+    hot.push({x:px,y:py,r:12,p});
+  }
+}
+map.addEventListener('mousemove',e=>{
+  const b=map.getBoundingClientRect(),mx=e.clientX-b.left,my=e.clientY-b.top;
+  const hit=hot.find(o=>Math.hypot(o.x-mx,o.y-my)<=o.r);
+  if(hit){tip.style.opacity=1;tip.style.left=hit.x+'px';tip.style.top=hit.y+'px';tip.innerHTML=`${hit.p.c}<small>${hit.p.home?'home base':'sample pin'}</small>`}
+  else tip.style.opacity=0;
+});
+map.addEventListener('mouseleave',()=>tip.style.opacity=0);
+window.addEventListener('load',drawMap);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawMap);
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(drawMap,120)});
+</script>
+</body>
+</html>

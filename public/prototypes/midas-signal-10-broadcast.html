@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Signal S10 · Broadcast · MIDAS800</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root{
+  --ground:#0B0B0D; --panel:#121215; --panel2:#18181C; --rule:#232329; --rule2:#303038;
+  --white:#F5F5F7; --grey:#8A8A94; --faint:#5E5E68;
+  --red:#FF3B30;
+  --sans:'Archivo','Arial Narrow',system-ui,sans-serif;
+  --mono:'Space Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ground);color:var(--white);font-family:var(--sans);font-stretch:100%;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1320px;margin:0 auto;padding:0 22px}
+a{color:inherit}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--white);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* top bar */
+.bar{border-bottom:1px solid var(--rule);background:var(--panel)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.mark{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.mark i{width:9px;height:9px;border-radius:50%;background:var(--red);display:block;box-shadow:0 0 0 4px rgba(255,59,48,.16);flex:none}
+.mark b{font-weight:800;font-stretch:75%;font-size:21px;letter-spacing:.03em;line-height:1}
+.onair{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);border:1px solid rgba(255,59,48,.5);padding:2px 6px;border-radius:2px;white-space:nowrap}
+.clock{font-family:var(--mono);font-size:11px;color:var(--grey);white-space:nowrap}
+.tabs{display:flex;gap:2px}
+.tabs a{font-size:13.5px;padding:7px 13px;color:var(--grey);text-decoration:none;border-radius:3px}
+.tabs a.on{background:var(--panel2);color:var(--white)}
+.tabs a:hover{color:var(--white)}
+.bar-r{display:flex;align-items:center;gap:16px}
+@media(max-width:980px){.tabs{display:none}}
+@media(max-width:560px){.clock{display:none}}
+
+/* ticker */
+.ticker{display:flex;align-items:stretch;border-bottom:1px solid var(--rule);background:var(--ground);height:34px;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em}
+.ticker .chip{flex:none;display:flex;align-items:center;gap:7px;padding:0 12px;background:var(--red);color:#0B0B0D;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:10.5px}
+.ticker .chip i{width:6px;height:6px;border-radius:50%;background:#0B0B0D;display:block}
+.ticker .lane{flex:1;overflow:hidden;position:relative;min-width:0}
+.ticker .track{display:flex;width:max-content;height:100%;align-items:center;animation:crawl 70s linear infinite}
+.ticker .run{display:flex;align-items:center;white-space:nowrap;padding-right:28px}
+.ticker .run span{color:var(--grey);padding:0 14px}
+.ticker .run span b{color:var(--white);font-weight:400}
+.ticker .run span+span{border-left:1px solid var(--rule2)}
+.ticker:hover .track,.ticker:focus-within .track,.ticker.paused .track{animation-play-state:paused}
+.ticker .hold{flex:none;background:var(--panel);border:0;border-left:1px solid var(--rule);color:var(--grey);font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:0 14px;cursor:pointer}
+.ticker .hold:hover{color:var(--white)}
+@keyframes crawl{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.notice{background:var(--panel2);border-bottom:1px solid var(--rule);color:var(--grey);font-family:var(--mono);font-size:11.5px;letter-spacing:.04em}
+.notice .wrap{padding:8px 22px}
+.notice b{color:var(--white);font-weight:400}
+
+/* headline */
+.head{padding:40px 0 30px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
+.head h1{font-weight:800;font-stretch:62%;text-transform:uppercase;font-size:clamp(50px,8.4vw,126px);line-height:.86;letter-spacing:-.005em;margin-top:14px;max-width:17ch;text-wrap:balance}
+.head p{color:var(--grey);font-size:16px;margin-top:18px;max-width:52ch}
+.slate{font-family:var(--mono);font-size:11px;color:var(--grey);border:1px solid var(--rule);background:var(--panel);padding:12px 14px;display:grid;grid-template-columns:auto auto;gap:4px 18px;white-space:nowrap}
+.slate b{color:var(--white);font-weight:400}
+@media(max-width:860px){.head{grid-template-columns:1fr}.slate{justify-self:start}}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.tile{background:var(--panel);border:1px solid var(--rule);padding:16px 20px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tile dt{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.tile dd{font-weight:700;font-stretch:70%;font-size:clamp(34px,4vw,50px);font-variant-numeric:tabular-nums;line-height:1;letter-spacing:.005em}
+.tile .sub{font-family:var(--mono);font-size:11px;color:var(--grey)}
+@media(max-width:900px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.tile{padding:14px 14px 16px}.tile dd{font-size:32px}}
+
+/* grid + cards */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 376px;gap:12px;align-items:start}
+@media(max-width:1040px){.grid{grid-template-columns:minmax(0,1fr)}}
+.side{position:sticky;top:12px}
+@media(max-width:1040px){.side{position:static}}
+.card{background:var(--panel);border:1px solid var(--rule)}
+.card+.card{margin-top:12px}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 20px;border-bottom:1px solid var(--rule)}
+.card-h h2{font-size:15px;font-weight:700;letter-spacing:.01em}
+.card-b{padding:20px}
+
+/* rundown */
+.rundown{list-style:none}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;border-bottom:1px solid var(--rule);position:relative}
+.row:last-child{border-bottom:none}
+.cue{display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:0 14px;padding:13px 0 13px 20px;background:transparent;border:0;color:inherit;text-align:left;cursor:pointer;font-family:inherit;min-width:0}
+.cue:hover{background:var(--panel2)}
+.tally{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);border:1px solid var(--rule2);padding:3px 0;text-align:center;border-radius:2px}
+.cue .t{min-width:0}
+.cue .t b{display:block;font-weight:800;font-stretch:70%;font-size:25px;line-height:1.05;text-transform:uppercase;letter-spacing:.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cue .t small{display:block;font-family:var(--mono);font-size:11px;color:var(--grey);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cue .len{font-family:var(--mono);font-size:12.5px;color:var(--grey);font-variant-numeric:tabular-nums}
+.listen{display:flex;align-items:center;padding:0 20px 0 16px;font-family:var(--mono);font-size:11px;color:var(--grey);text-decoration:none;letter-spacing:.04em;white-space:nowrap}
+.listen:hover{color:var(--white);text-decoration:underline}
+.row.on{background:var(--panel2)}
+.row.on::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--red)}
+.row.on .tally{color:var(--red);border-color:rgba(255,59,48,.55)}
+@media(max-width:560px){
+  .cue{grid-template-columns:48px minmax(0,1fr);padding-left:14px;gap:0 12px}
+  .cue .len{grid-column:2;margin-top:2px;font-size:11px}
+  .cue .t b{font-size:22px}
+  .listen{padding:0 14px 0 8px}
+}
+
+/* kit */
+.kit-top{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap}
+.kit-top h3{font-weight:800;font-stretch:70%;font-size:38px;line-height:1;text-transform:uppercase}
+.kit-top p{color:var(--grey);font-size:14px;margin-top:6px;max-width:44ch}
+.readout{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));margin-top:20px;border:1px solid var(--rule)}
+.readout div{padding:12px 12px 13px;border-right:1px solid var(--rule);min-width:0}
+.readout div:last-child{border-right:none}
+.readout b{display:block;font-weight:700;font-stretch:70%;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.readout span{display:block;font-family:var(--mono);font-size:10.5px;color:var(--grey);margin-top:6px;white-space:nowrap}
+@media(max-width:760px){.readout{grid-template-columns:repeat(4,minmax(0,1fr))}.readout div:nth-child(4){border-right:none}.readout div:nth-child(-n+4){border-bottom:1px solid var(--rule)}}
+.fine{font-family:var(--mono);font-size:11px;color:var(--grey);margin-top:12px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;background:var(--white);color:#0B0B0D;font-weight:700;font-size:14px;text-decoration:none;border:1px solid var(--white);cursor:pointer;font-family:var(--sans);border-radius:2px;white-space:nowrap}
+.btn:hover{background:transparent;color:var(--white)}
+.btn.ghost{background:transparent;color:var(--white);border-color:var(--rule2)}
+.btn.ghost:hover{border-color:var(--white)}
+.btn.ghost[aria-pressed="true"]{border-color:var(--red);color:var(--white)}
+.btn.block{width:100%;padding:14px 18px;font-size:15px}
+
+/* map */
+.mapwrap{position:relative;background:var(--ground)}
+#map{display:block;width:100%;height:auto;aspect-ratio:2/1}
+.legend{display:flex;gap:18px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:11px;color:var(--grey)}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend i{width:8px;height:8px;border-radius:50%;display:block}
+.legend .note{margin-left:auto;color:var(--white)}
+@media(max-width:600px){.legend .note{margin-left:0}}
+.tip{position:absolute;pointer-events:none;background:var(--panel2);border:1px solid var(--rule2);padding:7px 11px;font-size:12.5px;font-weight:600;transform:translate(-50%,-140%);white-space:nowrap;opacity:0;transition:opacity .12s;z-index:5}
+
+/* monitors */
+.monitors{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+@media(max-width:760px){.monitors{grid-template-columns:1fr}}
+.screen{aspect-ratio:16/9;position:relative;background:#050506;border-bottom:1px solid var(--rule);overflow:hidden}
+.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.facade{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:18px;background:#050506;border:0;color:var(--white);text-align:left;cursor:pointer;font-family:inherit;width:100%}
+.facade b{font-weight:800;font-stretch:65%;font-size:clamp(24px,2.6vw,34px);line-height:.95;text-transform:uppercase;max-width:15ch}
+.facade .play{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--grey)}
+.facade .play i{width:34px;height:34px;border:1px solid var(--white);border-radius:50%;display:grid;place-items:center;font-style:normal;color:var(--white);font-size:11px}
+.facade:hover .play i{background:var(--white);color:#0B0B0D}
+.bars{position:absolute;inset:0;display:grid;grid-template-columns:repeat(7,1fr)}
+.bars i{display:block}
+.bars::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;background:repeating-linear-gradient(90deg,#0B0B0D 0 12%,#1F1F24 12% 24%)}
+.slot{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);background:rgba(11,11,13,.92);border:1px solid var(--rule2);padding:12px 16px;text-align:center;width:max-content;max-width:88%}
+.slot b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--white);font-weight:400}
+.slot span{display:block;font-family:var(--mono);font-size:10.5px;color:var(--grey);margin-top:4px}
+.mon-f{padding:12px 20px;font-family:var(--mono);font-size:11px;color:var(--grey);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* checkout */
+.cued{border:1px solid var(--rule);background:var(--ground);padding:14px 16px;margin-bottom:18px;min-height:86px}
+.cued .lbl{display:flex;justify-content:space-between;gap:10px}
+.cued b{display:block;font-weight:800;font-stretch:68%;font-size:30px;line-height:1.02;text-transform:uppercase;margin-top:8px;overflow-wrap:anywhere}
+.cued small{display:block;font-family:var(--mono);font-size:11px;color:var(--grey);margin-top:4px}
+.cued.empty b{color:var(--faint)}
+.field{display:block;margin-top:16px}
+.field .lt{display:block;font-size:13px;font-weight:600;margin-bottom:7px}
+.field .lt em{font-style:normal;color:var(--grey);font-weight:400}
+.money{display:flex;align-items:center;border:1px solid var(--rule2);background:var(--ground)}
+.money:focus-within{border-color:var(--white)}
+.money i{font-style:normal;font-family:var(--mono);color:var(--grey);padding:0 0 0 14px;font-size:18px}
+.money input{flex:1;min-width:0;background:transparent;border:0;color:var(--white);font-family:var(--mono);font-size:22px;padding:10px 12px 10px 6px;font-variant-numeric:tabular-nums}
+.money input:focus-visible{outline:none}
+input[type=number]{-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:10px}
+.chips>span{font-family:var(--mono);font-size:10.5px;color:var(--grey);margin-right:2px}
+.chips button{font-family:var(--mono);font-size:12px;padding:6px 11px;background:transparent;border:1px solid var(--rule2);color:var(--grey);cursor:pointer;border-radius:2px;font-variant-numeric:tabular-nums}
+.chips button:hover{color:var(--white);border-color:var(--grey)}
+.chips button[aria-pressed="true"]{border-color:var(--white);color:var(--white)}
+.email{width:100%;background:var(--ground);border:1px solid var(--rule2);color:var(--white);font-family:var(--sans);font-size:15px;padding:12px 13px}
+.email:focus-visible{outline:none;border-color:var(--white)}
+.hint{font-family:var(--mono);font-size:11px;color:var(--grey);margin-top:8px}
+.err{font-family:var(--mono);font-size:11.5px;color:var(--red);margin-top:12px;min-height:1em}
+.err:empty{display:none}
+.terms{margin-top:16px;border-top:1px solid var(--rule);padding-top:14px;display:grid;gap:7px;font-size:13px;color:var(--grey)}
+.terms p b{color:var(--white);font-weight:600}
+.success{display:none}
+.checkout.done form{display:none}
+.checkout.done .success{display:block}
+.sent{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.sent i{width:7px;height:7px;border-radius:50%;background:var(--red);display:block}
+.success h3{font-weight:800;font-stretch:68%;font-size:34px;line-height:1;text-transform:uppercase;margin-top:12px;overflow-wrap:anywhere}
+.success p{font-size:14px;color:var(--grey);margin-top:10px}
+.success p b{color:var(--white);font-weight:600;overflow-wrap:anywhere}
+.success .hint{font-size:11px;margin-top:6px}
+.dl{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;padding:13px 14px;border:1px solid var(--white);text-decoration:none;font-family:var(--mono);font-size:12.5px}
+.dl:hover{background:var(--white);color:#0B0B0D}
+.dl span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+
+.feed-empty{padding:22px 20px;font-size:14px;color:var(--grey)}
+.feed-item{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:13px 20px;border-bottom:1px solid var(--rule)}
+.feed-item:last-child{border-bottom:none}
+.feed-item b{font-weight:800;font-stretch:70%;text-transform:uppercase;font-size:19px}
+.feed-item small{font-family:var(--mono);font-size:11px;color:var(--grey);white-space:nowrap}
+
+/* honesty */
+.truth{background:var(--panel2);border:1px solid var(--rule2);border-left:2px solid var(--red);padding:22px 24px;margin-top:12px}
+.truth h3{font-size:15.5px;font-weight:700;margin-bottom:10px}
+.truth p{font-size:14px;color:var(--grey);max-width:78ch}
+.truth p+p{margin-top:9px}
+.truth b{color:var(--white);font-weight:600}
+
+footer{padding:26px 0;border-top:1px solid var(--rule);color:var(--grey);font-size:12.5px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:16px}
+footer a{color:var(--white)}
+.proto{background:var(--white);color:#0B0B0D;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:8px 16px}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  .ticker .lane{overflow-x:auto}
+  .ticker .run[aria-hidden]{display:none}
+  .ticker .hold{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <a class="mark" href="#top" aria-label="Midas800, top of page"><i></i><b>MIDAS800</b><span class="onair">On air</span></a>
+  <nav class="tabs" aria-label="Sections">
+    <a href="#rundown" class="on">Rundown</a><a href="#kit">Drum kit</a><a href="#map-card">Map</a><a href="#how">How it works</a>
+  </nav>
+  <div class="bar-r">
+    <span class="clock" id="clock" aria-label="Local time in Philadelphia">PHL --:--</span>
+    <a class="btn" href="#checkout">Name your price</a>
+  </div>
+</div></div>
+
+<div class="ticker" id="ticker" role="region" aria-label="Ticker">
+  <span class="chip"><i></i>On air</span>
+  <div class="lane">
+    <div class="track">
+      <div class="run">
+        <span><b>Shotta Flow</b> · NLE Choppa · prod. Midas800</span>
+        <span>Released 2019</span>
+        <span><b>#36</b> Billboard Hot 100</span>
+        <span>RIAA <b>2x Platinum</b></span>
+        <span>YouTube: <b>14,600</b> subscribers · <b>141</b> videos</span>
+        <span>Genius Deconstructed: <b>1,035,627</b> views</span>
+        <span>In the rundown: <b>NO EVIDENCE</b> · <b>DEAGLE</b> · <b>Half Court</b> · <b>GIVE IT UP</b> · <b>WATCH YA SELF</b> · <b>COUPE</b> · <b>REVENGE</b> · <b>GORILLA</b></span>
+        <span>Also: <b>midas800 drumkit</b></span>
+        <span>Based in <b>Philadelphia</b></span>
+      </div>
+      <div class="run" aria-hidden="true">
+        <span><b>Shotta Flow</b> · NLE Choppa · prod. Midas800</span>
+        <span>Released 2019</span>
+        <span><b>#36</b> Billboard Hot 100</span>
+        <span>RIAA <b>2x Platinum</b></span>
+        <span>YouTube: <b>14,600</b> subscribers · <b>141</b> videos</span>
+        <span>Genius Deconstructed: <b>1,035,627</b> views</span>
+        <span>In the rundown: <b>NO EVIDENCE</b> · <b>DEAGLE</b> · <b>Half Court</b> · <b>GIVE IT UP</b> · <b>WATCH YA SELF</b> · <b>COUPE</b> · <b>REVENGE</b> · <b>GORILLA</b></span>
+        <span>Also: <b>midas800 drumkit</b></span>
+        <span>Based in <b>Philadelphia</b></span>
+      </div>
+    </div>
+  </div>
+  <button class="hold" type="button" id="hold" aria-pressed="false">Pause</button>
+</div>
+
+<div class="notice"><div class="wrap"><b>Prototype</b> · no payments connected · sample data is marked</div></div>
+
+<main class="wrap" id="top">
+  <div class="head">
+    <div>
+      <div class="eyebrow">Midas800 · producer · Philadelphia</div>
+      <h1>Beats from the producer of Shotta Flow. You set the price.</h1>
+      <p>Cue a beat or the drum kit, name what it is worth to you, and the download lands right away. Every beat here is up on YouTube to hear first.</p>
+    </div>
+    <div class="slate" aria-label="Credit">
+      <span>Record</span><b>Shotta Flow</b>
+      <span>Artist</span><b>NLE Choppa</b>
+      <span>Released</span><b>2019</b>
+      <span>Producer</span><b>Midas800</b>
+    </div>
+  </div>
+
+  <dl class="tiles">
+    <div class="tile"><dt>Billboard Hot 100</dt><dd>#36</dd><span class="sub">Shotta Flow</span></div>
+    <div class="tile"><dt>RIAA</dt><dd>2x Platinum</dd><span class="sub">Shotta Flow</span></div>
+    <div class="tile"><dt>YouTube subscribers</dt><dd>14,600</dd><span class="sub">141 videos · Sep 2026</span></div>
+    <div class="tile"><dt>The Making Of, Genius</dt><dd>1,035,627</dd><span class="sub">views · Sep 2026</span></div>
+  </dl>
+
+  <div class="grid">
+    <div>
+      <section class="card" id="rundown" aria-labelledby="rd-h">
+        <div class="card-h">
+          <h2 id="rd-h">Rundown</h2>
+          <span class="eyebrow">8 beats · press to cue</span>
+        </div>
+        <ul class="rundown" id="list"></ul>
+      </section>
+
+      <section class="card" id="kit" aria-labelledby="kit-h">
+        <div class="card-h"><h2 id="kit-h">Drum kit</h2><span class="eyebrow">Product</span></div>
+        <div class="card-b">
+          <div class="kit-top">
+            <div>
+              <h3>midas800 drumkit</h3>
+              <p>The drums, loops and Serum presets in one download. Same checkout as the beats: you name the price.</p>
+            </div>
+            <button class="btn ghost" type="button" data-cue="kit" aria-pressed="false">Cue the kit</button>
+          </div>
+          <div class="readout">
+            <div><b>21</b><span>808s</span></div>
+            <div><b>13</b><span>snares</span></div>
+            <div><b>12</b><span>percs</span></div>
+            <div><b>10</b><span>hats</span></div>
+            <div><b>3</b><span>kicks</span></div>
+            <div><b>35</b><span>loops</span></div>
+            <div><b>63</b><span>Serum presets</span></div>
+          </div>
+          <p class="fine">Contents as received; final contents are Midas's call.</p>
+        </div>
+      </section>
+
+      <section class="card" id="map-card" aria-labelledby="map-h">
+        <div class="card-h"><h2 id="map-h">Where downloads land</h2><span class="eyebrow">Sample pins</span></div>
+        <div class="mapwrap">
+          <canvas id="map" width="1200" height="600" role="img" aria-label="Dotted world map. Philadelphia is marked as home base. The other pins are samples, not real downloads."></canvas>
+          <div class="tip" id="tip"></div>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--white)"></i>Home base, Philadelphia</span>
+          <span><i style="background:var(--grey)"></i>Sample pin</span>
+          <span class="note">Sample pins. Real ones appear as people download.</span>
+        </div>
+      </section>
+
+      <div class="monitors">
+        <section class="card" aria-labelledby="pgm-h">
+          <div class="screen" id="pgm">
+            <button class="facade" type="button" id="play">
+              <span class="eyebrow">Program · Genius Deconstructed</span>
+              <b>The Making Of NLE Choppa's "Shotta Flow" with Midas800</b>
+              <span class="play"><i aria-hidden="true">&#9654;</i>Play, loads YouTube</span>
+            </button>
+          </div>
+          <div class="mon-f"><span id="pgm-h">PGM · 1,035,627 views</span><a href="https://www.youtube.com/watch?v=arsD5Y1VzEg">Open on YouTube</a></div>
+        </section>
+        <section class="card" aria-labelledby="cam-h">
+          <div class="screen">
+            <div class="bars" aria-hidden="true"><i style="background:#E8E8EC"></i><i style="background:#C9C9CF"></i><i style="background:#A6A6AE"></i><i style="background:#83838C"></i><i style="background:#5F5F68"></i><i style="background:#3C3C44"></i><i style="background:#1E1E23"></i></div>
+            <div class="slot" role="note"><b>Photo from the shoot</b><span>landscape, 16:9 · not taken yet</span></div>
+          </div>
+          <div class="mon-f"><span id="cam-h">CAM 1 · no signal</span><span>Shoot not booked</span></div>
+        </section>
+      </div>
+    </div>
+
+    <aside class="side">
+      <section class="card checkout" id="checkout" aria-labelledby="co-h">
+        <div class="card-h"><h2 id="co-h">Checkout</h2><span class="eyebrow">Pay what you want</span></div>
+        <div class="card-b">
+          <form id="form" novalidate>
+            <div class="cued empty" id="cued" aria-live="polite">
+              <div class="lbl"><span class="eyebrow">Cued</span><span class="eyebrow" id="cued-len"></span></div>
+              <b id="cued-t">Standby</b>
+              <small id="cued-d">Cue a beat from the rundown or the drum kit.</small>
+            </div>
+            <label class="field" for="price"><span class="lt">Name your price <em>in US dollars</em></span>
+              <span class="money"><i aria-hidden="true">$</i><input id="price" name="price" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" autocomplete="off"></span>
+            </label>
+            <div class="chips" role="group" aria-label="Example amounts">
+              <span>Examples</span>
+              <button type="button" data-amt="5" aria-pressed="false">$5</button>
+              <button type="button" data-amt="10" aria-pressed="false">$10</button>
+              <button type="button" data-amt="20" aria-pressed="false">$20</button>
+              <button type="button" data-amt="50" aria-pressed="false">$50</button>
+            </div>
+            <p class="hint">Minimum price: Midas's call, not decided yet.</p>
+            <label class="field" for="email"><span class="lt">Email <em>where the download goes</em></span>
+              <input class="email" id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+            </label>
+            <p class="err" id="err" role="alert"></p>
+            <button class="btn block" type="submit" style="margin-top:16px">Get instant download</button>
+            <div class="terms">
+              <p>Your email joins <b>Midas800's own list</b> with every download, whatever the price. $0 included, if he sets the floor there. One click to leave.</p>
+              <p><b>License terms:</b> to be set with Midas.</p>
+              <p><b>Payments not connected. Prototype.</b></p>
+            </div>
+          </form>
+          <div class="success" id="success" tabindex="-1">
+            <span class="sent"><i></i>Sent</span>
+            <h3 id="ok-t">NO EVIDENCE</h3>
+            <p>Paid <b id="ok-p">$0.00</b>. Your download is ready.</p>
+            <a class="dl" href="#" id="ok-link"><span id="ok-file">file.zip</span><span aria-hidden="true">&#8595;</span></a>
+            <p class="hint">Mock link. There is no file in this prototype.</p>
+            <p>A copy is in your inbox at <b id="ok-e">you@example.com</b>.</p>
+            <p class="hint">License terms: to be set with Midas.</p>
+            <button class="btn ghost block" type="button" id="again" style="margin-top:16px">Cue another</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="feed-h">
+        <div class="card-h"><h2 id="feed-h">Your downloads</h2><span class="eyebrow">This visit</span></div>
+        <div id="feed"><p class="feed-empty">Your download will show up here.</p></div>
+      </section>
+    </aside>
+  </div>
+
+  <section class="truth" id="how" aria-labelledby="how-h">
+    <h3 id="how-h">How this works, read this part</h3>
+    <p><b>Streams are anonymous. Downloads are not.</b> YouTube and the streaming services show a producer totals, never who listened, and there is no way to reach those people. An email handed over for a download is different: it belongs to Midas800, not to a platform.</p>
+    <p><b>So every download here, at any price, adds an opted-in email to his own list.</b> That list is what the map is for. Each pin will be a real person who chose to download. The pins on it today are samples.</p>
+    <p><b>What is not decided yet:</b> the minimum price is Midas's call, the chip amounts are examples, and license terms are to be set with Midas. Nothing on this page grants or describes rights. There are no photos yet, and the camera slot says what the shoot needs.</p>
+  </section>
+
+  <footer>
+    <span>Signal · MIDAS800 · Philadelphia · <a href="https://www.youtube.com/channel/UCk1XxZ--lg_jRJn7RqX4urw">YouTube</a></span>
+    <span class="mono">Prototype S10 · Broadcast</span>
+  </footer>
+</main>
+
+<div class="proto">Prototype · Playground Giants · Signal variation S10 of 12 · "Broadcast"</div>
+
+<script>
+/* catalog: real titles, video ids and durations from the channel */
+const BEATS=[
+ {id:'no-evidence',t:'NO EVIDENCE',d:'NLE Choppa × Da Baby type beat',v:'IV6YZIxU7CU',s:104},
+ {id:'deagle',t:'DEAGLE',d:'Yuno Miles detroit type beat',v:'tLSV_oC79B8',s:154},
+ {id:'half-court',t:'Half Court',d:'BigXThaPlug × Big Yavo × NLE Choppa type beat',v:'vV2yEl2OEds',s:125},
+ {id:'give-it-up',t:'GIVE IT UP',d:'NLE Choppa × Da baby type beat',v:'ECzlSJW3_Fk',s:180},
+ {id:'watch-ya-self',t:'WATCH YA SELF',d:'Big Yavo × BigXThaplug club sample type beat',v:'L1nJdE0Z92w',s:170},
+ {id:'coupe',t:'COUPE',d:'BigXThaplug × Big Yavo × SleazyWorld type beat',v:'eaPdzNcCnIg',s:132},
+ {id:'revenge',t:'REVENGE',d:'NLE Choppa × BigXThaPlug × Big Yavo type beat',v:'h4EgahtgQL0',s:164},
+ {id:'gorilla',t:'GORILLA',d:'NLE Choppa × BigXThaPlug × Midas800 Shotta Flow type beat',v:'-QrymgKzC3s',s:131}
+];
+const ITEMS={};
+BEATS.forEach(b=>ITEMS[b.id]=b);
+ITEMS.kit={id:'kit',t:'midas800 drumkit',d:'Drum kit · 808s, snares, percs, hats, kicks, loops, Serum presets'};
+const fmt=s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
+const slug=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+
+const list=document.getElementById('list');
+list.innerHTML=BEATS.map(b=>`
+  <li class="row" data-row="${b.id}">
+    <button class="cue" type="button" data-cue="${b.id}" aria-pressed="false">
+      <span class="tally">Cue</span>
+      <span class="t"><b>${b.t}</b><small>${b.d}</small></span>
+      <span class="len" aria-label="Length ${fmt(b.s)}">${fmt(b.s)}</span>
+    </button>
+    <a class="listen" href="https://www.youtube.com/watch?v=${b.v}" aria-label="Listen to ${b.t} on YouTube">Listen &#8599;</a>
+  </li>`).join('');
+
+let selected=null;
+const $=id=>document.getElementById(id);
+function cue(id,fromUser){
+  selected=ITEMS[id];
+  document.querySelectorAll('[data-cue]').forEach(el=>{
+    const on=el.dataset.cue===id;
+    el.setAttribute('aria-pressed',on);
+    const row=el.closest('.row');
+    if(row){row.classList.toggle('on',on);el.querySelector('.tally').textContent=on?'Cued':'Cue';}
+    if(el.dataset.cue==='kit') el.textContent=on?'Kit cued':'Cue the kit';
+  });
+  $('cued').classList.remove('empty');
+  $('cued-t').textContent=selected.t;
+  $('cued-d').textContent=selected.d;
+  $('cued-len').textContent=selected.s?fmt(selected.s):'';
+  $('err').textContent='';
+  const co=$('checkout');
+  if(co.classList.contains('done')) reset();
+  if(fromUser && window.matchMedia('(max-width:1040px)').matches){
+    co.scrollIntoView({block:'start'});
+  }
+}
+document.addEventListener('click',e=>{
+  const c=e.target.closest('[data-cue]');
+  if(c) cue(c.dataset.cue,true);
+});
+
+/* price chips */
+const price=$('price');
+document.querySelectorAll('.chips button').forEach(b=>b.addEventListener('click',()=>{
+  price.value=b.dataset.amt;
+  syncChips();
+}));
+function syncChips(){
+  document.querySelectorAll('.chips button').forEach(b=>b.setAttribute('aria-pressed',String(Number(price.value)===Number(b.dataset.amt)&&price.value!=='')));
+}
+price.addEventListener('input',syncChips);
+
+/* submit */
+const feed=[];
+$('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const err=$('err'); const email=$('email').value.trim(); const raw=price.value.trim(); const amt=Number(raw);
+  if(!selected){err.textContent='Cue a beat or the kit first.';return;}
+  if(raw===''||!isFinite(amt)||amt<0){err.textContent='Enter a price in dollars, for example 10.';price.focus();return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent='Enter the email the download should go to.';$('email').focus();return;}
+  err.textContent='';
+  $('ok-t').textContent=selected.t;
+  $('ok-p').textContent='$'+amt.toFixed(2);
+  $('ok-e').textContent=email;
+  $('ok-file').textContent=slug(selected.t)+'_midas800.zip';
+  $('checkout').classList.add('done');
+  $('success').focus({preventScroll:true});
+  feed.unshift({t:selected.t,p:'$'+amt.toFixed(2)});
+  $('feed').innerHTML=feed.map(f=>`<div class="feed-item"><b>${f.t}</b><small>${f.p} · just now</small></div>`).join('');
+});
+$('ok-link').addEventListener('click',e=>e.preventDefault());
+function reset(){$('checkout').classList.remove('done');price.value='';syncChips();}
+$('again').addEventListener('click',()=>{reset();document.getElementById('rundown').scrollIntoView({block:'start'});});
+
+/* ticker pause */
+const hold=$('hold'), ticker=$('ticker');
+hold.addEventListener('click',()=>{
+  const p=!ticker.classList.contains('paused');
+  ticker.classList.toggle('paused',p);
+  hold.setAttribute('aria-pressed',p);
+  hold.textContent=p?'Play':'Pause';
+});
+
+/* Philadelphia clock (real local time) */
+function tick(){
+  try{
+    $('clock').textContent='PHL '+new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date());
+  }catch(e){}
+}
+tick();setInterval(tick,30000);
+
+/* video facade: nothing loads from YouTube until pressed */
+$('play').addEventListener('click',()=>{
+  const f=document.createElement('iframe');
+  f.src='https://www.youtube-nocookie.com/embed/arsD5Y1VzEg?autoplay=1';
+  f.title='The Making Of NLE Choppa\'s "Shotta Flow" With Midas800, Genius Deconstructed';
+  f.allow='autoplay; encrypted-media; picture-in-picture';
+  f.allowFullscreen=true;
+  $('pgm').replaceChildren(f);
+});
+
+/* dotted map: coarse equirectangular land mask, 64x32 */
+const COLS=64, ROWS=32;
+const LAND={
+ 2:[[9,19],[21,26],[43,59]],3:[[7,20],[21,26],[32,36],[38,60]],4:[[3,20],[22,26],[32,36],[37,61]],
+ 5:[[3,21],[23,26],[32,36],[37,61]],6:[[4,21],[29,31],[32,35],[36,60]],7:[[6,21],[29,36],[37,59]],
+ 8:[[7,21],[29,38],[39,57]],9:[[8,21],[30,40],[41,56]],10:[[9,20],[31,43],[46,55],[56,57]],
+ 11:[[11,19],[31,42],[44,47],[48,55]],12:[[12,19],[31,41],[44,47],[49,54]],13:[[14,19],[31,42],[44,48],[50,54]],
+ 14:[[15,19],[31,43],[45,48],[51,55]],15:[[18,22],[32,44],[51,56]],16:[[19,24],[33,43],[51,57]],
+ 17:[[19,25],[33,42],[52,58]],18:[[19,25],[33,41],[53,59]],19:[[20,25],[34,40],[54,60]],
+ 20:[[20,25],[34,39],[53,60]],21:[[20,24],[35,38],[53,60]],22:[[20,23],[35,37],[54,59]],
+ 23:[[20,22],[61,62]],24:[[20,22],[61,62]],25:[[20,21]]
+};
+/* sample pins: city names only, no counts. Philadelphia is real: his home base. */
+const PINS=[
+ {c:'Philadelphia',lat:40.0,lon:-75.2,home:true},
+ {c:'Atlanta',lat:33.7,lon:-84.4},{c:'Los Angeles',lat:34.1,lon:-118.2},{c:'Houston',lat:29.8,lon:-95.4},
+ {c:'Toronto',lat:43.7,lon:-79.4},{c:'Mexico City',lat:19.4,lon:-99.1},{c:'London',lat:51.5,lon:-0.1},
+ {c:'Paris',lat:48.9,lon:2.4},{c:'Berlin',lat:52.5,lon:13.4},{c:'Lagos',lat:6.5,lon:3.4},
+ {c:'Johannesburg',lat:-26.2,lon:28.0},{c:'São Paulo',lat:-23.6,lon:-46.6},{c:'Manila',lat:14.6,lon:121.0},
+ {c:'Tokyo',lat:35.7,lon:139.7},{c:'Sydney',lat:-33.9,lon:151.2}
+];
+const map=$('map'), tip=$('tip');
+let hot=[];
+function draw(){
+  const d=window.devicePixelRatio||1, w=map.clientWidth, h=w/2;
+  if(!w)return;
+  map.width=w*d; map.height=h*d; map.style.height=h+'px';
+  const x=map.getContext('2d'); x.setTransform(d,0,0,d,0,0); x.clearRect(0,0,w,h);
+  const cw=w/COLS, ch=h/ROWS, r=Math.max(1,Math.min(cw,ch)*0.30);
+  x.fillStyle='#26262D';
+  for(const row in LAND){for(const [a,b] of LAND[row]){for(let c=a;c<=b;c++){x.beginPath();x.arc((c+0.5)*cw,(Number(row)+0.5)*ch,r,0,Math.PI*2);x.fill();}}}
+  hot=[];
+  for(const p of PINS){
+    const px=(p.lon+180)/360*w, py=(90-p.lat)/180*h;
+    if(p.home){
+      x.beginPath();x.arc(px,py,11,0,Math.PI*2);x.strokeStyle='rgba(245,245,247,.55)';x.lineWidth=1;x.stroke();
+      x.beginPath();x.arc(px,py,4,0,Math.PI*2);x.fillStyle='#F5F5F7';x.fill();
+    }else{
+      x.beginPath();x.arc(px,py,7,0,Math.PI*2);x.fillStyle='rgba(138,138,148,.16)';x.fill();
+      x.beginPath();x.arc(px,py,2.6,0,Math.PI*2);x.fillStyle='#8A8A94';x.fill();
+    }
+    hot.push({x:px,y:py,r:12,p});
+  }
+}
+map.addEventListener('mousemove',e=>{
+  const b=map.getBoundingClientRect(), mx=e.clientX-b.left, my=e.clientY-b.top;
+  const hit=hot.find(o=>Math.hypot(o.x-mx,o.y-my)<=o.r);
+  if(hit){tip.style.opacity=1;tip.style.left=hit.x+'px';tip.style.top=hit.y+'px';tip.textContent=hit.p.home?hit.p.c+', home base':hit.p.c;}
+  else tip.style.opacity=0;
+});
+map.addEventListener('mouseleave',()=>tip.style.opacity=0);
+draw();
+window.addEventListener('load',draw);
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(draw,140)});
+</script>
+</body>
+</html>

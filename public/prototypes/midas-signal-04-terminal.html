@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Signal S04 · Terminal · MIDAS800</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=VT323&display=swap">
+<style>
+:root{
+  --ground:#050805; --panel:#081009; --panel2:#0C170F; --rule:#14261A; --rule2:#1F3A28;
+  --ph:#7CFFB2;          /* phosphor: primary text + accent */
+  --hi:#D6FFE6;          /* brighter phosphor for emphasis */
+  --dim:#6E9580;         /* readable secondary text (passes AA on ground) */
+  --dim0:#4B6B57;        /* decoration only: prompts, modes, rules, dots */
+  --amber:#FFB547;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ground)}
+body{background:var(--ground);color:var(--ph);font-family:var(--mono);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+.wrap{max-width:1320px;margin:0 auto;padding:0 22px}
+a{color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
+.p{color:var(--dim0)}            /* prompt glyphs */
+.c{color:var(--dim)}             /* comments */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ── prompt bar ── */
+.bar{border-bottom:1px solid var(--rule2);background:var(--panel)}
+.bar .wrap{display:flex;align-items:center;gap:18px;min-height:54px;flex-wrap:wrap;padding-block:8px}
+.mark{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;white-space:nowrap;text-decoration:none}
+.mark i{width:9px;height:9px;border-radius:50%;background:var(--ph);display:block;box-shadow:0 0 0 4px rgba(124,255,178,.14)}
+.mark span{color:var(--dim);font-weight:400}
+.cmds{display:flex;gap:2px;flex:1;flex-wrap:wrap}
+.cmds a{font-size:13px;padding:5px 10px;color:var(--dim);text-decoration:none;border-radius:2px}
+.cmds a:hover{color:var(--ph)}
+.cmds a.on{background:var(--ph);color:var(--ground)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;font-weight:700;padding:9px 14px;background:var(--ph);color:var(--ground);border:1px solid var(--ph);border-radius:2px;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:hover{background:transparent;color:var(--ph)}
+.btn.ghost{background:transparent;color:var(--ph);border-color:var(--rule2)}
+.btn.ghost:hover{border-color:var(--ph)}
+@media(max-width:760px){
+  .bar .wrap{gap:10px}
+  .cmds{order:3;flex-basis:100%;margin:0 -10px}
+  .bar .btn{margin-left:auto}
+}
+
+.notice{background:rgba(255,181,71,.07);border-bottom:1px solid rgba(255,181,71,.22);color:var(--amber);font-size:12px;letter-spacing:.02em}
+.notice .wrap{padding-block:8px}
+
+/* ── head ── */
+.head{padding:36px 0 26px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end}
+.who{font-size:13px;color:var(--dim)}
+.head h1{font-family:'VT323',var(--mono);font-weight:400;font-size:clamp(76px,13vw,168px);line-height:.82;letter-spacing:.01em;color:var(--hi);margin:14px 0 18px;text-shadow:0 0 22px rgba(124,255,178,.22)}
+.cur{display:inline-block;width:.42em;height:.7em;background:var(--ph);vertical-align:baseline;margin-left:.08em;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.lede{font-size:15px;max-width:60ch;color:var(--hi)}
+.lede .c{display:block;margin-top:6px;font-size:13px}
+.photo{width:180px;aspect-ratio:4/5;border:1px dashed var(--rule2);display:flex;flex-direction:column;justify-content:space-between;padding:12px;font-size:11.5px;color:var(--dim);background:repeating-linear-gradient(135deg,transparent 0 9px,rgba(124,255,178,.03) 9px 10px)}
+.photo b{color:var(--ph);font-weight:500}
+@media(max-width:760px){
+  .head{grid-template-columns:1fr;gap:18px;padding-top:26px}
+  .photo{width:100%;aspect-ratio:auto;flex-direction:row;gap:14px;align-items:center;min-height:0}
+  .photo .frame{width:64px;aspect-ratio:4/5;border:1px dashed var(--rule2);flex:none}
+}
+@media(min-width:761px){.photo .frame{display:none}}
+
+/* ── cards ── */
+.card{background:var(--panel);border:1px solid var(--rule)}
+.card+.card{margin-top:12px}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 18px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.card-h h2{font-size:13.5px;font-weight:700;color:var(--hi)}
+.card-h h2 .p{font-weight:400}
+.card-h .c{font-size:12px}
+.card-b{padding:18px}
+
+/* ── stat readout (tiles) ── */
+.stat .card-h{border-bottom-color:var(--rule2)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr)}
+.tile{padding:16px 18px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:4px;min-width:0}
+.tile:last-child{border-right:none}
+.tile dt{font-size:12px;color:var(--dim)}
+.tile dt::after{content:":"}
+.tile dd{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--hi)}
+.tile .src{font-size:11.5px;color:var(--dim);margin-top:2px}
+.tile .src a{text-decoration-color:var(--dim0);text-underline-offset:3px}
+.tile .src a:hover{color:var(--ph)}
+@media(max-width:1040px){.tiles{grid-template-columns:repeat(2,1fr)}.tile:nth-child(2){border-right:none}.tile:nth-child(-n+2){border-bottom:1px solid var(--rule)}}
+@media(max-width:420px){.tile dd{font-size:24px}.tile{padding:14px}}
+
+/* ── grid ── */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:12px;align-items:start;margin-top:12px}
+@media(max-width:1040px){.grid{grid-template-columns:minmax(0,1fr)}}
+
+/* ── ls -l listing ── */
+.ls{list-style:none}
+.ls-total{padding:10px 18px 4px;font-size:12.5px;color:var(--dim)}
+.row{display:grid;grid-template-columns:auto auto 3.6em minmax(0,1fr) auto;gap:0 16px;align-items:baseline;padding:8px 18px;border-top:1px solid transparent;border-bottom:1px solid transparent}
+.row:hover{background:var(--panel2)}
+.row label{display:contents;cursor:pointer}
+.row input{position:absolute;opacity:0;width:1px;height:1px}
+.box{color:var(--dim0);white-space:pre}
+.box::before{content:"[ ]"}
+.mode{color:var(--dim0);font-size:12.5px}
+.dur{text-align:right;color:var(--dim)}
+.nm{min-width:0}
+.nm b{font-weight:700;color:var(--hi)}
+.nm .c{margin-left:10px;font-size:12.5px}
+.row a.listen{font-size:12px;color:var(--dim);text-decoration:none;padding:2px 6px;border:1px solid var(--rule2);border-radius:2px;white-space:nowrap}
+.row a.listen:hover{color:var(--ph);border-color:var(--ph)}
+.row:has(input:checked){background:rgba(124,255,178,.07);border-color:var(--rule2)}
+.row:has(input:checked) .box{color:var(--ph)}
+.row:has(input:checked) .box::before{content:"[x]"}
+.row:has(input:focus-visible){outline:2px solid var(--hi);outline-offset:-2px}
+@media(max-width:760px){
+  .row{grid-template-columns:auto minmax(0,1fr) auto;gap:2px 12px;padding:10px 14px}
+  .mode{display:none}
+  .dur{grid-column:2;grid-row:2;text-align:left;font-size:12px}
+  .nm{grid-column:2;grid-row:1}
+  .nm .c{display:block;margin:0}
+  .row a.listen{grid-column:3;grid-row:1/3;align-self:center}
+  .box{grid-row:1/3}
+}
+.kit-tree{padding:4px 18px 16px 18px;font-size:13px;color:var(--dim);white-space:pre;overflow-x:auto}
+.kit-tree b{color:var(--ph);font-weight:500}
+.kit-tree .c{white-space:normal;display:block}
+@media(min-width:1041px){.grid aside{position:sticky;top:12px}}
+.cities{padding:0 18px 12px;font-size:12px;color:var(--dim)}
+.small{font-size:12px;color:var(--dim)}
+.picked{font-size:12.5px;color:var(--dim)}
+.picked a{color:var(--ph)}
+
+/* ── ascii map ── */
+.ascii{container-type:inline-size;background:var(--ground);position:relative;padding:14px 0 10px}
+.ascii pre{font-family:var(--mono);font-size:calc(100cqi / 64 / .6);line-height:.78;letter-spacing:0;color:var(--dim0);white-space:pre;overflow:hidden;user-select:none}
+.ascii .pin{font:inherit;line-height:inherit;background:none;border:0;padding:0;color:var(--ph);cursor:default;position:relative;width:1ch;display:inline-block;text-shadow:0 0 8px rgba(124,255,178,.8)}
+.ascii .pin.home{color:var(--hi);text-shadow:0 0 10px rgba(214,255,230,.9)}
+.ascii .pin::after{content:attr(data-c);position:absolute;left:50%;bottom:130%;transform:translateX(-50%);background:var(--panel2);border:1px solid var(--rule2);color:var(--hi);font-size:12px;line-height:1.3;padding:5px 8px;white-space:nowrap;opacity:0;pointer-events:none;z-index:4;text-shadow:none}
+.ascii .pin:hover::after,.ascii .pin:focus-visible::after{opacity:1}
+.legend{display:flex;gap:8px 20px;flex-wrap:wrap;padding:11px 18px;border-top:1px solid var(--rule);font-size:12px;color:var(--dim)}
+.legend b{color:var(--ph);font-weight:500}
+
+/* ── get (PWYW) ── */
+.get{scroll-margin-top:16px}
+.q{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:6px 8px;align-items:center;margin-bottom:14px}
+.q > label,.q > .lbl{color:var(--dim);font-size:13px;white-space:nowrap}
+.q > label::before,.q > .lbl::before{content:"> ";color:var(--dim0)}
+.q .sub{grid-column:2}
+.item-out{color:var(--hi);font-weight:700;min-height:1.6em}
+.item-out.none{color:var(--dim);font-weight:400}
+.field{display:flex;align-items:center;border:1px solid var(--rule2);background:var(--ground);padding:0 10px}
+.field:focus-within{border-color:var(--ph)}
+.field span{color:var(--dim)}
+.field input{flex:1;min-width:0;background:transparent;border:0;color:var(--hi);font-family:var(--mono);font-size:15px;padding:9px 6px;outline:none;caret-color:var(--ph)}
+.field input::placeholder{color:var(--dim0)}
+.field:has(input:focus-visible){outline:2px solid var(--hi);outline-offset:2px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chips button{font-family:var(--mono);font-size:12.5px;padding:4px 10px;background:transparent;border:1px solid var(--rule2);color:var(--ph);border-radius:2px;cursor:pointer}
+.chips button:hover,.chips button.on{border-color:var(--ph);background:rgba(124,255,178,.08)}
+.chips small{font-size:12px;color:var(--dim)}
+.note{font-size:12px;color:var(--dim)}
+.note::before{content:"# ";color:var(--dim0)}
+.err{color:var(--amber);font-size:12.5px;min-height:1.2em;margin:-4px 0 8px}
+.go{width:100%;justify-content:center;padding:12px;font-size:14px}
+.fine{margin-top:14px;border-top:1px solid var(--rule);padding-top:12px;display:grid;gap:4px}
+.done{display:none}
+.get.ok form{display:none}
+.get.ok .done{display:block}
+.out{font-size:13px;line-height:1.75}
+.out .ok{color:var(--hi);font-weight:700}
+.out a.dl{color:var(--ground);background:var(--ph);padding:1px 6px;text-decoration:none;font-weight:700}
+.out a.dl:hover{background:var(--hi)}
+.done h3{font-size:13.5px;margin-bottom:8px;color:var(--hi);outline:none}
+.feed{padding:14px 18px;font-size:13px;color:var(--dim)}
+.feed .mine{color:var(--hi)}
+
+/* ── honesty ── */
+.truth{background:var(--panel2);border:1px solid var(--rule2);border-left:2px solid var(--amber);padding:20px 24px;margin-top:12px}
+.truth h3{font-size:14px;font-weight:700;margin-bottom:12px;color:var(--amber)}
+.truth h3 .p{color:rgba(255,181,71,.6);font-weight:400}
+.truth p{font-size:13.5px;color:#C9D6CD;max-width:84ch}
+.truth p+p{margin-top:10px}
+.truth b{color:var(--amber);font-weight:500}
+
+footer{padding:24px 0;border-top:1px solid var(--rule);color:var(--dim);font-size:12.5px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:16px}
+footer a{text-underline-offset:3px}
+.proto{background:var(--ph);color:var(--ground);font-size:11.5px;letter-spacing:.06em;text-align:center;padding:8px 16px;font-weight:700}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="bar"><div class="wrap">
+  <a class="mark" href="#top" aria-label="Midas800, top of page"><i></i>midas800<span>@philly:~$</span></a>
+  <nav class="cmds" aria-label="Sections">
+    <a href="#beats" class="on">ls beats</a><a href="#kit">cat kit</a><a href="#map">map</a><a href="#stat">stat</a><a href="#readme">readme</a>
+  </nav>
+  <a class="btn" href="#get">./get</a>
+</div></header>
+
+<div class="notice" role="note"><div class="wrap">! Prototype · no payments connected · sample data is marked</div></div>
+
+<main class="wrap" id="top">
+  <section class="head" aria-labelledby="h1">
+    <div>
+      <p class="who"><span class="p">$</span> whoami</p>
+      <h1 id="h1">MIDAS800<span class="cur" aria-hidden="true"></span></h1>
+      <p class="lede">Producer of NLE Choppa's "Shotta Flow". Philadelphia. Pick a beat or the drum kit, name your price, and it downloads right now.
+        <span class="c"># every download, whatever you pay, puts your email on his own list. not a platform's.</span></p>
+    </div>
+    <div class="photo" role="img" aria-label="Photo placeholder. Photo from the shoot, portrait 4:5, not taken yet.">
+      <span class="frame" aria-hidden="true"></span>
+      <span><span class="p">$</span> open portrait.jpg<br><b>PHOTO FROM THE SHOOT</b><br>portrait, 4:5<br>not taken yet</span>
+    </div>
+  </section>
+
+  <section class="card stat" id="stat" aria-labelledby="stat-h">
+    <div class="card-h"><h2 id="stat-h"><span class="p">$</span> stat midas800</h2><span class="c"># verified facts only</span></div>
+    <dl class="tiles">
+      <div class="tile"><dt>chart.peak</dt><dd>#36</dd><span class="src">Billboard Hot 100 · "Shotta Flow"</span></div>
+      <div class="tile"><dt>riaa.cert</dt><dd>2x Platinum</dd><span class="src">"Shotta Flow" · NLE Choppa · 2019</span></div>
+      <div class="tile"><dt>youtube.subs</dt><dd>14,600</dd><span class="src"><a href="https://www.youtube.com/channel/UCk1XxZ--lg_jRJn7RqX4urw">Midas800</a> · 141 videos · read 11 Sep 2026</span></div>
+      <div class="tile"><dt>deconstructed.views</dt><dd>1,035,627</dd><span class="src"><a href="https://www.youtube.com/watch?v=arsD5Y1VzEg">Genius · The Making Of "Shotta Flow"</a></span></div>
+    </dl>
+  </section>
+
+  <div class="grid">
+    <div>
+      <section class="card" id="beats" aria-labelledby="beats-h">
+        <div class="card-h"><h2 id="beats-h"><span class="p">$</span> ls -l ~/beats</h2><span class="picked" id="picked" aria-live="polite">pick one, then name your price</span></div>
+        <div class="ls-total">total 8 <span class="c"># titles and lengths from his YouTube channel</span></div>
+        <fieldset style="border:0"><legend class="sr">Choose a beat or the drum kit</legend>
+          <ul class="ls" id="ls"></ul>
+        </fieldset>
+      </section>
+
+      <section class="card" id="kit" aria-labelledby="kit-h">
+        <div class="card-h"><h2 id="kit-h"><span class="p">$</span> ls -l ~/kit</h2><span class="c"># the drum kit, same checkout</span></div>
+        <ul class="ls" id="ls-kit" style="padding-top:6px"></ul>
+<div class="kit-tree" aria-label="Kit contents"><b>midas800 drumkit</b>
+├── 808s ............ 21
+├── snares .......... 13
+├── percs ........... 12
+├── hats ............ 10
+├── kicks ............ 3
+├── loops ........... 35
+└── serum presets ... 63
+<span class="c"># contents as received; final contents are Midas's call</span></div>
+      </section>
+
+      <section class="card" id="map" aria-labelledby="map-h">
+        <div class="card-h"><h2 id="map-h"><span class="p">$</span> map --pins</h2><span class="c"># the list, drawn</span></div>
+        <div class="ascii"><pre id="ascii" aria-hidden="false"></pre></div>
+        <div class="legend">
+          <span><b>@</b> Philadelphia, home base</span>
+          <span><b>o</b> sample pin</span>
+          <span>Sample pins. Real ones appear as people download.</span>
+        </div>
+        <p class="cities"><span class="p">#</span> sample pins: Atlanta, Memphis, Houston, Los Angeles, Toronto, Mexico City, São Paulo, London, Berlin, Lagos, Johannesburg, Mumbai, Manila, Tokyo, Sydney. city names only, no counts.</p>
+      </section>
+    </div>
+
+    <aside>
+      <section class="card get" id="get" aria-labelledby="get-h">
+        <div class="card-h"><h2 id="get-h"><span class="p">$</span> get --instant</h2><span class="c"># pay what you want</span></div>
+        <div class="card-b">
+          <form id="buy" novalidate>
+            <div class="q">
+              <span class="lbl" id="item-l">item:</span>
+              <output class="item-out none" id="item-out" aria-labelledby="item-l">none yet. pick from ls</output>
+            </div>
+            <div class="q">
+              <label for="price">price:</label>
+              <div class="field"><span aria-hidden="true">$</span><input id="price" name="price" type="number" inputmode="decimal" min="0" step="1" placeholder="your number" aria-describedby="min-note chips-note"></div>
+              <div class="sub chips" role="group" aria-label="Example prices">
+                <button type="button" data-p="5">5</button><button type="button" data-p="10">10</button><button type="button" data-p="20">20</button><button type="button" data-p="50">50</button>
+                <small id="chips-note">examples</small>
+              </div>
+              <p class="sub note" id="min-note">minimum price: Midas's call, not decided</p>
+            </div>
+            <div class="q">
+              <label for="email">email:</label>
+              <div class="field"><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" aria-describedby="email-note"></div>
+              <p class="sub note" id="email-note">where the download goes</p>
+            </div>
+            <p class="err" id="err" role="alert"></p>
+            <button class="btn go" id="dl-btn" type="submit">&gt; Get instant download</button>
+            <div class="fine">
+              <p class="note">Payments not connected. Prototype.</p>
+              <p class="note">License terms: to be set with Midas.</p>
+              <p class="note">getting it adds your email to midas800's own list. unsubscribe any time.</p>
+            </div>
+          </form>
+          <div class="done" id="done">
+            <h3 id="done-h" tabindex="-1"><span class="p">$</span> get --instant <span id="done-cmd"></span></h3>
+            <div class="out" aria-live="polite">
+              <p><span class="ok">ok</span> <span class="c">payment: mock, nothing charged</span></p>
+              <p>download: <a class="dl" id="dl-link" href="#get">file.zip</a> <span class="c"># mock link</span></p>
+              <p>a copy is in your inbox: <span id="done-mail" style="color:var(--hi)"></span></p>
+              <p class="c"># you're on midas800's list now. that's the pin.</p>
+              <p class="c"># License terms: to be set with Midas.</p>
+            </div>
+            <p style="margin-top:14px"><button class="btn ghost" type="button" id="again">get another</button></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="tail-h">
+        <div class="card-h"><h2 id="tail-h"><span class="p">$</span> tail downloads</h2><span class="c"># this browser only</span></div>
+        <div class="feed" id="feed" aria-live="polite"><span class="c"># empty. your download will show up here.</span></div>
+      </section>
+    </aside>
+  </div>
+
+  <section class="truth" id="readme" aria-labelledby="readme-h">
+    <h3 id="readme-h"><span class="p">$</span> cat READ_THIS_PART.txt</h3>
+    <p><b>Payments are not connected.</b> This is a prototype. Nothing is charged and no email is sent. The download link above is a mock.</p>
+    <p><b>Pay what you want means you pick the number.</b> The chips are examples. Whether there is a minimum is Midas's call and has not been decided. License terms: to be set with Midas. Nothing on this page grants rights yet.</p>
+    <p><b>The map is the list.</b> Every download, whatever the price, adds an opted-in email to Midas's own list, and each one becomes a pin at city level. The pins on this page are samples. Real ones appear as people download.</p>
+    <p><b>No photos yet.</b> The shoot is not booked. The photo slot says so rather than filling in with a stranger.</p>
+  </section>
+
+  <footer>
+    <span>midas800 · Philadelphia · <a href="https://www.youtube.com/channel/UCk1XxZ--lg_jRJn7RqX4urw">YouTube</a></span>
+    <span>Signal S04 · Terminal</span>
+  </footer>
+</main>
+
+<div class="proto">Prototype · Playground Giants · Signal variation S04 of 12 · "Terminal" · drifts from Signal</div>
+
+<script>
+/* ── catalog: titles, ids, durations from the channel (read 11 Sep 2026) ── */
+const BEATS=[
+ {id:'deagle',n:'DEAGLE',d:'Yuno Miles detroit type beat',yt:'tLSV_oC79B8',s:154},
+ {id:'jazz',n:'Jazz',d:'Big Yavo x BigXThaPlug sample type beat',yt:'sh_aa650nmg',s:351},
+ {id:'halfcourt',n:'Half Court',d:'BigXThaPlug x Big Yavo x NLE Choppa type beat',yt:'vV2yEl2OEds',s:125},
+ {id:'giveitup',n:'GIVE IT UP',d:'NLE Choppa x Da Baby type beat',yt:'ECzlSJW3_Fk',s:180},
+ {id:'coldcase',n:'Cold Case',d:'BigXThaPlug x Yung Hood type beat',yt:'jX9VhtXBCPk',s:168},
+ {id:'icelandic',n:'ICELANDIC',d:'BigXThaPlug type beat, soul sample',yt:'YnMv0KGxHKE',s:130},
+ {id:'gorilla',n:'GORILLA',d:'NLE Choppa x BigXThaPlug x Midas800 Shotta Flow type beat',yt:'-QrymgKzC3s',s:131},
+ {id:'xfiles',n:'X Files',d:'NLE Choppa x Midas800 dark soulful type beat',yt:'rkKxdsuHIVI',s:121}
+];
+const KIT={id:'kit',n:'midas800 drumkit',d:'808s, snares, percs, hats, kicks, loops, Serum presets',kit:true};
+const ALL=[...BEATS,KIT];
+const mmss=s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
+const esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function rowHTML(b){
+  const listen=b.kit?'<span></span>':`<a class="listen" href="https://www.youtube.com/watch?v=${b.yt}" aria-label="Listen to ${esc(b.n)} on YouTube">listen</a>`;
+  return `<li class="row"><label><input type="radio" name="item" value="${b.id}" aria-label="${esc(b.n)}${b.kit?'':', '+mmss(b.s)}">
+    <span class="box" aria-hidden="true"></span>
+    <span class="mode" aria-hidden="true">${b.kit?'drwxr-xr-x':'-rw-r--r--'}</span>
+    <span class="dur">${b.kit?'kit':mmss(b.s)}</span>
+    <span class="nm"><b>${esc(b.n)}${b.kit?'/':''}</b><span class="c"># ${esc(b.d)}</span></span></label>${listen}</li>`;
+}
+document.getElementById('ls').innerHTML=BEATS.map(rowHTML).join('');
+document.getElementById('ls-kit').innerHTML=rowHTML(KIT);
+
+/* ── checkout ── */
+const $=id=>document.getElementById(id);
+const get=$('get'), form=$('buy'), price=$('price'), email=$('email'), err=$('err');
+let picked=null;
+document.addEventListener('change',e=>{
+  if(e.target.name!=='item')return;
+  picked=ALL.find(b=>b.id===e.target.value);
+  const out=$('item-out');
+  out.textContent=picked.kit?picked.n:`${picked.n} (${mmss(picked.s)})`;
+  out.classList.remove('none');
+  $('picked').innerHTML=`picked: <b style="color:var(--hi)">${esc(picked.n)}</b> · <a href="#get">name your price</a>`;
+  if(get.classList.contains('ok'))reset();
+  err.textContent='';
+});
+document.querySelectorAll('.chips button').forEach(b=>b.addEventListener('click',()=>{
+  price.value=b.dataset.p;
+  document.querySelectorAll('.chips button').forEach(o=>o.classList.toggle('on',o===b));
+}));
+price.addEventListener('input',()=>document.querySelectorAll('.chips button').forEach(o=>o.classList.toggle('on',o.dataset.p===price.value)));
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const v=price.value.trim(), m=email.value.trim();
+  if(!picked){err.textContent='! pick a beat or the kit from the list first.';return}
+  if(v===''||isNaN(+v)||+v<0){err.textContent='! enter a price in dollars.';price.focus();return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)){err.textContent='! enter an email address. the download goes there.';email.focus();return}
+  err.textContent='';
+  const file=(picked.kit?'midas800-drumkit':picked.n.toLowerCase().replace(/[^a-z0-9]+/g,'-'))+'.zip';
+  $('done-cmd').textContent=`--price ${(+v).toFixed(2)}`;
+  $('dl-link').textContent=file;
+  $('done-mail').textContent=m;
+  get.classList.add('ok');
+  $('done-h').focus();
+  $('feed').innerHTML=`<span class="mine">you · ${esc(picked.n)} · $${(+v).toFixed(2)} · just now</span><br><span class="c"># only you can see this line</span>`;
+});
+$('dl-link').addEventListener('click',e=>e.preventDefault());
+function reset(){get.classList.remove('ok')}
+$('again').addEventListener('click',()=>{reset();price.value='';document.querySelectorAll('.chips button').forEach(o=>o.classList.remove('on'));$('beats').scrollIntoView({block:'start'})});
+
+/* ── ascii map: coarse land mask, 64x32 equirectangular (same as Signal) ── */
+const COLS=64;
+const LAND={
+ 2:[[9,19],[21,26],[43,59]],3:[[7,20],[21,26],[32,36],[38,60]],4:[[3,20],[22,26],[32,36],[37,61]],
+ 5:[[3,21],[23,26],[32,36],[37,61]],6:[[4,21],[29,31],[32,35],[36,60]],7:[[6,21],[29,36],[37,59]],
+ 8:[[7,21],[29,38],[39,57]],9:[[8,21],[30,40],[41,56]],10:[[9,20],[31,43],[46,55],[56,57]],
+ 11:[[11,19],[31,42],[44,47],[48,55]],12:[[12,19],[31,41],[44,47],[49,54]],13:[[14,19],[31,42],[44,48],[50,54]],
+ 14:[[15,19],[31,43],[45,48],[51,55]],15:[[18,22],[32,44],[51,56]],16:[[19,24],[33,43],[51,57]],
+ 17:[[19,25],[33,42],[52,58]],18:[[19,25],[33,41],[53,59]],19:[[20,25],[34,40],[54,60]],
+ 20:[[20,25],[34,39],[53,60]],21:[[20,24],[35,38],[53,60]],22:[[20,23],[35,37],[54,59]],
+ 23:[[20,22],[61,62]],24:[[20,22],[61,62]],25:[[20,21]]
+};
+/* illustrative pins: real cities, no counts. Philadelphia is home base (fact). */
+const PINS=[
+ {c:'Philadelphia',lat:40.0,lon:-75.2,home:1},
+ {c:'Atlanta',lat:33.7,lon:-84.4},{c:'Memphis',lat:35.1,lon:-90.0},{c:'Houston',lat:29.8,lon:-95.4},
+ {c:'Los Angeles',lat:34.1,lon:-118.2},{c:'Toronto',lat:43.7,lon:-79.4},{c:'Mexico City',lat:19.4,lon:-99.1},
+ {c:'São Paulo',lat:-23.6,lon:-46.6},{c:'London',lat:51.5,lon:-0.1},{c:'Berlin',lat:52.5,lon:13.4},
+ {c:'Lagos',lat:6.5,lon:3.4},{c:'Johannesburg',lat:-26.2,lon:28.0},{c:'Mumbai',lat:19.1,lon:72.9},
+ {c:'Manila',lat:14.6,lon:121.0},{c:'Tokyo',lat:35.7,lon:139.7},{c:'Sydney',lat:-33.9,lon:151.2}
+];
+(function(){
+  const R0=1,R1=26, grid={};
+  for(let r=R0;r<=R1;r++){grid[r]=Array(COLS).fill(' ');(LAND[r]||[]).forEach(([a,b])=>{for(let c=a;c<=b;c++)grid[r][c]='·'})}
+  const at={};
+  PINS.forEach(p=>{
+    const c=Math.min(COLS-1,Math.floor((p.lon+180)/360*COLS)), r=Math.floor((90-p.lat)/180*32);
+    if(r>=R0&&r<=R1&&!at[r+':'+c])at[r+':'+c]=p;
+  });
+  let html='';
+  for(let r=R0;r<=R1;r++){
+    let line='';
+    for(let c=0;c<COLS;c++){
+      const p=at[r+':'+c];
+      if(p){const lab=p.home?p.c+', home base':p.c+' (sample)';line+=`<button type="button" class="pin${p.home?' home':''}" data-c="${lab}" aria-label="${lab}">${p.home?'@':'o'}</button>`;}
+      else line+=grid[r][c];
+    }
+    html+=line+(r<R1?'\n':'');
+  }
+  $('ascii').innerHTML=html;
+})();
+</script>
+</body>
+</html>
