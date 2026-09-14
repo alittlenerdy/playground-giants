@@ -1,0 +1,51 @@
+---
+title: "legal intake automation that grades facts and never merit"
+date: "2026-09-14"
+summary: "legal intake automation should extract and structure facts for review, never score a case's merit. here's the mechanism and why the line matters."
+---
+
+it's tuesday afternoon. your best paralegal just spent twenty minutes on the phone with a new intake lead. the caller was polite, seemed serious about pursuing something, but the facts just weren't there. no clear injury, no clear timeline, no clear liability. she has to write it up anyway, flag it for the attorney, and move to the next call. this happens a dozen times a week and every one of those calls needs a human who can read between the lines. the question is whether the software sitting between the phone and the case management system is helping her do that or trying to do it for her.
+
+legal intake automation should extract and structure facts for human review. it should never grade a case's legal merit. that line, not the technology, is what determines whether a firm ends up with a faster intake process or a liability problem.
+
+## the pressure to automate everything, everywhere
+
+every intake vendor pitch right now leans on the same promise: full automation, end to end, lead comes in and a qualified case comes out the other side with minimal human touch. it's an appealing pitch because intake is genuinely expensive. paralegal time on unqualified leads is time not spent on active files. so the instinct to automate the whole funnel makes business sense.
+
+but legal work is not a generic sales funnel, and intake is not a lead-scoring problem. a firm that treats it that way is applying a marketing-tech mental model to a regulated function. the vendors selling "ai that qualifies your leads" are usually vague about what qualifying actually means under the hood, and that vagueness is doing a lot of work. qualifying a lead based on completeness of contact information is automation. qualifying a lead based on whether the underlying facts support a viable claim is legal judgment, and legal judgment has rules about who is allowed to exercise it.
+
+## the critical line: facts versus merit
+
+facts are things a system can verify or at least record without interpreting. a caller says the incident happened on march 3rd. a caller says the other driver ran a red light. a caller says they went to the emergency room the same day. these are extractable data points. they can be pulled from a call transcript or an intake form, structured into fields, and handed to a human with no legal analysis attached.
+
+merit is a different category entirely. merit is whether those facts, taken together, support a claim under the applicable law in that jurisdiction, whether the statute of limitations has run, whether comparative negligence changes the calculus, whether the injury is severe enough to justify the cost of litigation. answering that question requires legal training and licensure. it also requires context the intake form usually doesn't have: how this attorney has seen similar fact patterns resolve, what a given insurer tends to do, what a given venue's juries look like. no amount of natural language processing puts that context into a scoring model, because it isn't data. it's judgment built over years of practice.
+
+the mistake a lot of "smart intake" tools make is treating this as a continuum, where enough data points eventually produce a merit score. it doesn't work that way. a system can be extremely good at extraction and still have zero business rendering an opinion on whether a case is worth taking.
+
+## when automation oversteps: the risk of unauthorized practice of law
+
+this is where a well-intentioned intake tool becomes a liability. a system that assigns a case a score, a rating, or a "likelihood of success" label is rendering a legal conclusion, even if it wraps that conclusion in a disclaimer. disclaimers do not change what the output functionally does inside the firm. if a non-lawyer staff member sees a low score and declines to forward the lead to an attorney, a legal judgment has just been made by software, filtered through a person who isn't licensed to make it. that is the fact pattern unauthorized practice of law rules exist to prevent.
+
+rules on unauthorized practice of law, and on who may give legal advice or make case-acceptance decisions, vary by state and by bar. nothing here should be read as a statement of what any particular jurisdiction requires. the point is narrower and more practical: a system that produces a merit score is making a claim about what it did, and that claim is the kind of thing regulators and bar counsel look at closely. the safer design isn't a matter of adding more caveats to the score. it's not producing a score in the first place.
+
+[IMAGE]
+
+## how an ai-powered intake system extracts, structures, and routes
+
+the mechanism that avoids this problem is narrower than most intake pitches admit, and that's precisely why it works. a model reads the intake call transcript or the web form submission and pulls out named entities: dates, parties, locations, described events, injury type, prior communications with insurers. it structures those into fields a human can scan in seconds instead of reading a full transcript. it flags missing fields, like a statute-of-limitations-relevant date that wasn't mentioned, so the follow-up call knows what to ask.
+
+none of this involves the model deciding whether the case is any good. it involves the model doing what language models are actually reliable at: reading unstructured text and turning it into structured output. the routing step works the same way. if the fact pattern includes keywords the firm treats as an automatic decline, like a practice area they don't handle, that's a routing rule, a deterministic function checking against a fixed list, not a legal assessment. the model extracts "case type: workers compensation." the routing logic, which no model touches, decides that workers compensation intake goes to a different queue than personal injury intake. the extraction and the decision are two different pieces of code, and only one of them is allowed to make a call that affects a client's file.
+
+## human in the loop: preserving judgment and accountability
+
+the attorney or intake specialist still reads every structured summary and still decides what happens next. the system's job is to make that review fast and complete, not to replace it. when the model can't confidently extract a field, that field shows up blank and flagged, not guessed at. when the model is unavailable entirely, the call or form still routes to a person. it never silently drops a lead and it never fills in a gap with a plausible-sounding guess, because a plausible-sounding guess in an intake record is exactly the kind of error that surfaces later in a malpractice review.
+
+this matters for accountability as much as accuracy. if a case gets declined, the firm needs to know that a person made that call, based on facts a machine helped surface. that's a defensible process. "the software's score said no" is not.
+
+## auditability: every step recorded, every decision justified
+
+because fact extraction and merit assessment are separated into different steps, the whole intake process leaves a trail that can be read afterward, line by line. what did the model extract from the call. what fields were flagged as missing. who reviewed the structured summary. what did that person decide, and when. that sequence is auditable in a way that a black-box "lead score" never is, because there's no step in it where a model's internal reasoning stands in for a recorded human decision.
+
+that auditability also matters when infrastructure changes. an intake pipeline built this way, with logs and structured data sitting in the firm's own systems rather than trapped inside a vendor's proprietary scoring engine, can be reviewed, modified, or handed to another provider without starting over. a firm that wants to automate client lead follow-up without exposing itself to a decision it can't explain later needs that separation built in from the start, not bolted on after a bar complaint.
+
+if your firm is looking at intake automation and wants to know exactly where that line should sit for your practice, a workflow audit is the place to start. it's a fixed two-week engagement, $2,500, and it's credited toward a build if you move forward. details are at [/workflow-audit](/workflow-audit).
