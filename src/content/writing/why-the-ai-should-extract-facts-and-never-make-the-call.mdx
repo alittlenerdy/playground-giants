@@ -1,7 +1,13 @@
 ---
-title: "why the AI should extract facts and never make the call"
+title: "human in the loop automation: AI extracts, it never decides"
 date: "2026-08-13"
-summary: "in regulated work, AI should extract facts from documents. a deterministic system, not the model, should make the decision. here's why that split matters."
+summary: "human in the loop automation works when the AI extracts facts and a person or a deterministic rule makes the call. reviewing a decision the model already made is theater."
+keyword: "human in the loop automation"
+secondaryKeywords: ["human in the loop vs human on the loop"]
+keywordSource: "semrush"
+keywordSourcedOn: "2026-09-15"
+keywordVolume: 140
+keywordKd: 25
 ---
 
 ![why the AI should extract facts and never make the call](/blog/why-the-ai-should-extract-facts-and-never-make-the-call-hero.png)
@@ -18,13 +24,15 @@ that is a genuinely useful capability. it is not reasoning, and it is not certai
 
 regulated work runs on the second kind of logic, not the first. a firm needs to know that the same fact pattern produces the same outcome, every time, and that the outcome can be explained to a bar association, an insurer, or a judge without anyone shrugging and saying "the model thought so."
 
-## a human-in-the-loop is not enough
+## human in the loop automation: a reviewer is not enough
 
 the usual answer to this is "put a human in the loop." have someone review the AI's output before it goes anywhere. this sounds like control. it is usually theater.
 
 the problem is what the human is reviewing. if the AI has already made the decision, the human is being asked to audit a black box after the fact. they see a conclusion, not the reasoning that produced it, because there is no reasoning to inspect, only weights. so the human either rubber-stamps it, because re-deriving the answer from scratch is slower than trusting the tool, or they re-do the whole analysis themselves, in which case the AI added a step without removing any work.
 
 real control means the decision originates somewhere that can be inspected before it happens, not verified after. that means a human or a deterministic rule engine makes the call. the model's job ends at supplying the inputs to that call, cleanly and visibly.
+
+this is the difference between a human in the loop and a human on the loop. on the loop, a person supervises a system that has already decided, and steps in when something looks wrong. in the loop, the decision cannot happen without them, or without a rule they wrote and can read. a review screen bolted onto a system that has already decided is on the loop, whatever the product page calls it.
 
 none of this is an argument against a person approving an outbound message before it goes. reviewing a drafted message, where the reviewer can read the words and change them, is a real control. reviewing a decision the model already made, where there is nothing to inspect but a conclusion, is the theater.
 
