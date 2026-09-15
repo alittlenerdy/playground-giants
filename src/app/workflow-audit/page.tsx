@@ -12,10 +12,23 @@ import Faq, { type FaqItem } from '@/components/Faq'
 // was simply given away as pre-sale work. The 2026 market norm is $1,500-$3,000
 // for exactly this, credited toward the build, and it doubles as qualification:
 // a buyer who will not pay for the plan was never going to buy the build.
+//
+// Keyword retarget, 2026-09-15. The page is named for "workflow audit" (30/mo,
+// KD 0), which almost nobody searches. It now also targets "ai readiness
+// assessment" (1,300/mo, KD 32, Semrush 2026-09-10, recorded as
+// PG_MONEY_PAGE_FINDING in jimmy-ops lib/playground-giants-keywords.ts).
+// Placed in metadata, eyebrow, one H2 and ONE new FAQ. The offer keeps its name
+// and the H1 is untouched: the finding says metadata and H2, not a rebrand.
+//
+// ⚠️ What must NOT be added: a readiness SCORE, maturity model, benchmark or
+// survey. The audit is a map of one operation's real workflow, and it can
+// conclude "do not automate this". The new FAQ says so, and stronger targeting
+// that promises a scorecard would contradict the page.
 export const metadata: Metadata = {
-  title: 'The Workflow Audit | Playground Giants',
+  // 43 chars, used verbatim by the SERP (layout.tsx has no title template).
+  title: 'AI readiness assessment: The Workflow Audit',
   description:
-    'Two weeks, $2,500, credited toward a build. A written map of where your manual work is, what is safe to automate, what must stay human, and what it would cost.'
+    'An AI readiness assessment built on your real workflow. Two weeks, $2,500, credited toward a build: what is safe to automate, what must stay human, and what it would cost.'
 }
 
 const FAQS: FaqItem[] = [
@@ -42,6 +55,10 @@ const FAQS: FaqItem[] = [
   {
     q: 'What if the answer is that we do not need automation?',
     a: 'Then that is what the report says. Sometimes the real problem is a process or staffing problem, and automating it just makes the wrong thing happen faster. I would rather tell you that in week two than six weeks into a build.'
+  },
+  {
+    q: 'Is this an AI readiness assessment?',
+    a: 'Yes, though not the survey-and-score kind. There is no maturity rating. Readiness here means specific things: which steps of your actual workflow AI can take on safely, which need a person checking the output, which must stay human, whether your existing agreements already allow it, and what it would cost in phases. Sometimes the honest finding is that you are not ready, or that a step should never be automated, and the report says that.'
   }
 ]
 
@@ -53,7 +70,7 @@ export default function WorkflowAudit() {
       <section className="pt-36 pb-16 md:pt-44 border-b border-line-soft">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-semibold tracking-[0.15em] uppercase text-blue-deep mb-6">
-            Stage one
+            Stage one: an AI readiness assessment
           </p>
           <h1 className="font-display text-4xl md:text-5xl font-medium leading-[1.05] tracking-tight text-ink mb-6 max-w-3xl">
             Find out what is worth automating before anyone builds anything.
@@ -82,7 +99,7 @@ export default function WorkflowAudit() {
       <section className="py-16 md:py-20 border-b border-line-soft bg-cream-2/40">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-display text-3xl md:text-4xl font-medium tracking-tight text-ink mb-9">
-            Four questions, answered in writing
+            The AI readiness assessment: four questions, answered in writing
           </h2>
           <div className="grid md:grid-cols-2 gap-5">
             {[
