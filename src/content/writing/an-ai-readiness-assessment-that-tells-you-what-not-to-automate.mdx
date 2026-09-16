@@ -1,0 +1,63 @@
+---
+title: "an ai readiness assessment that tells you what not to automate"
+date: "2026-09-16"
+summary: "most AI readiness assessments tell you what to buy. a useful one tells you which decisions in your workflow the model should never be allowed to make."
+keyword: "ai readiness assessment"
+secondaryKeywords: ["ai compliance audit", "how to tell which parts of your workflow are safe to automate"]
+keywordSource: "semrush"
+keywordSourcedOn: "2026-09-10"
+keywordVolume: 1300
+keywordKd: 32
+---
+
+your firm is thinking about AI. someone on the leadership team has been asked to "look into it." the vendors show up fast, and every one of them offers an AI readiness assessment. these assessments ask about your data infrastructure, your staff's AI literacy, your network capacity. they end with a 30/60/90-day plan and a list of things to buy.
+
+none of that tells you whether it's safe to let a model touch your intake process, your client communications, or your file review. it tells you whether you're ready for AI in the abstract. it does not tell you where AI can actually go in your specific workflow without creating a compliance problem you can't undo.
+
+an assessment worth running does the opposite of what the vendors sell. it starts by identifying what cannot be automated, and only after that draws the line for what can.
+
+## the real risk is not technical, it is regulatory
+
+the infrastructure question is the easy one. any reasonable model can read a document, extract a date, summarize a call. the hard question is whether the output of that model is allowed to become an action without a person checking it first, and that answer depends on rules that have nothing to do with technology.
+
+advertising rules, unauthorized practice of law statutes, and record-keeping requirements vary by state and by practice area. a workflow that's fine to automate in one jurisdiction may not be in another. this is not a data science problem. it's a compliance mapping problem, and it has to be solved before a single model gets near a client file.
+
+## step 1: list every workflow step that touches a client or a regulated outcome
+
+start granular. not "intake" as one line item, but every discrete action inside intake: the initial call, the eligibility screen, the conflict check, the retainer send, the file opening, the first status update. each of these is a separate step with separate risk, and treating them as one blob is how firms end up automating the wrong half.
+
+write this list out as a literal sequence, not a diagram. what happens first, second, third. who touches it. what document or system it lives in. if you can't write the sequence down cleanly, that's information too: it means the process isn't standardized enough to automate safely yet, regardless of what tool you buy.
+
+## step 2: identify decision points within each workflow
+
+now go back through the list and mark every point where a person currently makes a judgment call rather than following a fixed rule. eligibility screening is a decision point. a paralegal reading an intake form and deciding whether the case is worth a callback is a decision point. an associate deciding whether a client communication needs an attorney's review before it goes out is a decision point.
+
+these are different from steps that are purely mechanical, like logging a call time or filing a document in the right folder. the mechanical steps are candidates for automation almost by default. the decision points are where the actual assessment work happens.
+
+## step 3: mark which decision points require human oversight by rule or by risk
+
+for each decision point, ask two separate questions. first: is there a rule, a bar rule, an advertising regulation, a UPL statute, that requires a licensed person to make or approve this call? second, independent of any rule: if the model got this wrong, how bad is the outcome, and how would you find out it happened?
+
+some decision points fail on the first question alone, rule requires a human, full stop. others pass the rule test but fail the risk test: nothing legally requires a person to review it, but the cost of a wrong call is high enough that you want one anyway. both categories get the same label: human-required. the label is doing the work here, not the reasoning that led to it, because a reviewer six months from now needs to see the label and trust it without redoing your analysis.
+
+## step 4: for each human-required point, define the model's extraction task
+
+this is where most attempts at AI in regulated work go wrong, and it's also the part that actually makes automation possible instead of just risky. a human-required decision point does not mean AI is banned from that part of the workflow. it means the model's job there is narrowed to something that isn't a decision at all.
+
+take eligibility screening. the decision, does this case get taken, stays with a person. but the model can read the intake transcript and extract the injury date, the jurisdiction, the prior representation status, and the described injury type, then route that extraction to the person who decides. the model reads. it doesn't decide. write down, for every human-required point on your list, exactly what the model is allowed to extract and exactly what it hands off. if you can't write that sentence cleanly, the boundary isn't real yet, it's aspirational.
+
+## step 5: trace the audit trail for every data point
+
+once you know what the model extracts, trace where each extracted value came from and where it goes. the injury date the model pulled: does it point back to the specific line in the transcript it came from? the routing decision that sent a file to a senior associate instead of a junior one: what rule made that happen, and is that rule sitting in a deterministic function or buried inside a model's judgment call?
+
+this matters because the whole point of separating extraction from decision is that the decision function becomes auditable. a person should be able to open any single output, months later, and walk backward through every input that produced it. if the trail breaks anywhere, that's not a small gap. it's the difference between a system you can defend to a bar regulator and one you can't.
+
+## common pitfalls: focusing on infrastructure before process
+
+the most common mistake is buying the platform before mapping the workflow. a firm signs up for a tool, connects it to their case management system, and only then starts asking which decisions the tool is now making on their behalf. by that point the rollout has momentum, and momentum is a bad environment to discover that your intake screening tool has been quietly making UPL-adjacent judgment calls for three months.
+
+the second pitfall is treating "human in the loop" as sufficient without specifying where in the loop. a human who rubber-stamps model output without a real audit trail to check it against isn't oversight, it's theater. the third is skipping step 3's risk half and only checking for explicit rules, then getting surprised when an unregulated but high-stakes decision goes wrong and there's no rule to point to that would have caught it.
+
+the fix for all three is the same: do the workflow mapping first, on paper, before any vendor conversation. know which decision points are human-required and why, before anyone shows you a dashboard.
+
+if you want a second set of eyes on this mapping before you commit to a build, a workflow audit runs two weeks, costs $2,500, and is credited toward a build if you move forward. it produces exactly what this post describes: the map of what should stay human and what's safe to hand to a model. [start with a workflow audit](/workflow-audit).
