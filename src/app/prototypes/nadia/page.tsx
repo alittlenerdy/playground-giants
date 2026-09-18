@@ -74,7 +74,7 @@ export default function NadiaPrototypesPage() {
                 What we found on the current site
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-ink-2">
-                Read live on 18 September 2026. None of it is urgent, and all of it is fixable
+                Read live on September 18, 2026. None of it is urgent, and all of it is fixable
                 alongside whichever direction you pick.
               </p>
               <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-ink-2">
