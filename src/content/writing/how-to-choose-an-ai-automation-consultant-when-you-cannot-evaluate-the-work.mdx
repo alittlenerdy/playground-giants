@@ -1,0 +1,59 @@
+---
+title: "how to choose an ai automation consultant, unable to judge the work"
+date: "2026-09-18"
+summary: "you cannot judge ai output directly. here is how to evaluate the process, the infrastructure, and the incentives of an ai automation consultant instead."
+keyword: "ai automation consultant"
+secondaryKeywords: ["what to ask an ai vendor before you sign anything", "ai implementation consultant"]
+keywordSource: "semrush"
+keywordSourcedOn: "2026-09-10"
+keywordVolume: 590
+keywordKd: 26
+---
+
+most advice for hiring an ai automation consultant tells you to look for experience or check their tech stack. that advice assumes you can tell good work from bad work once you see it. you probably can't. you didn't build the thing. you don't know what a clean extraction pipeline looks like versus a fragile one held together with retries.
+
+so the question isn't how do you evaluate the ai. the question is what can you evaluate instead. you can evaluate the process, the infrastructure, and the vendor's financial incentives. those are visible before anything ships, and they tell you more about what you'll get than a demo will.
+
+## they will not talk about 'ai' for very long
+
+listen to the first ten minutes of a pitch. if it's about the model, the tool, the latest release, that's a tell. ai is not the strategy. it's a component. the actual advantage comes from a system where the model, a deterministic decision layer, your existing software, and a person all have a defined job. a consultant who leads with the model is selling you the part, not the machine.
+
+ask instead: walk me through the process this replaces, step by step, and tell me exactly where the model touches it. a competent answer names the intake form, the specific field that gets misread today, the person who currently checks it, and the exact point where automation starts and stops. a weak answer stays at the level of "ai will handle your workflow." that sentence has no verbs a lawyer or an operations lead could act on.
+
+## they will ask about your audit trail before they ask about efficiency
+
+this is the fastest filter available to you, and it costs nothing. ask: how would I prove what this system did, six months from now, to a regulator or opposing counsel. if the answer is a vague gesture at logs, keep looking. if the answer is a specific description of what gets recorded at each step, and where, you're talking to someone who has actually shipped inside regulated work.
+
+the reason this matters more than speed: the model reads, extracts, and routes. it should not be the thing that makes the actual decision. a deterministic function that no model touches makes the call, and that split is what lets you audit a decision line by line after the fact. a consultant who can't describe that boundary hasn't built one. they've built a chatbot with a nice interface.
+
+## they design for the model failing, not the model working
+
+ask what happens when the api is down, or the model returns something malformed, or confidence is low. a consultant who hasn't thought about this will improvise an answer on the spot, usually something about retries. a consultant who has built this before will already have a fallback: the system degrades to a human. it doesn't drop the task and it doesn't guess.
+
+this is worth pressing on specifically because the failure mode you're trying to avoid isn't "the ai got something wrong." it's "the ai got something wrong and nobody noticed until a client called." ask them to describe the degradation path for the single highest-stakes step in your process. if they can name it precisely, that's a good sign. if they redirect to accuracy statistics, that's not an answer to the question you asked.
+
+## the infrastructure should live in your accounts, not theirs
+
+ask where this runs. if the honest answer is "our platform," you are the tenant, not the owner. that arrangement is fine for a scheduling tool. it's a liability for anything touching client files, matters, or regulated communication, because leaving becomes a negotiation instead of a handover.
+
+ask directly: if I terminated this contract tomorrow, what would I be left holding. a consultant who builds inside your own cloud accounts, your own database, your own credentials, can answer that in one sentence: you'd keep everything, and turning them off is a config change. a consultant who has to think about that answer for more than a second has built something designed to keep you.
+
+## how their payment is structured tells you what they're optimizing for
+
+an hourly consultant is paid for time spent, which means the incentive is more meetings, more revisions, more scope. that's not corruption, it's just the natural pull of the pricing model. it's worth noticing anyway.
+
+ask what a fixed-scope, outcome-tied engagement would look like for the process you're discussing. a consultant who's done this before can quote a defined start and end: a short paid audit of the current process, a specific proposal with a fixed price for the build, credited if you proceed. one that can't structure it this way, and instead wants an open-ended retainer before anything is scoped, is asking you to fund their discovery process at your risk.
+
+## common pitfalls: what to avoid
+
+a few patterns show up often enough to name directly.
+
+first, vendors who quote accuracy percentages with no source. if a number isn't backed by a description of how it was measured, on what data, it's marketing, not evidence. ask what the number means and watch how specific the answer gets.
+
+second, proposals that describe the tool but not the process it touches. a good proposal names the intake step, the extraction step, the routing step, the fallback, and the audit point, in that order, specific to your work. a proposal that could be pasted into any firm's inbox unchanged wasn't written for you.
+
+third, contracts that don't mention data location or export format. if you can't get a straight answer about where your client data sits and how you'd get it out, that's the answer.
+
+fourth, no discussion of state-specific rules. advertising rules, unauthorized practice of law, and record-keeping requirements vary by state, and a consultant who treats compliance as one national checkbox either hasn't worked in regulated services or isn't being careful with you.
+
+a short paid engagement is the cheapest way to see all four of these up front, before you've committed to a build. two weeks is enough time for a competent consultant to map your actual process, name the specific decision point worth automating, and hand you a proposal with a fixed price and a defined boundary between what the model touches and what it doesn't. if they can't produce that in two weeks, that's information too.
