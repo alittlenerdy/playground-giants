@@ -89,6 +89,56 @@ export const LOVEPARK: Proto[] = [
   { slug: 'lovepark-merch-philadelphia', n: 'M2', name: 'Merch · Philadelphia', note: 'City-led merch treatment.', swatch: ['#0B0B0C', '#EF5A24', '#ECE6DA'] }
 ]
 
+// Added 2026-09-18 for ACE Physician Services (Nadia Ramsey). Five homepage
+// directions at $0 under MSA Phase 4, offered on the 2026-09-17 call.
+//
+// They are deliberately unalike in STRUCTURE, not in colour: she is picking a
+// shape, not a palette. Each is built for what she actually asked the site to
+// do — be a verifiable, legitimate company — so none of them sells, none
+// carries a reviews widget (Google reviews stay off, her call), and none uses
+// patient photography. Palette and wordmark are taken from her live site.
+//
+// Unknown facts stay visible as [YEAR FOUNDED], [STREET ADDRESS], [COUNT].
+// Do NOT fill them in to make a comp look finished: the whole brief is being
+// verifiable, and an invented founding year is the worst detail to get wrong.
+export const NADIA: Proto[] = [
+  {
+    slug: 'nadia-01-the-record',
+    n: '01',
+    name: 'The Record',
+    note: 'A document rather than a brochure. No photography at all — the page itself is the credential.',
+    swatch: ['#FAF8F4', '#23232B', '#8A4B1B']
+  },
+  {
+    slug: 'nadia-02-clinical-calm',
+    n: '02',
+    name: 'Clinical Calm',
+    note: 'Care-led and unhurried. The mission statement carries the page, and the patient is the subject.',
+    swatch: ['#F4F1EC', '#3E6B63', '#2E3330']
+  },
+  {
+    slug: 'nadia-03-houston-anchor',
+    n: '03',
+    name: 'Houston Anchor',
+    note: 'Local and established. Keeps the navy and apricot already on the site, so it is the smallest change.',
+    swatch: ['#23232B', '#E8A87C', '#2F3A45']
+  },
+  {
+    slug: 'nadia-04-the-desk',
+    n: '04',
+    name: 'The Desk',
+    note: 'Built for referring offices: the three things people come to do, then services as a plain table.',
+    swatch: ['#FBFBFA', '#1F5C55', '#24262B']
+  },
+  {
+    slug: 'nadia-05-monogram',
+    n: '05',
+    name: 'Monogram',
+    note: 'The most designed. A large serif monogram, numbered services, the mission set as a pull quote.',
+    swatch: ['#1C1C22', '#E8A87C', '#EDEAE4']
+  }
+]
+
 export function Card({ p }: { p: Proto }) {
   return (
     <a
