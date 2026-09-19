@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { MIDAS, SIGNAL, LOVEPARK, Card } from './data'
+import { MIDAS, SIGNAL, LOVEPARK, NADIA, Card } from './data'
 
 export const metadata: Metadata = {
   title: 'Prototypes | Playground Giants',
@@ -27,7 +27,24 @@ export default function PrototypesPage() {
           working. Nothing here is a live site.
         </p>
 
+        {/* Newest first. ACE added 2026-09-18 on Jimmy's call ("we should definitely
+            include this in the prototype page"). Her own link is /prototypes/nadia,
+            which carries her directions and nobody else's — this entry is for us. */}
         <section className="mt-16">
+          <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-4">
+            <h2 className="font-display text-2xl font-semibold text-ink">ACE Physician Services</h2>
+            <p className="font-mono text-xs tracking-wide text-ink-3">
+              Medical practice · five homepage directions · September 2026
+            </p>
+          </div>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {NADIA.map((p) => (
+              <Card key={p.slug} p={p} />
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-20">
           <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-4">
             <h2 className="font-display text-2xl font-semibold text-ink">Midas800 · Signal, explored</h2>
             <p className="font-mono text-xs tracking-wide text-ink-3">
